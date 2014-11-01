@@ -1,4 +1,4 @@
-\documentclass{article} % For LaTeX2e
+\documentclass[11pt]{article} % For LaTeX2e
 \usepackage{times}
 \usepackage{url}
 \usepackage{natbib}
@@ -17,7 +17,7 @@
 
 \begin{document}
 
-%\maketitle
+\maketitle
 
 \begin{abstract}
 Deep learning is currently the most exciting area of machine learning
@@ -25,14 +25,16 @@ because it has dramatically improved the state-of-the-art in speech
 recognition, object recognition and object detection.  It is also being
 remarkably successful at many other tasks such as language modeling
 (predicting the next word in a sentence) and predicting the activity of
-potential drug molecules.  In addition to its remarkable successes for
+potential drug molecules.  In addition to its impressive successes for
 perceptual tasks, deep learning is currently on the verge of beating the
 state-of-the-art in Machine Translation and is likely to become the method
 of choice for this task over the next few years.
 There is widespread interest in deep learning because it is so good at
 extracting structure from very large datasets and it appears to be very
 widely applicable. For example, it was named as one of the top ten new
-technologies of 2013 by MIT Technology Review.
+technologies of 2013 by MIT Technology Review. This review explains some
+of the main underlying concepts and current applications of deep learning,
+and closes with perspectives for future research in this area.
 \end{abstract}
 
 \begin{verbatim}
@@ -75,22 +77,23 @@ the number of parameters (and thus of examples) necessary to distinguish
 input regions grows linearly with , instead of logarithmically. This
 includes most clustering techniques, nearest-neighbor techniques, most
 kernel-based non-parametric approaches, and decision trees. These
-approaches can be plagued by the curse of dimensionality [Bengio+Delalleau
-  2006]: in rich domains such as images and text, the number of
-configurations of interest of the observed variables is exponentially
-large, making it very difficult to generalize. As argued in [Bengio 2009,
-  Montufar xx, Pascanu xx], distributed representations potentially have a
-very large statistical advantage, in the sense that fewer examples might be
-needed to achieve the same ability to generalize to new cases, or that
-markedly better generalization can be obtained for the same number of
-training examples.
+approaches can be plagued by the curse of
+dimensionality~\citep{Bengio-localfailure-NIPS-2006-small,Bengio-decision-trees10}:
+in rich domains such as images and text, the number of configurations of
+interest of the observed variables is exponentially large, making it very
+difficult to generalize. As argued in \citet{Bengio-book, Montufar+Morton-2014, Montufar-et-al-NIPS2014},
+distributed representations potentially have a very large
+statistical advantage, in the sense that fewer examples might be needed to
+achieve the same ability to generalize to new cases, or that markedly
+better generalization can be obtained for the same number of training
+examples.
 
 
 Similarly to a deep neural network where the output of one group of neurons
 is the input of another group, etc, if the learned function is obtained as
 a composition of many non-linearities, then very rich functions can be
 represented which can carve out exponentially more regions in input space
-than a shallow architecture [Pascanu xx]. In both cases (distributed
+than a shallow architecture~\citep{Montufar-et-al-NIPS2014}. In both cases (distributed
 representations and depth of representation), the mathematical arguments
 rely on the ability to compose many pieces in order to get access to a very
 rich class of computations. More abstract features can be computed in terms
@@ -101,8 +104,7 @@ theoretical work on neural networks showed that two layers (i.e. a single
 hidden layer) was enough to approximate any continuous function, recent
 theoretical results show that a shallow architecture may need to be very
 fat where a deep one can much more efficiently (with fewer computations)
-represent the same function [cite].
-
+represent the same function~\citep{Bengio+Delalleau-ALT-2011-small,Montufar-et-al-NIPS2014}.
 
 However, one has to keep in mind that not every function can be efficiently
 represented with a distributed representation or with a deep
@@ -164,14 +166,26 @@ error. Importantly, these error gradients on the neurons outputs at one
 layer also tell us how to obtain the error gradients at the previous
 layer. This is obtained through application of the chain rule for
 derivatives, which specifies how to compute derivatives through a
-composition of functions.  word-embeddings.png
+composition of functions.  Many different types of fixed or learned
+modules can thus be composed and trained end-to-end~\citep{LeCun98} 
+to form complex systems that perform
+tasks such as speech recognition, document analysis, or machine
+translation.
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.7\linewidth]{word-embeddings.png}}
+\caption{Illustration of word representations learned for modeling
+language, non-linearly projected to 2-D for visualization.}
+\end{figure}
+
+
 
 \subsection{Neural word representations}
 
 A nice example of the use of backpropagation is how it can be used to learn
-representations for symbols, such as words. [Hinton 86] introduced the idea
-of learning a distributed representation for symbols and [Bengio et al
-  2001, 2003] showed how to combine the idea of learning a distributed
+representations for symbols, such as words. ~\citet{Hinton86b} introduced the idea
+of learning a distributed representation for symbols and \citet{BenDucVin01-short}
+showed how to combine the idea of learning a distributed
 representation for each word with the task of modeling the probability
 distribution of sequences of words (sentences from a corpus of text). We
 have basically the composition two components: (1) mapping each of the
@@ -185,22 +199,22 @@ the task performed by (2) that pushes the word representations in (1) to be
 meaningful. It works because both are learned together, by a large number
 of small gradual changes. The result is that words that are semantically
 similar in the sense of being exchangeable end up nearly with the same
-representation: one can replace “funny” by “comical” in many sentences and
+representation: one can replace ``funny'' by ``comical'' in many sentences and
 the sentence remains plausible, so these two words have almost the same
-representation. Similarly, “Tuesday” and “Wednesday” are exchangeable in
-most sentences, so they end up very close to each other, while “dog” and
-“cat” are not always exchangeable but often are, so they are not too far
+representation. Similarly, ``Tuesday'' and ``Wednesday'' are exchangeable in
+most sentences, so they end up very close to each other, while ``dog'' and
+``cat'' are not always exchangeable but often are, so they are not too far
 from each in that space. Furthermore, the way in which the representations
 for related words differ ends up being also meaningful: the difference
-between the representation for “king” and the representation for “queen” is
-very close the difference between the representation for “man” and the
-representation for “woman” [Mikolov et al]. The system has discovered
+between the representation for ``king'' and the representation for ``queen'' is
+very close the difference between the representation for ``man'' and the
+representation for ``woman'' \citep{Mikolov-et-al-ICLR2013}. The system has discovered
 features, such as gender in the above example, and learned to map each word
 to its proper features.
 
 
 \begin{figure}[H]
-\includegraphics{fig-hidden-recurrence-rnn.png}
+\centerline{\includegraphics[width=0.7\linewidth]{fig-hidden-recurrence-rnn.png}}
 \caption{(a better figure can be made)}
 \end{figure}
 
@@ -252,7 +266,7 @@ change in the error, and we have exploding gradients. Both of these
 conditions throw off gradient-based optimization, which relies on
 back-propagation to compute gradients. Although there has been substantial
 progress to train recurrent neural networks (see a review of these
-techniques [Pascanu et al 2013]), it remains a challenge to deal with long
+techniques~\citep{Pascanu+al-ICML2013-small}, it remains a challenge to deal with long
 sequences where there are so-called long-term dependencies: a small change
 in the input at some point in the sequence could have a strong impact on
 the correct output much later in the sequence.
@@ -274,7 +288,7 @@ We will explain the breakthrough that occurred in 2006 when an effective
 
 
 \begin{figure}[H]
-\includegraphics{stacked-rbms.png}
+\centerline{\includegraphics[width=0.7\linewidth]{stacked-rbms.png}}
 \caption{stacking RBMs}
 \end{figure}
 
@@ -288,7 +302,7 @@ Canadian research program with international nodes, called NCAP (Neural
 Computation and Adaptive Perception), funded by the Canadian Institute For
 Advanced Research (CIFAR), and headed by Geoff Hinton (and since 2014, by
 Yoshua Bengio and Yann LeCun). In 2006, these researchers put out several
-papers [2006-DL-crop] outlining a general strategy for taking advantage of
+papers~\citep{Hinton06, Bengio-nips-2006-small,ranzato-07-small} outlining a general strategy for taking advantage of
 unsupervised learning of individual layers of a deep neural network in
 order to initialize (or pre-train) a deep supervised network. Unlike
 supervised learning, unsupervised learning only needs to look at the input
@@ -338,7 +352,7 @@ labeled examples). An interesting side-effect of learning good
 representations (whether in an unsupervised, semi-supervised, or supervised
 way) is that they tend to be useful for learning new but related tasks. For
 example, in 2011 we participated in two international transfer learning
-competitions [cite] and won thanks to unsupervised learning of
+competitions~\citep{UTLC+LISA-2011-small,Goodfellow+all-NIPS2011} and won thanks to unsupervised learning of
 representations. The representations were learned using a large dataset
 corresponding to some categories, while they were to be used as input for
 training a linear classifier on a very small number of examples of other
@@ -350,8 +364,8 @@ did not, and yielded very good generalization with only a few labeled
 examples of the new categories. We believe that such transfer works well
 when the learned representations capture high-level abstractions, some of
 which may be relevant for both the training tasks and the test tasks. The
-same process proved successful in the context of domain adaptation [Glorot
-  2011], where the task was the same (sentiment analysis) but the input
+same process proved successful in the context of domain adaptation~\citep{Glorot+al-ICML-2011-small},
+where the task was the same (sentiment analysis) but the input
 distribution was different (the training domain might include comments
 about movies and books, while the test domain could include comments about
 music or electronic products).
@@ -394,30 +408,30 @@ approaches.
 
 
 In 2014, deep learning techniques, in particular those based on recurrent
-networks, made rapid progress [Devlin et al, 2014, Cho et al 2014,
-  Sutskever et al 2014]. Systems based on deep learning have now reached
-and in some cases passed the state-of-the-art, e.g., for English-French and
-English-Arabic. Machine translation technology had matured into a fairly
-complex pipeline over the previous decade [cite], involving many separately
-trained pieces and much domain expertise. Only a few parameters were
-trained to optimize a global objective, and the core elements of deep
-learning, i.e., multiple layers of distributed representations, were
-lacking. Instead, the core component of traditional machine translation, as
-in earlier language modeling systems, relied on counting co-occurences of
-short phrases with their presumed translated phrases. This makes it very
-difficult for the learned system to generalize to semantically similar
-phrases that have not been seen in the training set. Because the number of
-ways of saying the same thing grows exponentially with the size of the
-vocabulary and the length of the phrase, this approach suffers from the
-curse of dimensionality: there are too many possible configurations of the
-variables of interest (here, words) to be able to observe all of the
-relevant configurations often enough. The initial goal of deep learning
-researchers was to use distributed representations to replace or complement
-some of the pieces of existing machine translation systems, but more recent
-work aims to replace the entire system with a set of recurrent neural
-networks that are trained end-to-end [cite]. We now give a simplified
-sketch of how this can be done.
-
+networks, made rapid
+progress~\citep{Devlin-et-al-ACL2014,Bahdanau-et-al-arxiv2014,Sutskever-et-al-arxiv2014}. Systems
+based on deep learning have now reached and in some cases passed the
+state-of-the-art, e.g., for English-French and English-Arabic. Machine
+translation technology had matured into a fairly complex pipeline over the
+previous decade, involving many separately trained pieces and much
+domain expertise. Only a few parameters were trained to optimize a global
+objective, and the core elements of deep learning, i.e., multiple layers of
+distributed representations, were lacking. Instead, the core component of
+traditional machine translation, as in earlier language modeling systems,
+relied on counting co-occurences of short phrases with their presumed
+translated phrases. This makes it very difficult for the learned system to
+generalize to semantically similar phrases that have not been seen in the
+training set. Because the number of ways of saying the same thing grows
+exponentially with the size of the vocabulary and the length of the phrase,
+this approach suffers from the curse of dimensionality: there are too many
+possible configurations of the variables of interest (here, words) to be
+able to observe all of the relevant configurations often enough. The
+initial goal of deep learning researchers was to use distributed
+representations to replace or complement some of the pieces of existing
+machine translation systems, but more recent work aims to replace the
+entire system with a set of recurrent neural networks that are trained
+end-to-end~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-arxiv2014}.
+We now give a simplified sketch of how this can be done.
 
 For each language there is a recurrent encoder network that reads the words
 in the source phrase or sentence one at a time. Each word is converted to a
@@ -433,14 +447,14 @@ chosen first word. If we keep repeating this process, the decoder network
 defines a probability distribution over complete translations and the
 encoder and decoder network can both be trained by backpropagation through
 time to maximize the probability assigned to the translation that is given
-in the training set.
-
+in the training set. An attention mechanism can be defined to
+learn to make the connection between the input and output sequences
+and improve performance on long sentences~\citep{Bahdanau-et-al-arxiv2014}.
 
 It turns out that word representations learned by recurrent neural networks
 that are trained to translate are better at capturing the semantic
 similarity judgements made by humans than other representations of words,
-including those derived by learning a neural language model [Hill 2014].
-
+including those derived by learning a neural language model~\citep{Hill-et-al-2014}.
 
 \section{DEEP MINDS}
 
@@ -481,34 +495,37 @@ KEY REFERENCES (dotted lines separate refs for each heading above)
 
 
 Rumelhart, Hinton \& Williams backprop paper 
-
+\citep{Rumelhart86b}
 
 Lecun et al Document analysis with CNN.
-
+\citep{LeCun+98}
 
 Robinson RNN for speech
-
+\citep{Robinson+Fallside91}
 
 Neuro probabilistic language models
-
+\citep{BenDucVin01-short}
 
 ----------------
 
 
 Hinton et al  Deep belief net paper.
-
+\citep{Hinton06}
 
 Hinton et. al. Speech recognition with DNNs, Signal Processing Magazine 
+\citep{Hinton-et-al-2012}
 
+Graves et al RNNs for speech
+\citep{Graves-et-al-ICASSP2013}
 
 ----------------
 
 
 al. et. Lecun  Overfeat paper
-
+\citep{Sermanet14}
 
 Krizhevsky, Sutskever and Hinton, Imagenet paper
-
+\citep{Krizhevsky-2012-small}
 
 al. et. Lecun face recognition paper?
  
@@ -516,28 +533,22 @@ al. et. Lecun face recognition paper?
 
 
 Hochreiter ref?
-
+\citep{Ciresan-2010}
 
 Graves et. al. paper showing that LSTM's work for handwriting recognition.
+\citep{Graves-et-al-2009}
 
+------------------
+MT papers:
 
-al. et. Bengio machine translation paper
-
-
-Sutskever Le and Vinyals machine translation paper
-
+\citep{Devlin-et-al-ACL2014,Bahdanau-et-al-arxiv2014,Sutskever-et-al-arxiv2014}
 
 -----------------
 
 
 Deep mind NIPS paper on videogame player.
+\citep{Deepmind-atari-arxiv2014}
 
-
-------------------
-MT papers:
-
-
-Devlin et al, 2014, Cho et al 2014, Sutskever et al 2014
 
 \bibliography{strings,strings-shorter,ml,aigaion}
 \bibliographystyle{natbib}
