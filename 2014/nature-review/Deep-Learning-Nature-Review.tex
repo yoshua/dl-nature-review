@@ -7,6 +7,13 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
+\addtolength{\textwidth}{2cm}
+%\addtolength{\textwidth}{1cm}
+\addtolength{\textheight}{2cm}
+%\addtolength{\textheight}{1cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
 
 \title{Deep Learning \\ NATURE Review Article}
 
@@ -34,7 +41,7 @@ of the main underlying concepts and current applications of deep learning,
 and closes with perspectives for future research in this area.
 \end{abstract}
 
-\begin{verbatim}
+{\em 
 We plan to organize this review chronologically, but with forward looking
  comments. We will start with the excitement over the backpropagation
  learning algorithm for multilayer neural networks in the 1980's and
@@ -43,7 +50,7 @@ We plan to organize this review chronologically, but with forward looking
  for the disappointments of the 1990's are now clear: people radically
  underestimated the amount of data and the amount of computation that were
  required to demonstrate the power of this type of learning algorithm.
-\end{verbatim}
+}
 
 \section{DISTRIBUTED REPRESENTATIONS AND DEEP LEARNING}
 
@@ -78,7 +85,7 @@ approaches can be plagued by the curse of
 dimensionality~\citep{Bengio-localfailure-NIPS-2006-small,Bengio-decision-trees10}:
 in rich domains such as images and text, the number of configurations of
 interest of the observed variables is exponentially large, making it very
-difficult to generalize. As argued in \citet{Bengio-book, Montufar+Morton-2014, Montufar-et-al-NIPS2014},
+difficult to generalize. As argued in \citet{Bengio-book-2009,Montufar+Morton-2014,Montufar-et-al-NIPS2014},
 distributed representations potentially have a very large
 statistical advantage, in the sense that fewer examples might be needed to
 achieve the same ability to generalize to new cases, or that markedly
@@ -119,8 +126,7 @@ tasks involving images, sounds and language.
 
 \section{THE BACK-PROPAGATION ALGORITHM AND ITS APPARENT LIMITATIONS}
 
-
-\begin{verbatim}
+{\em 
 We will explain the core issue of hand-engineering features versus learning
  features automatically from data and show how backpropagation learns
  features. We will describe the most successful application of the
@@ -131,7 +137,7 @@ We will explain the core issue of hand-engineering features versus learning
   We will show how backpropagation through time can be used to learn
  recurrent neural networks and we will explain the vanishing/exploding
  gradients problem that makes this type of learning difficult.
-\end{verbatim}
+}
 
 \subsection{How backpropagation works}
 
@@ -210,10 +216,12 @@ features, such as gender in the above example, and learned to map each word
 to its proper features.
 
 
+\iffalse
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.7\linewidth]{fig-hidden-recurrence-rnn.png}}
 \caption{(a better figure can be made)}
 \end{figure}
+\fi
 
 \subsection{Training recurrent nets}
 
@@ -244,7 +252,7 @@ network also maximizes the probability that the recurrent network will
 generate sequences such as those in the training corpus.
 
 
-The challenge of training very deep nets and recurrent networks over long sequences
+\subsection{The challenge of training very deep nets and recurrent networks over long sequences}
 
 
 One can view a recurrent network as a very deep neural network if we
@@ -271,8 +279,7 @@ the correct output much later in the sequence.
 
 \section{DEEP UNSUPERVISED LEARNING}
 
-
-\begin{verbatim}
+{\em
 We will explain the breakthrough that occurred in 2006 when an effective
  new way of learning multiple layers of features was discovered. The idea
  is to learn the layers one a time with the objective being to build a good
@@ -281,8 +288,7 @@ We will explain the breakthrough that occurred in 2006 when an effective
  discover features, backpropagation works very well for fine-tuning the
  features that have already been discovered.  Will we describe several
  variations of the pre-training methods.
-\end{verbatim}
-
+}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.7\linewidth]{stacked-rbms.png}}
@@ -373,16 +379,13 @@ music or electronic products).
 
 {\bf Geoff}
 
-
-\begin{verbatim}
-We will explain the acoustic modeling problem in speech recognition and
+{\em We will explain the acoustic modeling problem in speech recognition and
  desribe how initial results in 2009 using pre-training on the TIMIT
  dataset led to huge improvement in acoustic modeling over the next few
  years. Acoustic models based on deep neural networks are now used in most
  smart phones.  We will address the issue of when pre-training is needed
  and when it is unneccessary.
-\end{verbatim}
-
+}
 
 \section{DEEP CONVOLUTIONAL NETWORKS FOR OBJECT RECOGNITION AND DETECTION}
 
@@ -470,13 +473,14 @@ Deep Boltzmann machines (just mention undirected models!).
 Intelligent fixations for vision. 
 
 
-Convolutional capsules (just a couple of sentences).
+Convolutional capsules (just a couple of sentences).\\
 
 
-PROVISIONAL LIST OF FIGURES, TABLES AND BOXES
+{\bf PROVISIONAL LIST OF FIGURES, TABLES AND BOXES}
 
+In addition to the above:\\
 
-One box explaining the backpropagation algorithm for computing error derivatives.
+One box explaining the backpropagation algorithm for computing error derivatives.\\
 
 
 One box explaining stochastic gradient descent.
@@ -487,7 +491,7 @@ One box explaining stochastic gradient descent.
 
 
 
-KEY REFERENCES (dotted lines separate refs for each heading above)
+{\bf KEY REFERENCES (dotted lines separate refs for each heading above)}\\
 (some of the conference papers here are awaiting review as journal papers and those refs will be updated if accepted.)
 
 
