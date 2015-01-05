@@ -32,7 +32,7 @@ Deep learning is currently making major advances in solving problems that
 have resisted the best attempts of the Artificial Intelligence community
 for many years. Deep learning is very good at discovering intricate
 structure in large, high-dimensional datasets and is therefore widely
-applicable in all of the sciences. For example, it beats all previous
+applicable in all of the sciences. For example, it has beaten previous
 machine learning techniques at predicting the activity of potential drug
 molecules~\cite{Dahl}, detecting new fundamental particles~\cite{??},
 classifying galaxies~\cite{??}, or predicting the effects of mutations in
@@ -326,9 +326,9 @@ vector has little effect on the state of a memory cell if the cell's input
 gate has a low activation so memory cells can learn to selectively ignore
 the input.  Similarly, a memory cell has little effect on the output if its
 output gate has low activation. Each memory cell also has a connection to
-itself at the next time-step that has a weight of 1 so it tends to copy its
-own real-valued state, but this connection is gated by a ``keep gate'' so
-the stored value is quickly eroded unless the keep-gate has an activation
+itself (it is a leaky neuron) at the next time-step that has a weight of 1 so it tends to copy its
+own real-valued state, but this self-connection is gated by a ``keep gate'' so
+the stored value leaks quickly unless the keep-gate has an activation
 near $1$.  The gates themselves have their activities determined by
 weighted inputs that they receive from the input vectors and all of the
 memory cells.
@@ -348,17 +348,18 @@ are also what is currently used for the encoder and decoder networks that
 perform so well at machine
 translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
-% YB: I would skip the next paragraph; we've tried this and failed
-% so maybe it is better to wait and see before we put this in a review
-It is not yet clear which aspects of the complicated architecture of LSTMs
-are really necessary. Memory cells are a good way of allowing the
-backpropagated error derivatives to neither explode nor vanish, but they
-are not the only way.  For example, recurrent nets with rectified linear
-hidden units that use the non-linear function $y=max(0,x)$ are much simpler
-than LSTMs and if the recurrent weight matrix is initialized to be close to
-the identity matrix they work about as well as LSTMs both for toy problems
-involving very long-range temporal structure and for real tasks like
-predicting the next word in text\cite{LeHinton}.
+Recent work~\citep{Chung-et-al-NIPSDL2014} suggests that not all the elements of the LSTM
+architecture are required, the crucial element being the presence of
+of the gate controlling the leaking rate (or time constant) of the cell.
+%It is not yet clear which aspects of the complicated architecture of LSTMs
+%are really necessary. Memory cells are a good way of allowing the
+%backpropagated error derivatives to neither explode nor vanish, but they
+%are not the only way.  For example, recurrent nets with rectified linear
+%hidden units that use the non-linear function $y=max(0,x)$ are much simpler
+%than LSTMs and if the recurrent weight matrix is initialized to be close to
+%the identity matrix they work about as well as LSTMs both for toy problems
+%involving very long-range temporal structure and for real tasks like
+%predicting the next word in text\cite{LeHinton}.
 
 
 \section{Object recognition and detection with deep convolutional networks}
