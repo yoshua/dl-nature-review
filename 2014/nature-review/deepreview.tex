@@ -1,6 +1,8 @@
 \documentclass[]{article}
 \usepackage{epsfig}
 \usepackage{graphicx}
+\usepackage{natbib}
+
 \parskip 0.1in
 \parindent 0.0in
 \setcounter{secnumdepth}{1}
@@ -390,6 +392,7 @@ parts of people.
 
 \section{Language processing with deep networks}
 
+\iffalse
 %%%%%%%% YOSHUA %%%%%%%
 YOSHUA: Add about 300 words plus t-sne figure of words and/or phrases.
 
@@ -400,6 +403,13 @@ for introducing attention in the the future section.
 After your stuff on language, I would like to include some version of the
 paragraph below along with a figure.
 %%%%%%%%%%%%%%%%%%%%%%%
+\fi
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.7\linewidth]{word-embeddings.png}}
+\caption{Illustration of word representations learned for modeling
+language, non-linearly projected to 2-D for visualization.}
+\end{figure}
 
 When translating between languages, the hidden units of the decoder network
 that generates possible translations are initalized with a ``thought
@@ -456,7 +466,7 @@ especially for video understanding or robotics, to come from systems that
 are trained end-to-end and combine deep convolutional networks with
 recurrent nets that use reinforcement learning to decide where to
 look\cite{}.  Such systems already outperform passive vision
-systems\cite{ba\&mnih}.  Similarly, when understanding sentences or whole
+systems\cite{ba+mnih}.  Similarly, when understanding sentences or whole
 documents we expect future systems to learn strategies for selectively
 attending to one part at a time~\cite{Bahdanau-et-al-arxiv2014}. We also expect
 that in the next few years deep recurrent neural networks will become far
@@ -470,7 +480,7 @@ learning procedures for deep neural networks~\cite{deep-boltz, wake-sleep,
 however, we believe unsupervised learning will be essential for allowing
 deep networks to generalize well by creating internal representations that
 untangle the many different factors that interact to produce images, speech
-and documents~\cite{Yann, Yoshua: untangling papers,Bengio-Courville-Vincent-TPAMI2013}.
+and documents~\cite{Yann,Bengio-Courville-Vincent-TPAMI2013}.
 
 Finally, we believe that the recent successes of deep learning using
 stochastic gradient descent are only the beginning.  As pointed out
@@ -636,6 +646,9 @@ initial hidden state of a decoder recurrent net.
 5. Some images showing the localizations of parts of a person found by a
 deep convolutional neural net.\\
 
+
+\bibliography{strings,ml,aigaion}
+\bibliographystyle{natbib}
 
 \end{document}
 
