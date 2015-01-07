@@ -124,12 +124,11 @@ and a samoyed dog. These tasks are better handled with multiple layers of
 progressively more complicated feature detectors each of which is defined
 in terms of the simpler feature detectors in the previous layers.
 
-From the earliest days of pattern recognition~\cite{selfridge, rosenblatt}
+From the earliest days of pattern recognition~\cite{selfridge,Rosenblatt57}
 researchers aimed to replace hand-engineered features by multiple layers of
 learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
-different groups in the 1970s and 1980s\cite{Werbos, Parker, Lecun,
-  Rumelhart, schmidreference}.  Backpropagation is simply an application of
+different groups in the 1970s and 1980s\cite{Werbos74,Parker85,LeCun85,Rumelhart86b,schmidreference}.  Backpropagation is simply an application of
 the chain rule, which yields an efficient way of computing the gradient of a
 smooth objective function with respect to all of the weights in a layered
 network. The objective function typically measures the discrepancy between
@@ -179,12 +178,12 @@ vector in which one component has a value of $1$ and the rest are $0$. The
 output layer has one unit per word and is forced to produce a probability
 distribution over words by using the ``softmax'' function:
 \begin{equation}
-p_j = \frac{exp(z_j)}{sum_i exp(z_i)}
+p_j = \frac{exp(z_j)}{\sum_i exp(z_i)}
 \end{equation}
 where $z_j$ is the total input received by output unit $j$. The hidden
 layers use either the logistic or tanh non-linearity:
 \begin{equation}
-y_j = \frac{1}{1+ exp(z_j)}, \ \ \ y_j = \frac{}{} % YB: what was the intent here for the 2nd part?
+y_j = \frac{1}{1+ \exp(z_j)}, \ \ \ y_j = \frac{}{} % YB: what was the intent here for the 2nd part?
 \end{equation}
 
 The connectivity of the network is restricted so that each of the one-of-N
@@ -210,11 +209,11 @@ The family tree demonstration used a small, clean dataset in which the
 regularities could be captured by micro-rules that were never violated and
 the features were easy to interpret, but learned word-vectors also work
 very well when the word sequences come from a large corpus of real text and
-the individual micro-rules are unreliable\cite{BenDucVin01-short}. When trained to
+the individual micro-rules are unreliable~\citep{BenDucVin01-short}. When trained to
 predict the next word in a news story, for example, the learned word
 vectors for Monday and Tuesday are very similar, as are the word vectors
 for Vietnam and Iraq.  Vector representations of words learned from text
-are now very widely used in natural language applications\cite{Collobert,
+are now very widely used in natural language applications~\cite{Collobert,
   Mikolov, Socher?}.
 
 The issue of representation lies at the heart of the debate between the
@@ -224,7 +223,9 @@ property is that it is either identical or non-identical to other symbol
 instances. It has no internal structure that is relevant to its use. By
 contrast, neural networks use large activity vectors instead of symbols and
 parallel matrix operations followed by non-linearities instead of formal
-rules of inference. With sufficient data, computational power and depth,
+rules of inference. The elements of such vectors can be understood as
+the values of learned attributes (or features) associated with some object. 
+With sufficient data, computational power and depth,
 the combination of backpropagation for computing gradients and stochastic
 gradient descent for updating the weights on connections has proved to be
 very good at learning appropriate distributed representations. These
@@ -405,10 +406,35 @@ paragraph below along with a figure.
 %%%%%%%%%%%%%%%%%%%%%%%
 \fi
 
+Prior to the introduction of neural language
+models~\citet{BenDucVin01-short} the standard approach to statistical
+modeling of language was based on counting frequencies of occurences of
+short symbol sequences (called n-grams). One disadvantage is that it
+taking into account context beyond a handful of words would require
+training corpora of exponentially growing size (with respect to the
+desired context size), since the number of configurations of $n$
+words from a vocabulary of size $V$ grows as $V^n$. Related to this
+problem and the very notion of symbol introduced above, n-grams
+do not generalize across the many semantically related sequences 
+of words (for example the many ways of expressing roughly the same thing).
+Instead, neural language models learn to associate each word to a
+distributed representation (a vector) such that semantically related
+words end up close to each other in that space, as illustrated in
+Figure~\ref{fig:word-embeddings}. To obtain that effect, one
+{\em jointly learns} a representation for each word as well as
+a function that computes a quantity of interest that is relevant
+to a language related task, such as predicting the next word
+in a sequence (neural language models) or predicting the sequence
+of translated words given the sequence of source words, i.e., neural
+machine translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+
+
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.7\linewidth]{word-embeddings.png}}
 \caption{Illustration of word representations learned for modeling
-language, non-linearly projected to 2-D for visualization.}
+language, non-linearly projected to 2-D for visualization using the
+t-SNE algorithm~\citep{VanDerMaaten08}.}
+\label{fig:word-embeddings}
 \end{figure}
 
 When translating between languages, the hidden units of the decoder network
@@ -419,7 +445,18 @@ of the last hidden layer of a deep convolutonal network that has already
 been trained to recognize objects in images. The decoder network can then
 be trained by BPTT on a dataset of captioned
 images~\cite{NIC,StanfordNIC,more?} and it produces remarkably good
-captions (see figure ??).
+captions (see Figure~\ref{fig:caption-generation}).
+
+\begin{figure}[ht]
+%\centerline{\includegraphics[width=0.7\linewidth]{}}
+\caption{Example of captions generated by a recurrent network taking
+as extra input the representation extracted by a deep convolutional
+net from an image, with the whole system trained to ``translate''
+images into captions. Reproduced from~\citet{?}.
+}
+\label{fig:caption-generation}
+\end{figure}
+
 
 \section{Deep reinforcement learning}
 
@@ -495,9 +532,11 @@ require hand-engineering of domain-specific knowledge.
   through a peer-review so we are giving their arxiv references}.
 
 \subsection{Back-propagation and Stochastic Gradient Descent}
-Rumelhart, D. E., Hinton, G. E., \& Williams, R. J. (1986)\\ Learning
-representations by back-propagating errors.\\ {\it Nature}, {\bf 323},
-533-536.
+
+%Rumelhart, D. E., Hinton, G. E., \& Williams, R. J. (1986)\\ Learning
+%representations by back-propagating errors.\\ {\it Nature}, {\bf 323},
+%533-536.
+\citep{Rumelhart86b}
 
 LeCun, Y., Boser, B., Denker, J. S., Henderson, D., Howard, R.E., Hubbard,
 W., \& Jackel, L.D.\\ Backpropagation Applied to Handwritten Zip Code
