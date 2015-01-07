@@ -45,7 +45,7 @@ networks, but for tasks that involve sequential inputs it is often better
 to use recurrent neural networks. These are given one element from an input % YB term-->element
 sequence at each time step and their recurrent internal ``hidden'' state
 depends on the whole history of the input sequence. Recurrent networks are
-very good at predicting the next character in a string\cite{Sutskever} or
+very good at predicting the next character in a string~\citep{Sutskever-et-al-ICML2011} or
 the next word in a sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be used for
 more complex tasks.  After reading an English sentence one word at a time,
 for example, an English``encoder'' network can be trained so that the final
@@ -56,8 +56,8 @@ a probability distribution for the first word of the French translation. If
 a particular first word is chosen (e.g., according to that probability)
 and provided as input to the decoder
 network it will then output a probability distribution for the second word
-of the translation and so on until a full stop is chosen~\cite{Vinyals,
-  Montreal}. 
+of the translation and so on until a full stop is 
+chosen~\cite{Vinyals-et-al-arxiv2014,Bahdanau-et-al-arxiv2014}. 
 %YB added a clarification
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
@@ -90,9 +90,9 @@ vector of feature activations and then collecting evidence for each
 possible class by computing a weighted sum of the features. If good
 features can be designed by hand, it is relatively easy to learn
 class-specific weights that optimize
-discrimination~\cite{perceptrons}. Widely-used examples of such linear
+discrimination~\citep{Rosenblatt57}. Widely-used examples of such linear
 classification methods are logistic regression and linear support vector
-machines~\cite{logisticregression,svm}.
+machines~\citep{logisticregression,Boser92}.
 
 However, even with good hand-crafted features, many interesting tasks
 cannot be solved by linear classifiers. A common method to get around this
@@ -106,9 +106,9 @@ set can be used to define a feature whose activation for a new input
 vector, ${\bf x}_{\rm new}$ is just the similarity between ${\bf x}_i$ and
 ${\bf x}_{\rm new}$. Given a kernel function, it is possible to jointly
 optimize the choice of training inputs used to define features and the
-class-specific weights associated with the features~\cite{svm}. The training
+class-specific weights associated with the features~\cite{Boser92}. The training
 inputs used to define features are called ``support vectors'' and Support
-Vector Machines\cite{Vapnik} have been very successful, especially for
+Vector Machines~\citep{Boser92} have been very successful, especially for
 tasks with a relatively small number of training examples in which features
 are individually informative. They do not, however, perform well for tasks
 such as object recognition in which the input space is high-dimensional and
@@ -128,7 +128,8 @@ From the earliest days of pattern recognition~\cite{selfridge,Rosenblatt57}
 researchers aimed to replace hand-engineered features by multiple layers of
 learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
-different groups in the 1970s and 1980s\cite{Werbos74,Parker85,LeCun85,Rumelhart86b,schmidreference}.  Backpropagation is simply an application of
+different groups in the 1970s and 1980s~\citep{Werbos74,Parker85,LeCun85,Rumelhart86b,schmidreference}.  
+Backpropagation is simply an application of
 the chain rule, which yields an efficient way of computing the gradient of a
 smooth objective function with respect to all of the weights in a layered
 network. The objective function typically measures the discrepancy between
@@ -160,7 +161,7 @@ each weight by this stochastic estimate of its full gradient times a
 learning rate which decays as learning proceeds. Stochastic gradient
 descent can be improved by using the history of the individual weight
 gradients to adapt the learning rate for each weight~\citep{bottou-bousquet-2008-small}
-or to provide additional increments that depend on earlier gradients\cite{momentum}
+or to provide additional increments that depend on earlier gradients~\cite{momentum}
 but these techniques are still the subject of controversy and are beyond
 the scope of this review.  However, it is now widely accepted that some
 form of stochastic gradient descent is the best bet for large, redundant
@@ -195,7 +196,7 @@ was first demonstrated\cite{RHW} using sequences of three words, such as
 (Colin, Mother, Victoria), derived from two family trees. The learned word
 vector for Colin contained ``semantic'' features representing which family
 tree Colin was in, what branch of that tree he was in, and from what generation
-he was~\cite{Hinton-et-al-PDP1986}. These semantic features were not explicitly present
+he was~\citep{Hinton-et-al-PDP1986}. These semantic features were not explicitly present
 in the input.  They were discovered by the learning procedure as a good way
 of factorizing the structured relationships between the input and output
 symbols into multiple ``micro-rules''.  For example, given Colin's
@@ -263,7 +264,7 @@ sum of its gradients at each time-step.
 Recurrent neural networks are very powerful dynamical systems, but training
 them with BPTT proved to be problematic, because the backpropagated
 gradients either grow or shrink at each time step, so over many time-steps
-they typically explode or vanish~\cite{Bengio-et-al-TNN1994,Hochreiter91-small}.
+they typically explode or vanish~\citep{Bengio-et-al-TNN1994,Hochreiter91-small}.
 
 \section{Overcoming the limitations of backpropagation in deep networks}
 
@@ -281,25 +282,27 @@ The obvious weakness of gradient descent is that it can get trapped in poor
 local minima, but in high-dimensional weight-spaces this is much less
 common than getting stuck close to saddle points where the error surface
 curves upwards in most directions but downwards in a few. Recent
-results~\cite{Dauphin-et-al-NIPS2014-small,Yann} strongly suggest
+results~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-arxiv2014} strongly suggest
 that in deep networks almost all of these local minima give very similar
 performance so it does not matter which one we find.  This goes a long way
 towards explaining why stochastic gradient descent works so well for deep
 neural networks.
 
-Interest in deep feed-forward networks was revived in 2005\cite{IJCAI} by
-the introduction of an unsupervised learning procedure that could create
-layers of feature detectors without requiring labeled data. The objective
-in learning each layer of feature detectors was to be able to reconstruct
-or model the activities of feature detectors (or raw inputs) in the layer
-below.  By ``pre-training'' several layers of progressively more complex
-feature detectors using this reconstruction objective, the weights of a
-deep network could be initialized to sensible values.  A final layer of
-output units could then be added to the top of the network and the whole
-deep system could be fine-tuned using standard
-backpropagation\cite{Science}. This worked remarkably well for recognizing
+Interest in deep feed-forward networks was revived in
+2005 and 2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small} 
+by the introduction
+of unsupervised learning procedures that could create layers of feature
+detectors without requiring labeled data. The objective in learning each
+layer of feature detectors was to be able to reconstruct or model the
+activities of feature detectors (or raw inputs) in the layer below.  By
+``pre-training'' several layers of progressively more complex feature
+detectors using this reconstruction objective, the weights of a deep
+network could be initialized to sensible values.  A final layer of output
+units could then be added to the top of the network and the whole deep
+system could be fine-tuned using standard
+backpropagation\cite{Hinton-Science2006}. This worked remarkably well for recognizing
 handwritten digits especially when the amount of labeled data was very
-limited\cite{Bengio-nips-2006-small}.
+limited~\citep{Bengio-nips-2006-small,Erhan+al-2010-small}.
 
 The first major application of this pre-training approach was in speech
 recognition and it was made possible by the advent of fast Graphics
@@ -313,8 +316,9 @@ developed to give record-breaking results on a large vocabulary
 task~\cite{Dahl}.  By 2012, versions of the deep net from 2009 were being
 developed by many of the major speech groups\cite{SPS} and were already
 being deployed in Android phones.  For smaller datasets, unsupervised
-pre-training leads to significantly better generalization~\citep{Erhan+al-2010-small}, 
-but once deep
+pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small}, 
+leading to significantly better generalization when the number of
+labeled examples is small. Once deep
 learning had been rehabilitated, it turned out that large labeled datasets
 did not need the pre-training stage, provided the scales of the initial
 random weights were carefully chosen to avoid very large or very small
@@ -323,7 +327,7 @@ initial gradients.
 Interest in recurrent networks (which are deep in time) was revived by
 ``Long Short Term Memory'' networks (LSTMs) that use special hidden units
 whose natural behaviour is to remember inputs for a long
-time~\cite{Hochreiter+Schmidhuber-1997}.  
+time~\citep{Hochreiter+Schmidhuber-1997}.  
 A linear ``memory cell'' interacts with other units
 via gated connections whose weights are multiplied by the state of a
 logistic gating unit that has an activation between $0$ and $1$. The input
@@ -339,7 +343,7 @@ weighted inputs that they receive from the input vectors and all of the
 memory cells.
 
 When LSTMs were first described in
-English~\cite{Hochreiter+Schmidhuber-1997} their complexity was off-putting
+English~\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
 and, despite their impressive ability to learn very long-range temporal
 structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
@@ -372,16 +376,17 @@ of the gate controlling the leaking rate (or time constant) of the cell.
 When deep convolutional networks were applied to a dataset of about a
 million images from the web that contained a thousand different classes
 they achieved spectacular results, almost halving the error rates of the
-best computer vision sytems~\cite{kriz}.  Some of the images and the
-network's predictions are shown in figure ??.  The major factors in this
-success were the large labeled dataset~\cite{imagenet_cvpr09}, the use of fast GPUs,
+best computer vision sytems~\citep{Krizhevsky-2012-small}.  Some of the images and the
+network's predictions are shown in figure~\ref{fig:imagenet-outputs}.  
+The major factors in this
+success were the large labeled dataset~\citep{imagenet_cvpr09}, the use of fast GPUs,
 and the convolutional early layers.  It had already been shown that deep
 supervised nets with rectified linear units could be trained without
 unsupervised pre-training~\citep{Glorot+al-AI-2011-small}. 
 These rectified linear units made the
 training much faster and the fully connected final layers were prevented
 from overfitting the peculiarities of the training set by randomly omitting
-hidden units during training~\cite{Srivastava14}. Deep convolutional nets
+hidden units during training~\citep{Srivastava14}. Deep convolutional nets
 have quickly replaced the carefully engineered pipelines full of
 hand-designed features developed by the computer vision community and they
 are now deployed in many computer vision applications, including image
@@ -454,7 +459,7 @@ captions (see Figure~\ref{fig:caption-generation}).
 \caption{Example of captions generated by a recurrent network taking
 as extra input the representation extracted by a deep convolutional
 net from an image, with the whole system trained to ``translate''
-images into captions. Reproduced from~\citet{?}.
+images into captions. Reproduced from~\cite{?}.
 }
 \label{fig:caption-generation}
 \end{figure}
@@ -484,14 +489,16 @@ messy commonsense knowledge is required. Rapid progress is also being made
 in applying deep learning, in particular BPTT, to relatively pure symbol processing tasks.
 An impressive recent example is the ``Neural Turing Machine'' which is a
 recurrent neural network that can choose when and what to write to or read
-from an external memory~\cite{NTM}. Among other things, this can learn to
+from an external memory~\citep{Graves-et-al-arxiv2014}. 
+Among other things, this can learn to
 ouput a sorted list of symbols when its input consists of an unsorted
 sequence in which each symbol is accompanied by a real value that indicates
 its priority in the list.  To achieve this it must learn a sorting program
 purely from examples of the input and output sequences.  A different system
 that also uses BPTT can learn to map the sequence of characters in a simple
 program written in Python to the sequence of characters that the program
-would print~\cite{Woj}. Rather surprisingly, BPTT can learn about {\it for
+would print~\citep{Zaremba+Sutskever-arxiv2014}. 
+Rather surprisingly, BPTT can learn about {\it for
   loops} and can also learn to perform addition and multiplication of
 strings containing several decimal digits. Achieving this kind of behaviour
 seemed ludicrously optimistic when BPTT was first proposed.
@@ -514,7 +521,8 @@ which the thoughts expressed by the sentences are related to one another.
 
 This review has focused on supervised learning because of its recent
 achievements and we have ignored much interesting work on unsupervised
-learning procedures for deep neural networks~\cite{deep-boltz, wake-sleep,
+learning procedures for deep neural 
+networks~\citep{Salakhutdinov2009-small,wake-sleep,
   google-cat, denoising-auto, ranzato-pami, more recent}. In the long run,
 however, we believe unsupervised learning will be essential for allowing
 deep networks to generalize well by creating internal representations that
@@ -587,14 +595,16 @@ require hand-engineering of domain-specific knowledge.
 %% Identifying and attacking the saddle point problem in high-dimensional
 %% non-convex optimization.\\ In {\it NIPS'2014}.
 
-\subsection{Deep unsupervised learning}
-Hinton, G., Osindero, S., \& Teh, Y. W. (2006)\\ A fast learning algorithm
-for deep belief nets.\\ {\it Neural Computation}, 18(7), 1527-1554.
+%\subsection{Deep unsupervised learning}
+%Hinton, G., Osindero, S., \& Teh, Y. W. (2006)\\ A fast learning algorithm
+%for deep belief nets.\\ {\it Neural Computation}, 18(7), 1527-1554.
+% --> \citep{Hinton06-small}
 
-Erhan, D., Bengio, Y., Courville, A., Manzagol, P. A., Vincent, P., \&
-Bengio, S. (2010)\\ Why does unsupervised pre-training help deep
-learning?\\ {\it The Journal of Machine Learning Research}, {\bf 11},
-625-660.
+%Erhan, D., Bengio, Y., Courville, A., Manzagol, P. A., Vincent, P., \&
+%Bengio, S. (2010)\\ Why does unsupervised pre-training help deep
+%learning?\\ {\it The Journal of Machine Learning Research}, {\bf 11},
+%625-660.
+% --> \citep{Erhan+al-2010-small}
 
 %% Mesnil, G., Dauphin, Y., Glorot, X., Rifai, S., Bengio, Y., Goodfellow, I.,
 %% Lavoie, E., Muller, X., Desjardins, G., Warde-Farley, D., Vincent, P.,
@@ -602,7 +612,7 @@ learning?\\ {\it The Journal of Machine Learning Research}, {\bf 11},
 %% challenge: a deep learning approach.\\ In {\em JMLR W\&CP: Proc. Unsupervised
 %%  and Transfer Learning\/}, volume~7.
 
-\subsection{Deep speech recognition}
+%\subsection{Deep speech recognition}
 
 %% Mohamed, A. R., Dahl, G. E., \& Hinton, G. (2012)\\ Acoustic modeling using deep
 %% belief networks.\\ {\it IEEE Transactions on Audio, Speech, and Language
@@ -623,9 +633,10 @@ learning applied to document recognition.\\ {\it Proceedings of the IEEE},
 %% Machines that learn to segment images: a crucial technology for connectomics\\
 %% {\it Current opinion in neurobiology} 20 (5), 653-666.
 
-Krizhevsky, A., Sutskever, I., \& Hinton, G. E. (2012)\\ Imagenet
-classification with deep convolutional neural networks.\\ In Advances in
-Neural Information Processing Systems (1097-1105).
+%Krizhevsky, A., Sutskever, I., \& Hinton, G. E. (2012)\\ Imagenet
+%classification with deep convolutional neural networks.\\ In Advances in
+%Neural Information Processing Systems (1097-1105).
+% --> \cite{Krizhevsky-2012-small}
 
 %% Farabet, C., Couprie, C., Najman, L. \& LeCun, Y. (2013)\\
 %% Learning Hierarchical Features for Scene Labeling,\\
@@ -639,7 +650,6 @@ Tompson, J., Goroshin, R., Jain, A., LeCun, Y., \& Bregler, C. (2014)
 Efficient Object Localization Using Convolutional
 Networks. arXiv:1411.4280.
 
-
 \subsection{Deep recurrent neural networks for text understanding and machine translation}
 
 Graves, A., Liwicki, M., Fernández, S., Bertolami, R., Bunke, H., \&
@@ -652,15 +662,19 @@ handwriting recognition.\\ {\it IEEE Transactions on Pattern Analysis and
 %% translation.\\ In {\it 52nd Annual Meeting of the Association for Computational
 %%   Linguistics}, Baltimore, MD, USA.
 
-Sutskever, I., Vinyals, O., \& Le, Q. V. (2014)\\ Sequence to sequence
-learning with neural networks.\\ {\it arXiv preprint}, arXiv:1409.3215.
+%Sutskever, I., Vinyals, O., \& Le, Q. V. (2014)\\ Sequence to sequence
+%learning with neural networks.\\ {\it arXiv preprint}, arXiv:1409.3215.
+% --> \citep{Sutskever-et-al-NIPS2014}
 
-Bahdanau, D., Cho, K., \& Bengio, Y. (2014)\\ Neural machine translation by
-jointly learning to align and translate.  {\it arXiv preprint},
-arXiv:1409.0473.
+%Bahdanau, D., Cho, K., \& Bengio, Y. (2014)\\ Neural machine translation by
+%jointly learning to align and translate.  {\it arXiv preprint},
+%arXiv:1409.0473.
+% --> \citep{Bahdanau-et-al-arxiv2014}
 
-Vinyals, O., Toshev, A., Bengio, S., \& Erhan, D. (2014)\\ Show and Tell: A
-Neural Image Caption Generator.\\ {\it arXiv preprint}, arXiv:1411.4555.
+%Vinyals, O., Toshev, A., Bengio, S., \& Erhan, D. (2014)\\ Show and Tell: A
+%Neural Image Caption Generator.\\ {\it arXiv preprint}, arXiv:1411.4555.
+% --> \citep{Vinyals-et-al-arxiv2014}
+
 
 %% Weston, J., Chopra, S., Bordes, A. (2014)\\
 %% Memory Networks. arXiv:1410.3916.
