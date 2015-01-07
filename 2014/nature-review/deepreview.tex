@@ -46,7 +46,7 @@ to use recurrent neural networks. These are given one element from an input % YB
 sequence at each time step and their recurrent internal ``hidden'' state
 depends on the whole history of the input sequence. Recurrent networks are
 very good at predicting the next character in a string\cite{Sutskever} or
-the next word in a sequence\cite{Mikolov} but they can also be used for
+the next word in a sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be used for
 more complex tasks.  After reading an English sentence one word at a time,
 for example, an English``encoder'' network can be trained so that the final
 state vector of its hidden neurons is a good representation of the thought
@@ -213,8 +213,8 @@ the individual micro-rules are unreliable~\citep{BenDucVin01-short}. When traine
 predict the next word in a news story, for example, the learned word
 vectors for Monday and Tuesday are very similar, as are the word vectors
 for Vietnam and Iraq.  Vector representations of words learned from text
-are now very widely used in natural language applications~\cite{Schwenk-2007,CollobertR2008-short,
-Mikolov-Interspeech-2011-small,Socher-2011}.
+are now very widely used in natural language 
+applications~\citep{Schwenk-2007,collobert:2011b,Socher-2011,Mikolov-et-al-NIPS2013}.
 
 The issue of representation lies at the heart of the debate between the
 logic-inspired and the neurally-inspired paradigms for cognition. In the
@@ -263,7 +263,7 @@ sum of its gradients at each time-step.
 Recurrent neural networks are very powerful dynamical systems, but training
 them with BPTT proved to be problematic, because the backpropagated
 gradients either grow or shrink at each time step, so over many time-steps
-they typically explode or vanish~\cite{Bengio-trnn93-small,Hochreiter91-small}.
+they typically explode or vanish~\cite{Bengio-et-al-TNN1994,Hochreiter91-small}.
 
 \section{Overcoming the limitations of backpropagation in deep networks}
 
@@ -381,7 +381,7 @@ unsupervised pre-training~\citep{Glorot+al-AI-2011-small}.
 These rectified linear units made the
 training much faster and the fully connected final layers were prevented
 from overfitting the peculiarities of the training set by randomly omitting
-hidden units during training~\cite{dropoutJMLR}. Deep convolutional nets
+hidden units during training~\cite{Srivastava14}. Deep convolutional nets
 have quickly replaced the carefully engineered pipelines full of
 hand-designed features developed by the computer vision community and they
 are now deployed in many computer vision applications, including image
@@ -533,6 +533,10 @@ require hand-engineering of domain-specific knowledge.
 %{\it Quite a few of these are very recent and have not yet been published
 %  through a peer-review so we are giving their arxiv references}.
 
+
+
+
+
 %\subsection{Back-propagation and Stochastic Gradient Descent}
 
 %Rumelhart, D. E., Hinton, G. E., \& Williams, R. J. (1986)\\ Learning
@@ -553,25 +557,30 @@ require hand-engineering of domain-specific knowledge.
 %  Cognition. Volume 1: Foundations}, MIT Press, Cambridge, MA. pp 77-109.
 % --> \citep{Hinton-et-al-PDP1986}
 
-Bengio, Y., Ducharme, R., \& Vincent, P. (2001)\\ A neural probabilistic
-language model.\\ In {\it NIPS 2000}, pages 932--938.
+%Bengio, Y., Ducharme, R., \& Vincent, P. (2001)\\ A neural probabilistic
+%language model.\\ In {\it NIPS 2000}, pages 932--938.
+% --> \citep{BenDucVin01-short}
 
 %% Collobert, R., Weston, J., Bottou, L., Karlen, M., Kavukcuoglu, K., Kuksa, P. (2011)\\
 %% Natural language processing (almost) from scratch.\\
 %% {\it The Journal of Machine Learning Research} 12, pages 2493-2537
+% --> \citep{collobert:2011b}
 
-Mikolov, T., Sutskever, I., Chen, K., Corrado, G.S., \& Dean
-J.\\ Distributed representations of words and phrases and their
-compositionality.\\ In {\it NIPS 2013}, pages 3111-3119.
+%Mikolov, T., Sutskever, I., Chen, K., Corrado, G.S., \& Dean
+%J.\\ Distributed representations of words and phrases and their
+%compositionality.\\ In {\it NIPS 2013}, pages 3111-3119.
+% --> \citep{Mikolov-et-al-NIPS2013}
 
-Montufar, G.~F., Pascanu, R., Cho, K., and Bengio, Y. (2014).  On the
-number of linear regions of deep neural networks.\\ In {\it NIPS'2014}.
+%Montufar, G.~F., Pascanu, R., Cho, K., and Bengio, Y. (2014).  On the
+%number of linear regions of deep neural networks.\\ In {\it NIPS'2014}.
+% --> \citep{Montufar-et-al-NIPS2014}.
 
-\subsection{The apparent limitations of backpropagation in deep networks}
+%\subsection{The apparent limitations of backpropagation in deep networks}
 
-Bengio, Y., Simard, P., \& Frasconi, P. (1994)\\ Learning long-term
-dependencies with gradient descent is difficult.\\ {\it IEEE Transactions
-  on Neural Networks}, 5(2), 157-166.
+%Bengio, Y., Simard, P., \& Frasconi, P. (1994)\\ Learning long-term
+%dependencies with gradient descent is difficult.\\ {\it IEEE Transactions
+%  on Neural Networks}, 5(2), 157-166.
+% --> \citep{Bengio-et-al-TRNN1994}
 
 %% Dauphin, Y., Pascanu, R., Gulcehre, C., Cho, K., Ganguli, S., and Bengio,
 %% Y.\\ 
