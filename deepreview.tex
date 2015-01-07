@@ -159,7 +159,7 @@ on a small ``mini-batch'' of randomly chosen training cases and to update
 each weight by this stochastic estimate of its full gradient times a
 learning rate which decays as learning proceeds. Stochastic gradient
 descent can be improved by using the history of the individual weight
-gradients to adapt the learning rate for each weight\cite{bottou-bousquet}
+gradients to adapt the learning rate for each weight~\citep{bottou-bousquet-2008-small}
 or to provide additional increments that depend on earlier gradients\cite{momentum}
 but these techniques are still the subject of controversy and are beyond
 the scope of this review.  However, it is now widely accepted that some
@@ -195,7 +195,7 @@ was first demonstrated\cite{RHW} using sequences of three words, such as
 (Colin, Mother, Victoria), derived from two family trees. The learned word
 vector for Colin contained ``semantic'' features representing which family
 tree Colin was in, what branch of that tree he was in, and from what generation
-he was~\cite{hinton86}. These semantic features were not explicitly present
+he was~\cite{Hinton-et-al-PDP1986}. These semantic features were not explicitly present
 in the input.  They were discovered by the learning procedure as a good way
 of factorizing the structured relationships between the input and output
 symbols into multiple ``micro-rules''.  For example, given Colin's
@@ -213,8 +213,8 @@ the individual micro-rules are unreliable~\citep{BenDucVin01-short}. When traine
 predict the next word in a news story, for example, the learned word
 vectors for Monday and Tuesday are very similar, as are the word vectors
 for Vietnam and Iraq.  Vector representations of words learned from text
-are now very widely used in natural language applications~\cite{Collobert,
-  Mikolov, Socher?}.
+are now very widely used in natural language applications~\cite{Schwenk-2007,CollobertR2008-short,
+Mikolov-Interspeech-2011-small,Socher-2011}.
 
 The issue of representation lies at the heart of the debate between the
 logic-inspired and the neurally-inspired paradigms for cognition. In the
@@ -241,6 +241,8 @@ with depth~\citep{Montufar-et-al-NIPS2014}.
 
 YANN: can you summarize convnets and their use for reading cheques in about
 350 words?
+
+\citep{LeCun89-small}
 
 %%%%%%%%%%%%%%%%%%%% 
 
@@ -372,7 +374,7 @@ million images from the web that contained a thousand different classes
 they achieved spectacular results, almost halving the error rates of the
 best computer vision sytems~\cite{kriz}.  Some of the images and the
 network's predictions are shown in figure ??.  The major factors in this
-success were the large labeled dataset~\cite{FeiFe}, the use of fast GPUs,
+success were the large labeled dataset~\cite{imagenet_cvpr09}, the use of fast GPUs,
 and the convolutional early layers.  It had already been shown that deep
 supervised nets with rectified linear units could be trained without
 unsupervised pre-training~\citep{Glorot+al-AI-2011-small}. 
@@ -527,26 +529,29 @@ of more data and more compute power far more easily than systems that
 require hand-engineering of domain-specific knowledge.
 
  
-\section{Key references}
-{\it Quite a few of these are very recent and have not yet been published
-  through a peer-review so we are giving their arxiv references}.
+%\section{Key references}
+%{\it Quite a few of these are very recent and have not yet been published
+%  through a peer-review so we are giving their arxiv references}.
 
-\subsection{Back-propagation and Stochastic Gradient Descent}
+%\subsection{Back-propagation and Stochastic Gradient Descent}
 
 %Rumelhart, D. E., Hinton, G. E., \& Williams, R. J. (1986)\\ Learning
 %representations by back-propagating errors.\\ {\it Nature}, {\bf 323},
 %533-536.
-\citep{Rumelhart86b}
+% --> \citep{Rumelhart86b}
 
-LeCun, Y., Boser, B., Denker, J. S., Henderson, D., Howard, R.E., Hubbard,
-W., \& Jackel, L.D.\\ Backpropagation Applied to Handwritten Zip Code
-Recognition\\ Neural Computation, 1(4):541-551, Winter 1989
+%LeCun, Y., Boser, B., Denker, J. S., Henderson, D., Howard, R.E., Hubbard,
+%W., \& Jackel, L.D.\\ Backpropagation Applied to Handwritten Zip Code
+%Recognition\\ Neural Computation, 1(4):541-551, Winter 1989
+%--> \citep{LeCun89-small}
 
-\subsection{Distributed representations}
-Hinton, G. E., McClelland, J. L., \& Rumelhart, D. E. (1986)\\ Distributed
-representations.\\ In Rumelhart, D. E. and McClelland, J. L., editors, {\it
-  Parallel Distributed Processing: Explorations in the Microstructure of
-  Cognition. Volume 1: Foundations}, MIT Press, Cambridge, MA. pp 77-109.
+%\subsection{Distributed representations}
+
+%Hinton, G. E., McClelland, J. L., \& Rumelhart, D. E. (1986)\\ Distributed
+%representations.\\ In Rumelhart, D. E. and McClelland, J. L., editors, {\it
+%  Parallel Distributed Processing: Explorations in the Microstructure of
+%  Cognition. Volume 1: Foundations}, MIT Press, Cambridge, MA. pp 77-109.
+% --> \citep{Hinton-et-al-PDP1986}
 
 Bengio, Y., Ducharme, R., \& Vincent, P. (2001)\\ A neural probabilistic
 language model.\\ In {\it NIPS 2000}, pages 932--938.
