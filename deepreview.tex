@@ -78,7 +78,7 @@ networks that represent thoughts as big vectors are more compatible with
 the view that everyday reasoning involves many simultaneous analogies that
 each contribute plausibility to a conclusion\cite{metaphors}.
 
-This review is organized chronlogically starting with the introduction of
+This review is organized chronologically starting with the introduction of
 the backpropagation algorithm in the 1980's. After describing some of its
 early successes, we explain the actual and perceived limitations that
 prevented it from living up to its early promise for so many years and how
@@ -99,8 +99,10 @@ However, even with good hand-crafted features, many interesting tasks
 cannot be solved by linear classifiers. A common method to get around this
 problem is to transform the feature vector into a higher dimensional vector
 through a non-linear mapping, exploiting the fact that collections of
-vectors are more likely to be easily spearated when they are spread around
-a high-dimensional space~\cite{cover}. One clever way to do so is to use a
+vectors are more likely to be easily separated when they are spread around
+a high-dimensional space~\cite{Cover65}. In the limit when there are at least
+as many dimensions as examples, a linear classifier can always separate the
+training examples, and one clever way to obtain a very high-dimensional space is to use a
 ``kernel function'' that measures the similarity between two vectors.
 Using the kernel function, any input vector, ${\bf x}_i$ in the training
 set can be used to define a feature whose activation for a new input
@@ -423,7 +425,7 @@ paragraph below along with a figure.
 
 Prior to the introduction of neural language
 models~\citet{BenDucVin01-short} the standard approach to statistical
-modeling of language was based on counting frequencies of occurences of
+modeling of language was based on counting frequencies of occurrences of
 short symbol sequences (called n-grams). One disadvantage is that it
 taking into account context beyond a handful of words would require
 training corpora of exponentially growing size (with respect to the
@@ -461,7 +463,7 @@ nearby representations.
 \end{figure}
 
 When translating between languages, the hidden units of the decoder network
-that generates possible translations are initalized with a ``thought
+that generates possible translations are initialized with a ``thought
 vector'' which is the final hidden state of an encoder network.  But it is
 also possible to initialize a decoder network using a linear transformation
 of the last hidden layer of a deep convolutonal network that has already
