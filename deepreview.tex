@@ -443,10 +443,18 @@ machine translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.7\linewidth]{word-embeddings.png}}
-\caption{Illustration of word representations learned for modeling
+\centerline{
+\includegraphics[width=0.49\linewidth]{word-embeddings.png}
+\includegraphics[width=0.49\linewidth]{phrase_zoom2.png}
+}
+\caption{Left: Illustration of word representations learned for modeling
 language, non-linearly projected to 2-D for visualization using the
-t-SNE algorithm~\citep{VanDerMaaten08}.}
+t-SNE algorithm~\citep{VanDerMaaten08}. Right: 2-D representation
+of phrases learned by an English-to-French encoder-decoder recurrent
+neural network~\citep{Cho-et-al-EMNLP2014}. One can observe that
+semantically similar words or sequences of words are  mapped to
+nearby representations.
+}
 \label{fig:word-embeddings}
 \end{figure}
 
