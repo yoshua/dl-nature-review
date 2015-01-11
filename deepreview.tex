@@ -22,7 +22,7 @@ recognition, object detection, predicting the activity of drug molecules,
 and many other tasks. Deep learning discovers intricate structure in large
 datasets by using the backpropagation algorithm to compute
 error-derivatives for the weights that define each feature detector and
-then repeatedly change these weights in proportion to their derivatives
+then repeatedly changing these weights in proportion to their derivatives
 averaged over small batches of training examples.  Deep recurrent neural
 networks, in which each layer also receives input from its own state at the
 previous time-step, can now generate good captions for images and are
@@ -38,7 +38,7 @@ structure in large, high-dimensional datasets and is therefore widely
 applicable in all of the sciences. For example, it has beaten previous
 machine learning techniques at predicting the activity of potential drug
 molecules~\citep{Dahl}, detecting new fundamental particles~\citep{particles},
-classifying galaxies~\citep{??}, or predicting the effects of mutations in
+classifying galaxies~\citep{??}, and predicting the effects of mutations in
 non-coding DNA on gene expression and disease~\citep{Frey}.
 
 So far, most applications of deep learning use feed-forward neural
@@ -71,7 +71,8 @@ in judiciously chosen rules of inference.  The encoder-decoder translation
 networks do not work by using internal rules of inference in which
 variables get bound to symbols. They just use big state vectors, big weight
 matrices and scalar non-linearities to get the job done.  This suggests
-that deriving conclusions using only the form of the premises is a powerful
+that deriving conclusions using only the form of the premises (which is
+what symbolic systems do) is a powerful
 technique that people can eventually master but it is not a good model of
 the way we normally reason or understand language. Recurrent neural
 networks that represent thoughts as big vectors are more compatible with
@@ -133,7 +134,8 @@ learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
 different groups in the 1970s and 1980s~\citep{Werbos74,Parker85,LeCun85,Rumelhart86b,schmidreference}.  
 Backpropagation is simply an application of
-the chain rule, which yields an efficient way of computing the gradient of a
+the chain rule of derivatives,  % clarifying which chain rule, not the probabilities one
+which yields an efficient way of computing the gradient of a
 smooth objective function with respect to all of the weights in a layered
 network. The objective function typically measures the discrepancy between
 the actual output of the network on a given training case and the target
@@ -157,7 +159,10 @@ still many ways to make use of these gradients. The most obvious method is
 to average the gradients over all of the cases in the training set and then
 to change each weight in proportion to its negative gradient, which is the
 direction where a small change will most improve the objective function. 
-When the training set contains millions of cases and is highly redundant, however,
+When the training set contains millions of cases and is highly redundant
+% explaining what ``redundant'' means, here
+(with many examples illustrating variations of the the same underlying 
+aspect or concept), however,
 this is needlessly slow. It is much faster to compute the average gradient
 on a small ``mini-batch'' of randomly chosen training cases and to update
 each weight by this stochastic estimate of its full gradient times a
@@ -339,7 +344,7 @@ time~\citep{Hochreiter+Schmidhuber-1997}.
 A linear ``memory cell'' interacts with other units
 via gated connections whose weights are multiplied by the state of a
 logistic gating unit that has an activation between $0$ and $1$. The input
-vector has little effect on the state of a memory cell if the cell's input
+vector has little effect on the state of that cell if the cell's input
 gate has a low activation so memory cells can learn to selectively ignore
 the input.  Similarly, a memory cell has little effect on the output if its
 output gate has low activation. Each memory cell also has a connection to
@@ -427,15 +432,17 @@ paragraph below along with a figure.
 Prior to the introduction of neural language
 models~\citet{BenDucVin01-short} the standard approach to statistical
 modeling of language was based on counting frequencies of occurrences of
-short symbol sequences (called n-grams). One disadvantage is that it
-takes into account context beyond a handful of words would require
+short symbol sequences (called n-grams). One disadvantage of the n-gram
+approach is that taking into account context more than a handful of words would require
 training corpora of exponentially growing size (with respect to the
 desired context size), since the number of configurations of $n$
 words from a vocabulary of size $V$ grows as $V^n$. Related to this
 problem and the very notion of symbol introduced above, n-grams
-do not generalize across the many semantically related sequences 
-of words (for example the many ways of expressing roughly the same thing).
-Instead, neural language models learn to associate each word to a
+treat each word as an atomic unit, so cannot generalize across
+semantically related sequences of words,
+while we know that there are many ways of expressing roughly the same thing.
+Instead, neural language models can generalize across semantically related words
+and semantically related phrases by learning to associate each word to a
 distributed representation (a vector) such that semantically related
 words end up close to each other in that space, as illustrated in
 Figure~\ref{fig:word-embeddings}. To obtain that effect, one
@@ -464,7 +471,8 @@ nearby representations.
 \end{figure}
 
 When translating between languages, the hidden units of the decoder network
-that generates possible translations are initialized with a ``thought
+that generates possible translations are conditioned on (i.e., receive as extra
+input or as initialization) a ``thought
 vector'' which is the final hidden state of an encoder network.  But it is
 also possible to initialize a decoder network using a linear transformation
 of the last hidden layer of a deep convolutonal network that has already
