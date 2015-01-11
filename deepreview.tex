@@ -151,7 +151,7 @@ GEOFF: Do box explaining backprop equatons
 
 \section{Stochastic gradient descent}
 
-Backpropagation provides an efficient way of computing gradients for all of
+Backpropagation provides an efficient way of computing gradients with respect to all of
 the weights in a layered network on a single training case, but there are
 still many ways to make use of these gradients. The most obvious method is
 to average the gradients over all of the cases in the training set and then
@@ -262,11 +262,11 @@ training recurrent neural networks. These receive input vectors at each
 time-step and have one or more layers of hidden units that, in addition to
 having connections to higher layers or ouput units, also have connections
 that allow the neurons within a layer to receive weighted input from those
-same neurons at the previous time-step.  The gradient for a recurrent
+same neurons at the previous time-step.  The gradient with respect to a recurrent
 weight, $w_{ij}$ that allows neuron $i$ at time $t$ to influence the
 activity of neuron $j$ at time $t+1$ can be computed by
 backpropagation-through-time (BPTT) of the error derivative for $j$ at time
-$t+1$. The full gradient for $w_{ij}$ on a whole input sequence is just the
+$t+1$. The full gradient with respect to $w_{ij}$ on a whole input sequence is just the
 sum of its gradients at each time-step.
 
 Recurrent neural networks are very powerful dynamical systems, but training
@@ -350,8 +350,8 @@ near $1$.  The gates themselves have their activities determined by
 weighted inputs that they receive from the input vectors and all of the
 memory cells.
 
-When LSTMs were first described in
-English~\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
+When LSTMs were first described % in English
+\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
 and, despite their impressive ability to learn very long-range temporal
 structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
