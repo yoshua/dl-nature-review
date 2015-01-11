@@ -353,7 +353,7 @@ English~\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
 and, despite their impressive ability to learn very long-range temporal
 structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
-hand-writing~\cite{Graves}. They have subsequently proved to be very
+hand-writing~\cite{Graves-et-al-2009}. They have subsequently proved to be very
 effective for tasks that have sequential input.  They are now better than
 deep feed-forward networks for speech recognition~\cite{gravestimit} and
 unlike feed-forward nets they can implement an entire speech recognition
@@ -403,6 +403,8 @@ and scene parsing.
 YANN: Add about 300 words plus another part of the figure showing detected
 parts of people.
 %%%%%%%%%%%%%%%%%%%%
+
+Cite at least \citep{LeCun+98} and \citep{Tompson-et-al-arxiv2014}
 
 \section{Language processing with deep networks}
 
@@ -494,7 +496,7 @@ Learning which action will maximize the total future reward given a state
 of the world is difficult when the rewards are delayed and the world has a
 very large number of possible states. One impressive recent development is
 a single system that can learn to play many different video
-games~\cite{NatureAtari}. The system uses a deep convolutional network to
+games~\cite{Deepmind-atari-arxiv2013}. The system uses a deep convolutional network to
 map from the pixels on the screen at several previous time steps to the
 expected future reward of each possible action and its only inputs are the
 pixels and the current score in the game. The learning works by minimizing
@@ -650,10 +652,11 @@ require hand-engineering of domain-specific knowledge.
 % --> \citep{Hinton-et-al-2012}
 
 
-\subsection{Deep convolutional networks for image understanding}
-LeCun, Y., Bottou, L., Bengio, Y., \& Haffner, P. (1998)\\ Gradient-based
-learning applied to document recognition.\\ {\it Proceedings of the IEEE},
-86(11), 2278-2324.
+%\subsection{Deep convolutional networks for image understanding}
+%LeCun, Y., Bottou, L., Bengio, Y., \& Haffner, P. (1998)\\ Gradient-based
+%learning applied to document recognition.\\ {\it Proceedings of the IEEE},
+%86(11), 2278-2324.
+% --> \citep{LeCun+98}
 
 %% Jain, V., Seung, H.S., \& Turaga S.C. (2010)\\
 %% Machines that learn to segment images: a crucial technology for connectomics\\
@@ -672,16 +675,18 @@ learning applied to document recognition.\\ {\it Proceedings of the IEEE},
 %% Y. (2013)\\ Overfeat: Integrated recognition, localization and detection using
 %% convolutional networks.\\ {\it Proceedings of ICLR 2014}, arXiv:1312.6229.
 
-Tompson, J., Goroshin, R., Jain, A., LeCun, Y., \& Bregler, C. (2014)
-Efficient Object Localization Using Convolutional
-Networks. arXiv:1411.4280.
+%Tompson, J., Goroshin, R., Jain, A., LeCun, Y., \& Bregler, C. (2014)
+%Efficient Object Localization Using Convolutional
+%Networks. arXiv:1411.4280.
+% --> \citep{Tompson-et-al-arxiv2014}
 
-\subsection{Deep recurrent neural networks for text understanding and machine translation}
+%\subsection{Deep recurrent neural networks for text understanding and machine translation}
 
-Graves, A., Liwicki, M., Fernández, S., Bertolami, R., Bunke, H., \&
-Schmidhuber, J. (2009)\\ A novel connectionist system for unconstrained
-handwriting recognition.\\ {\it IEEE Transactions on Pattern Analysis and
-  Machine Intelligence}, 31(5), 855-868.
+%Graves, A., Liwicki, M., Fernández, S., Bertolami, R., Bunke, H., \&
+%Schmidhuber, J. (2009)\\ A novel connectionist system for unconstrained
+%handwriting recognition.\\ {\it IEEE Transactions on Pattern Analysis and
+%  Machine Intelligence}, 31(5), 855-868.
+% --> \citep{Graves-et-al-2009}
 
 %% Devlin, J., Zbib, R., Huang, Z., Lamar, T., Schwartz, R., \& Makhoul,
 % J. (2014)\\ Fast and robust neural network joint models for statistical machine
@@ -690,6 +695,8 @@ handwriting recognition.\\ {\it IEEE Transactions on Pattern Analysis and
 
 %Sutskever, I., Vinyals, O., \& Le, Q. V. (2014)\\ Sequence to sequence
 %learning with neural networks.\\ {\it arXiv preprint}, arXiv:1409.3215.
+
+
 % --> \citep{Sutskever-et-al-NIPS2014}
 
 %Bahdanau, D., Cho, K., \& Bengio, Y. (2014)\\ Neural machine translation by
@@ -705,14 +712,13 @@ handwriting recognition.\\ {\it IEEE Transactions on Pattern Analysis and
 %% Weston, J., Chopra, S., Bordes, A. (2014)\\
 %% Memory Networks. arXiv:1410.3916.
 
+%\subsection{Deep reinforcement learning}
+%Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I.,
+%Wierstra, D., \& Riedmiller, M. (2013)\\ Playing Atari with deep
+%reinforcement learning.\\ {\it arXiv preprint} arXiv:1312.5602.
+% --> \citep{Deepmind-atari-arxiv2014}
 
-
-\subsection{Deep reinforcement learning}
-Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I.,
-Wierstra, D., \& Riedmiller, M. (2013)\\ Playing Atari with deep
-reinforcement learning.\\ {\it arXiv preprint} arXiv:1312.5602.
-
-\fi
+%\fi
 
 \newpage
 
