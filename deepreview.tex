@@ -150,6 +150,42 @@ error derivatives for the parameters (or weights) of each layer (see box
 %%%%%%% GEOFF %%%%%%%%%%
 GEOFF: Do box explaining backprop equatons
 %%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+\centerline{
+\includegraphics[width=0.33\linewidth]{chain-rule.pdf}
+\includegraphics[width=0.33\linewidth]{forward-graph.pdf}
+\includegraphics[width=0.33\linewidth]{backward-graph.pdf}
+}
+\caption{
+Left: the chain rule of derivatives tells us how
+two small effects (that of a small change of $x$ on $y$, and that of $y$ on $z$)
+are composed. A small change $\Delta x$ in $x$
+gets transformed first into a small change $\Delta y$ in $y$
+by getting multiplied by $\frac{\partial y}{\partial x}$
+(that is the definition of partial derivative). Similarly
+that creates a change $\Delta z$ in $z$. Inserting one equation
+into the other gives the chain rule of derivatives, i.e., how
+$\Delta x$ gets turned into $\Delta z$ through multiplication
+by the product of $\frac{\partial y}{\partial x}$ and
+$\frac{\partial z}{\partial x}$. It also works when $x$, $y$
+and $z$ are vectors (and the derivatives are Jacobian matrices). \newline
+Middle: many computations, such as the succession of linear and non-linear 
+transformations of multi-layer neural networks, can be described as
+a graph where each node $i$ computes a quantity $u_i$ (e.g. the
+output of an artificial neuron or the value of a parameter such as
+a synaptic weight), based on the set of values $a_i$, composed of elements $u_j$ of
+predecessors in the graph, i.e., $u_i = f_i(a_i)$. \newline
+Right: the chain rule can be generalized to such computational
+flow graphs by recursively computing the derivative of the final
+node $u_N$ (e.g., the error to be minimized or the output of the neural network)
+with respect to every internal node. The basic recursive equation
+is
+$\frac{\partial u_N}{\partial u_j} = \sum_{i: j \in a_i} \frac{\partial u_N}{\partial u_i}
+\frac{\partial f(a_i)}{\partial u_j}.$
+}
+\label{fig:backprop-box}
+\end{figure}
+
 
 \section{Stochastic gradient descent}
 
