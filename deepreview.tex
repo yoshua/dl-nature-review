@@ -37,9 +37,9 @@ for many years. Deep learning is very good at discovering intricate
 structure in large, high-dimensional datasets and is therefore widely
 applicable in all of the sciences. For example, it has beaten previous
 machine learning techniques at predicting the activity of potential drug
-molecules~\cite{Dahl}, detecting new fundamental particles~\cite{particles},
-classifying galaxies~\cite{??}, or predicting the effects of mutations in
-non-coding DNA on gene expression and disease~\cite{Frey}.
+molecules~\citep{Dahl}, detecting new fundamental particles~\citep{particles},
+classifying galaxies~\citep{??}, or predicting the effects of mutations in
+non-coding DNA on gene expression and disease~\citep{Frey}.
 
 So far, most applications of deep learning use feed-forward neural
 networks, but for tasks that involve sequential inputs it is often better
@@ -58,7 +58,7 @@ a particular first word is chosen (e.g., according to that probability)
 and provided as input to the decoder
 network it will then output a probability distribution for the second word
 of the translation and so on until a full stop is 
-chosen~\cite{Vinyals-et-al-arxiv2014,Bahdanau-et-al-arxiv2014}. 
+chosen~\citep{Vinyals-et-al-arxiv2014,Bahdanau-et-al-arxiv2014}. 
 %YB added a clarification
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
@@ -76,7 +76,7 @@ technique that people can eventually master but it is not a good model of
 the way we normally reason or understand language. Recurrent neural
 networks that represent thoughts as big vectors are more compatible with
 the view that everyday reasoning involves many simultaneous analogies that
-each contribute plausibility to a conclusion\cite{metaphors}.
+each contribute plausibility to a conclusion~\citep{metaphors}.
 
 This review is organized chronologically starting with the introduction of
 the backpropagation algorithm in the 1980's. After describing some of its
@@ -100,7 +100,7 @@ cannot be solved by linear classifiers. A common method to get around this
 problem is to transform the feature vector into a higher dimensional vector
 through a non-linear mapping, exploiting the fact that collections of
 vectors are more likely to be easily separated when they are spread around
-a high-dimensional space~\cite{Cover65}. In the limit when there are at least
+a high-dimensional space~\citep{Cover65}. In the limit when there are at least
 as many dimensions as examples, a linear classifier can always separate the
 training examples, and one clever way to obtain a very high-dimensional space is to use a
 ``kernel function'' that measures the similarity between two vectors.
@@ -109,7 +109,7 @@ set can be used to define a feature whose activation for a new input
 vector, ${\bf x}_{\rm new}$ is just the similarity between ${\bf x}_i$ and
 ${\bf x}_{\rm new}$. Given a kernel function, it is possible to jointly
 optimize the choice of training inputs used to define features and the
-class-specific weights associated with the features~\cite{Boser92}. The training
+class-specific weights associated with the features~\citep{Boser92}. The training
 inputs used to define features are called ``support vectors'' and Support
 Vector Machines~\citep{Boser92} have been very successful, especially for
 tasks with a relatively small number of training examples in which features
@@ -127,7 +127,7 @@ and a samoyed dog. These tasks are better handled with multiple layers of
 progressively more complicated feature detectors each of which is defined
 in terms of the simpler feature detectors in the previous layers.
 
-From the earliest days of pattern recognition~\cite{selfridge,Rosenblatt57}
+From the earliest days of pattern recognition~\citep{selfridge,Rosenblatt57}
 researchers aimed to replace hand-engineered features by multiple layers of
 learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
@@ -164,7 +164,7 @@ each weight by this stochastic estimate of its full gradient times a
 learning rate which decays as learning proceeds. Stochastic gradient
 descent can be improved by using the history of the individual weight
 gradients to adapt the learning rate for each weight~\citep{bottou-bousquet-2008-small}
-or to provide additional increments that depend on earlier gradients~\cite{momentum}
+or to provide additional increments that depend on earlier gradients~\citep{momentum}
 but these techniques are still the subject of controversy and are beyond
 the scope of this review.  However, it is now widely accepted that some
 form of stochastic gradient descent is the best bet for large, redundant
@@ -182,12 +182,12 @@ vector in which one component has a value of $1$ and the rest are $0$. The
 output layer has one unit per word and is forced to produce a probability
 distribution over words by using the ``softmax'' function:
 \begin{equation}
-p_j = \frac{exp(z_j)}{\sum_i exp(z_i)}
+p_j = \frac{e^{z_j}}{\sum_i e^{z_i}}
 \end{equation}
 where $z_j$ is the total input received by output unit $j$. The hidden
-layers use either the logistic or tanh non-linearity:
+layers use either the logistic or tanh non-linearity, respectively:
 \begin{equation}
-y_j = \frac{1}{1+ \exp(z_j)}, \ \ \ y_j = \frac{}{} % YB: what was the intent here for the 2nd part?
+y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}} % YB: what was the intent here for the 2nd part?
 \end{equation}
 
 The connectivity of the network is restricted so that each of the one-of-N
@@ -195,7 +195,7 @@ input vectors must first be converted to a ``word-vector'' before being
 used by subsequent layers to give a high probability to the target next
 word.  The network learns word-vectors that contain many active components
 each of which can be interpreted as a separate feature of the word. This
-was first demonstrated\cite{RHW} using sequences of three words, such as
+was first demonstrated~\citep{RHW} using sequences of three words, such as
 (Colin, Mother, Victoria), derived from two family trees. The learned word
 vector for Colin contained ``semantic'' features representing which family
 tree Colin was in, what branch of that tree he was in, and from what generation
@@ -308,7 +308,7 @@ detectors using this reconstruction objective, the weights of a deep
 network could be initialized to sensible values.  A final layer of output
 units could then be added to the top of the network and the whole deep
 system could be fine-tuned using standard
-backpropagation\cite{Hinton-Science2006}. This worked remarkably well for recognizing
+backpropagation\citep{Hinton-Science2006}. This worked remarkably well for recognizing
 handwritten digits especially when the amount of labeled data was very
 limited~\citep{Bengio-nips-2006-small,Erhan+al-2010-small}.
 
@@ -319,10 +319,10 @@ In 2009, the approach was used to map short temporal windows of coefficients ext
 from a soundwave to a set of probabilities for the various fragments of
 speech that might be represented by the frame in the center of the window.
 It achieved record-breaking results on a standard speech recognition
-benchmark that used a small vocabulary\cite{TIMITpaper} and was quickly
+benchmark that used a small vocabulary~\citep{TIMITpaper} and was quickly
 developed to give record-breaking results on a large vocabulary
-task~\cite{Dahl}.  By 2012, versions of the deep net from 2009 were being
-developed by many of the major speech groups\cite{Hinton-et-al-2012} and were already
+task~\citep{Dahl}.  By 2012, versions of the deep net from 2009 were being
+developed by many of the major speech groups\citep{Hinton-et-al-2012} and were already
 being deployed in Android phones.  For smaller datasets, unsupervised
 pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small}, 
 leading to significantly better generalization when the number of
@@ -355,12 +355,12 @@ English~\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
 and, despite their impressive ability to learn very long-range temporal
 structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
-hand-writing~\cite{Graves-et-al-2009}. They have subsequently proved to be very
+hand-writing~\citep{Graves-et-al-2009}. They have subsequently proved to be very
 effective for tasks that have sequential input.  They are now better than
-deep feed-forward networks for speech recognition~\cite{gravestimit} and
+deep feed-forward networks for speech recognition~\citep{gravestimit} and
 unlike feed-forward nets they can implement an entire speech recognition
 system that goes all the way from coefficents derived from the soundwave to
-the sequence of characters in the transcription~\cite{gravestimit}.  They
+the sequence of characters in the transcription~\citep{gravestimit}.  They
 are also what is currently used for the encoder and decoder networks that
 perform so well at machine
 translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
@@ -376,7 +376,7 @@ of the gate controlling the leaking rate (or time constant) of the cell.
 %than LSTMs and if the recurrent weight matrix is initialized to be close to
 %the identity matrix they work about as well as LSTMs both for toy problems
 %involving very long-range temporal structure and for real tasks like
-%predicting the next word in text\cite{LeHinton}.
+%predicting the next word in text\citep{LeHinton}.
 
 
 \section{Object recognition and detection with deep convolutional networks}
@@ -469,7 +469,7 @@ also possible to initialize a decoder network using a linear transformation
 of the last hidden layer of a deep convolutonal network that has already
 been trained to recognize objects in images. The decoder network can then
 be trained by BPTT on a dataset of captioned
-images~\cite{NIC,StanfordNIC,more?} and it produces remarkably good
+images~\citep{NIC,StanfordNIC,more?} and it produces remarkably good
 captions (see Figure~\ref{fig:caption-generation}).
 
 \begin{figure}[ht]
@@ -498,7 +498,7 @@ Learning which action will maximize the total future reward given a state
 of the world is difficult when the rewards are delayed and the world has a
 very large number of possible states. One impressive recent development is
 a single system that can learn to play many different video
-games~\cite{Deepmind-atari-arxiv2013}. The system uses a deep convolutional network to
+games~\citep{Deepmind-atari-arxiv2013}. The system uses a deep convolutional network to
 map from the pixels on the screen at several previous time steps to the
 expected future reward of each possible action and its only inputs are the
 pixels and the current score in the game. The learning works by minimizing
@@ -538,10 +538,10 @@ high resolution. We expect much of the future progress in vision,
 especially for video understanding or robotics, to come from systems that
 are trained end-to-end and combine deep convolutional networks with
 recurrent nets that use reinforcement learning to decide where to
-look\cite{}.  Such systems already outperform passive vision
-systems\cite{ba+mnih}.  Similarly, when understanding sentences or whole
+look~\citep{rl+attention}.  Such systems already outperform passive vision
+systems~\citep{ba+mnih}.  Similarly, when understanding sentences or whole
 documents we expect future systems to learn strategies for selectively
-attending to one part at a time~\cite{Bahdanau-et-al-arxiv2014}. We also expect
+attending to one part at a time~\citep{Bahdanau-et-al-arxiv2014}. We also expect
 that in the next few years deep recurrent neural networks will become far
 better at understanding the meaning of documents, including the way in
 which the thoughts expressed by the sentences are related to one another.
@@ -554,7 +554,7 @@ networks~\citep{Salakhutdinov2009-small,wake-sleep,
 however, we believe unsupervised learning will be essential for allowing
 deep networks to generalize well by creating internal representations that
 untangle the many different factors that interact to produce images, speech
-and documents~\cite{Yann,Bengio-Courville-Vincent-TPAMI2013}.
+and documents~\citep{Yann,Bengio-Courville-Vincent-TPAMI2013}.
 
 Finally, we believe that the recent successes of deep learning using
 stochastic gradient descent are only the beginning.  As pointed out
@@ -645,8 +645,6 @@ require hand-engineering of domain-specific knowledge.
 %% belief networks.\\ {\it IEEE Transactions on Audio, Speech, and Language
 %%  Processing}, 20(1), 14-22.
 
-\iffalse
-
 %Hinton, G., Deng, L., Yu, D., Dahl, G. E., Mohamed, A. R., Jaitly, N. \&
 %Kingsbury, B. (2012)\\ Deep neural networks for acoustic modeling in speech
 %recognition: The shared views of four research groups.\\ {\it Signal
@@ -667,7 +665,7 @@ require hand-engineering of domain-specific knowledge.
 %Krizhevsky, A., Sutskever, I., \& Hinton, G. E. (2012)\\ Imagenet
 %classification with deep convolutional neural networks.\\ In Advances in
 %Neural Information Processing Systems (1097-1105).
-% --> \cite{Krizhevsky-2012-small}
+% --> \citep{Krizhevsky-2012-small}
 
 %% Farabet, C., Couprie, C., Najman, L. \& LeCun, Y. (2013)\\
 %% Learning Hierarchical Features for Scene Labeling,\\
@@ -720,8 +718,6 @@ require hand-engineering of domain-specific knowledge.
 %reinforcement learning.\\ {\it arXiv preprint} arXiv:1312.5602.
 % --> \citep{Deepmind-atari-arxiv2014}
 
-%\fi
-
 \newpage
 
 \section{Boxes (TODO)}
@@ -733,7 +729,7 @@ A box for the forward propagation and backpropagation equations.
 1. Diagram showing:\\ a) A feedforward neural net.\\ b) A recurrent neural
 net expanded in time.\\ c) A convolutional neural net.
 
-2. Maps showing:\\ a) that word vectors learned by backpropagation are very
+DONE 2. Maps showing:\\ a) that word vectors learned by backpropagation are very
 good at capturing the meanings of the words.\\ b) that the thought vectors
 extracted by a translation model are very good at capturing the thoughts
 expressed by sentences.
@@ -742,7 +738,8 @@ expressed by sentences.
 deep feeedforward neural net.
 
 4. Some images with:\\ a) The opinions of a deep convolutional net about
-the classes of the prominent objects.\\ b) Several alternative captions
+the classes of the prominent objects.\\ 
+DONE b) Several alternative captions
 generated by using the output of the convolutional net to determine the
 initial hidden state of a decoder recurrent net.
  
