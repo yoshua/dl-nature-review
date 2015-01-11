@@ -367,8 +367,8 @@ translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 Recent work~\citep{Chung-et-al-NIPSDL2014,Yao-et-al-SLU-workshop2014} 
 suggests that not all the elements of the LSTM
-architecture are required, the crucial element being the presence of
-of the gate controlling the leaking rate (or time constant) of the cell.
+architecture are required, the crucial element being the presence and learnability 
+of the so-called forget gate, controlling the leaking rate (or time constant) of the cell.
 %It is not yet clear which aspects of the complicated architecture of LSTMs
 %are really necessary. Memory cells are a good way of allowing the
 %backpropagated error derivatives to neither explode nor vanish, but they
@@ -428,7 +428,7 @@ Prior to the introduction of neural language
 models~\citet{BenDucVin01-short} the standard approach to statistical
 modeling of language was based on counting frequencies of occurrences of
 short symbol sequences (called n-grams). One disadvantage is that it
-taking into account context beyond a handful of words would require
+takes into account context beyond a handful of words would require
 training corpora of exponentially growing size (with respect to the
 desired context size), since the number of configurations of $n$
 words from a vocabulary of size $V$ grows as $V^n$. Related to this
