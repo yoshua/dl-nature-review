@@ -442,7 +442,7 @@ structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
 hand-writing~\citep{Graves-et-al-2009}. They have subsequently proved to be very
 effective for tasks that have sequential input.  They are now better than
-deep feed-forward networks for speech recognition~\citep{gravestimit} and
+deep feed-forward networks for speech recognition~\citep{Graves-et-al-ICASSP2013} and
 unlike feed-forward nets they can implement an entire speech recognition
 system that goes all the way from coefficents derived from the soundwave to
 the sequence of characters in the transcription~\citep{gravestimit}.  They
@@ -562,7 +562,10 @@ also possible to initialize a decoder network using a linear transformation
 of the last hidden layer of a deep convolutonal network that has already
 been trained to recognize objects in images. The decoder network can then
 be trained by BPTT on a dataset of captioned
-images~\citep{NIC,StanfordNIC,more?} and it produces remarkably good
+images~\citep{Kiros-et-al-ICML2014,Mao+al-arxiv2014,Donahue-et-al-arxiv2014,
+              Vinyals-et-al-arxiv2014,
+             Chen+Zitnick-arxiv2014,Karpathy+Li-arxiv2014,Venugopalan-et-al-arxiv2014} 
+and such models produce remarkably good
 captions (see Figure~\ref{fig:caption-generation}).
 
 \begin{figure}[ht]
@@ -586,8 +589,9 @@ a convolutional neural network (see below), a deep architecture that is particul
 well suited to extract a meaningful representation from an image, while the ``decoder''
 is a recurrent neural network similar to the ones used for machine translation
 and neural language modeling. There has been a surge of interest in such
-systems recently~\citep{Vinyals-et-al-arxiv2014,OTHER-CAPTION-GENERATION-PAPERS}.
-
+systems recently~\citep{Kiros-et-al-ICML2014,Mao+al-arxiv2014,Donahue-et-al-arxiv2014,
+              Vinyals-et-al-arxiv2014,Fang-et-al-arxiv2014,
+             Chen+Zitnick-arxiv2014,Karpathy+Li-arxiv2014,Venugopalan-et-al-arxiv2014}.
 
 \section{Deep reinforcement learning}
 
