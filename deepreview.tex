@@ -320,6 +320,9 @@ they typically explode or vanish~\citep{Bengio-et-al-TNN1994,Hochreiter91-small}
 \includegraphics[width=0.49\linewidth]{bp-mlp1.pdf}
 \includegraphics[width=0.49\linewidth]{bp-mlp5.pdf}
 }
+\centerline{
+\includegraphics[width=0.89\linewidth]{fig-hidden-recurrence-rnn.pdf}
+}
 \caption{Top left: graph of feedforward computations in a multi-layer
 neural network with one input layer ($x$), two hidden layers ($h_1$ and $h_2$),
 one output layer (out), a target $y$, and an error that compares the output
@@ -327,8 +330,23 @@ and the target. The synaptic weight matrices $W_1$, $W_2$ and $W_3$ are
 the parameters of the neural network.\newline
 Top right: back-propagation through the same multi-layer neural network
 (downward arrows compute the partial derivative of the error with respect
-to every node, i.e., the units value and the parameters.\newline
-Bottom:
+to every node, i.e., the units value and the parameters).\newline
+Bottom: a recurrent neural network (left) and the unfolding in time of the
+computation involved in its forward computation. The artificial neurons
+(e.g. hidden units grouped under node $s$ with values $s_t$ at time $t$) 
+get inputs from other neurons at previous time steps
+(this is represented with the black square, for delay of
+one time step, on the left). In this way, a recurrent net can map an input sequence
+with elements $x_t$ into an output sequence with elements $o_t$, with
+each $o_t$ depending on all the previous $x_{t'}$ (for $t'\leq t$). The
+same parameters (matrices $U$, $V$, $W$) are used at each time step.
+Many other architectures are possible, including a variant in which
+the outputs (e.g. words) can be generated according to a distribution 
+(the probability of the next word) and used as inputs for the next time step.
+The back-propagation algorithm (Figure~\ref{fig:backprop-box})
+can be directly applied to the computational graph of the unfolded network
+on the right hand side, to compute the derivative of a total error
+(at all time steps) with respect to all the states $s_t$ and all the parameters.
 }
 \label{fig:mlp}
 \end{figure}
