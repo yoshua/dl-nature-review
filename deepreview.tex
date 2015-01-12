@@ -172,8 +172,8 @@ two small effects (that of a small change of $x$ on $y$, and that of $y$ on $z$)
 are composed. A small change $\Delta x$ in $x$
 gets transformed first into a small change $\Delta y$ in $y$
 by getting multiplied by $\frac{\partial y}{\partial x}$
-(that is the definition of partial derivative). Similarly
-that creates a change $\Delta z$ in $z$. Inserting one equation
+(that is the definition of partial derivative). Similarly,
+the change $\Delta y$ creates a change $\Delta z$ in $z$. Substituting one equation
 into the other gives the chain rule of derivatives, i.e., how
 $\Delta x$ gets turned into $\Delta z$ through multiplication
 by the product of $\frac{\partial y}{\partial x}$ and
@@ -184,8 +184,9 @@ transformations of multi-layer neural networks, can be described as
 a graph where each node $i$ computes a quantity $u_i$ (e.g. the
 output of an artificial neuron or the value of a parameter such as
 a synaptic weight), based on the set of values $a_i$, composed of elements $u_j$ of
-predecessors in the graph, i.e., $u_i = f_i(a_i)$. \newline
-Right: the chain rule can be generalized to such computational
+predecessors in the graph, i.e., $u_i = f_i(a_i)$. This can be readily
+generalized to nodes whose output is a vector or a matrix.\newline
+Right: the chain rule can be applied efficiently to computational
 flow graphs by recursively computing the derivative of the final
 node $u_N$ (e.g., the error to be minimized or the output of the neural network)
 with respect to every internal node. The basic recursive equation
@@ -209,17 +210,18 @@ to change each weight in proportion to its negative gradient, which is the
 direction where a small change will most improve the objective function. 
 When the training set contains millions of cases and is highly redundant
 % explaining what ``redundant'' means, here
-(with many examples illustrating variations of the the same underlying 
+(with many examples illustrating variations of the same underlying 
 aspect or concept), however,
 this is needlessly slow. It is much faster to compute the average gradient
 on a small ``mini-batch'' of randomly chosen training cases and to update
-each weight by this stochastic estimate of its full gradient times a
+each weight by this stochastic estimate of its full gradient, times a
 learning rate which decays as learning proceeds. Stochastic gradient
 descent can be improved by using the history of the individual weight
 gradients to adapt the learning rate for each weight~\citep{bottou-bousquet-2008-small}
 or to provide additional increments that depend on earlier gradients~\citep{momentum}
 but these techniques are still the subject of controversy and are beyond
-the scope of this review.  However, it is now widely accepted that some
+the scope of this review (but see~\citet{Montavon2012} for tricks of the trade). 
+However, it is now widely accepted that some
 form of stochastic gradient descent is the best bet for large, redundant
 datasets.
 
