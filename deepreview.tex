@@ -94,14 +94,14 @@ features can be designed by hand, it is relatively easy to learn
 class-specific weights that optimize
 discrimination~\citep{Rosenblatt57}. Widely-used examples of such linear
 classification methods are logistic regression and linear support vector
-machines~\citep{logisticregression,Boser92}.
+machines~\citep{bishop-book95,Boser92}.
 
 However, even with good hand-crafted features, many interesting tasks
 cannot be solved by linear classifiers. A common method to get around this
 problem is to transform the feature vector into a higher dimensional vector
 through a non-linear mapping, exploiting the fact that collections of
 vectors are more likely to be easily separated when they are spread around
-a high-dimensional space~\citep{Cover65}. In the limit when there are at least
+a high-dimensional space~\citep{Cover65}. When there are at least
 as many dimensions as examples, a linear classifier can always separate the
 training examples, and one clever way to obtain a very high-dimensional space is to use a
 ``kernel function'' that measures the similarity between two vectors.
@@ -109,15 +109,20 @@ Using the kernel function, any input vector, ${\bf x}_i$ in the training
 set can be used to define a feature whose activation for a new input
 vector, ${\bf x}_{\rm new}$ is just the similarity between ${\bf x}_i$ and
 ${\bf x}_{\rm new}$. Given a kernel function, it is possible to jointly
-optimize the choice of training inputs used to define features and the
+optimize the choice of training examplars used to define features and the
 class-specific weights associated with the features~\citep{Boser92}. The training
-inputs used to define features are called ``support vectors'' and Support
+examplars used to define features are called ``support vectors'' and Support
 Vector Machines~\citep{Boser92} have been very successful, especially for
 tasks with a relatively small number of training examples in which features
 are individually informative. They do not, however, perform well for tasks
 such as object recognition in which the input space is high-dimensional and
 the input-output mapping is so complex that computing similarities with a
-simple kernel function is ineffective.
+simple kernel function is ineffective. With a general-purpose feature space
+and kernel (such as the Gaussian kernel), generalization far from the
+examples is poor~\citep{Bengio-localfailure-NIPS-2006-small}, which is problematic
+in high-dimensional spaces. However, kernel machines would perform well if a
+very good set of features were provided: learning very good
+features is what deep learning can do.
 
 Problems such as image and speech recognition require the input-output
 function to be insensitive to irrelevant variations of the input, such as
