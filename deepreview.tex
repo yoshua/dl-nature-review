@@ -52,14 +52,14 @@ more complex tasks.  After reading an English sentence one word at a time,
 for example, an English``encoder'' network can be trained so that the final
 state vector of its hidden neurons is a good representation of the thought
 expressed by the sentence.  This thought vector can then be used as the
-initial hidden state of a trained French ``decoder'' network which outputs
+initial hidden state (or as extra input) of a trained French ``decoder'' 
+network which outputs
 a probability distribution for the first word of the French translation. If
 a particular first word is chosen (e.g., according to that probability)
 and provided as input to the decoder
 network it will then output a probability distribution for the second word
 of the translation and so on until a full stop is 
-chosen~\citep{Vinyals-et-al-arxiv2014,Bahdanau-et-al-arxiv2014}. 
-%YB added a clarification
+chosen~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}. 
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
 
