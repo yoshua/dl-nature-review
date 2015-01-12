@@ -240,9 +240,10 @@ distribution over words by using the ``softmax'' function:
 p_j = \frac{e^{z_j}}{\sum_i e^{z_i}}
 \end{equation}
 where $z_j$ is the total input received by output unit $j$. The hidden
-layers use either the logistic or tanh non-linearity, respectively:
+layers use a non-linearity such as the logistic, tanh, or rectifier, respectively:
 \begin{equation}
-y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}} % YB: what was the intent here for the 2nd part?
+y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}}, \ \ \
+ y_j = \max(0, z_j)
 \end{equation}
 
 The connectivity of the network is restricted so that each of the one-of-N
