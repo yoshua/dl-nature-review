@@ -129,7 +129,8 @@ function to be insensitive to irrelevant variations of the input, such as
 variations in position, orientation or illumination of an object, or
 variation in pitch or accent of speech, while being very sensitive to
 particular minute variations, such as the difference between a white wolf
-and a samoyed dog. These tasks are better handled with multiple layers of
+and a samoyed dog. Experiments and theory of deep learning both
+suggest that these tasks are better handled with multiple layers of
 progressively more complicated feature detectors each of which is defined
 in terms of the simpler feature detectors in the previous layers.
 
@@ -139,18 +140,20 @@ learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
 different groups in the 1970s and 1980s~\citep{Werbos74,Parker85,LeCun85,Rumelhart86b,schmidreference}.  
 Backpropagation is simply an application of
-the chain rule of derivatives,  % clarifying which chain rule, not the probabilities one
+the chain rule of derivatives (left of Figure~\ref{fig:backprop-box}),
 which yields an efficient way of computing the gradient of a
 smooth objective function with respect to all of the weights in a layered
-network. The objective function typically measures the discrepancy between
+network (Figures~\ref{fig:backprop-box} and~\ref{fig:mlp}). 
+The objective function typically measures an error to be minimized: 
+the discrepancy between
 the actual output of the network on a given training case and the target
 output for that case.  The key insight is that the error derivatives with
 respect to the {\it outputs} of a layer can be computed by working
 backwards from the error derivatives with respect to the outputs of the
 subsequent layer. Once this backwards recursion has been used to compute
 error derivatives for the outputs of all layers, it is easy to compute
-error derivatives for the parameters (or weights) of each layer (see box
-1).
+error derivatives for the parameters (or weights) of each layer 
+(Figure~\ref{fig:mlp}).
 
 %%%%%%% GEOFF %%%%%%%%%%
 %GEOFF: Do box explaining backprop equatons
