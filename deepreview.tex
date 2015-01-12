@@ -240,11 +240,11 @@ input vectors must first be converted to a ``word-vector'' before being
 used by subsequent layers to give a high probability to the target next
 word.  The network learns word-vectors that contain many active components
 each of which can be interpreted as a separate feature of the word. This
-was first demonstrated~\citep{RHW} using sequences of three words, such as
-(Colin, Mother, Victoria), derived from two family trees. The learned word
+was first demonstrated using sequences of three words, such as
+(Colin, Mother, Victoria), derived from two family trees~\citep{RHW}. The learned word
 vector for Colin contained ``semantic'' features representing which family
 tree Colin was in, what branch of that tree he was in, and from what generation
-he was~\citep{Hinton-et-al-PDP1986}. These semantic features were not explicitly present
+he was. These semantic features were not explicitly present
 in the input.  They were discovered by the learning procedure as a good way
 of factorizing the structured relationships between the input and output
 symbols into multiple ``micro-rules''.  For example, given Colin's
