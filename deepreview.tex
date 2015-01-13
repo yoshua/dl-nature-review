@@ -50,8 +50,9 @@ therefore applicable to many domains of science and business. For
 example, it has beaten previous machine learning techniques at
 predicting the activity of potential drug
 molecules~\citep{Dahl-et-al-arxiv2014}, detecting new fundamental
-particles~\citep{YANNparticles}, classifying
-galaxies~\citep{YANNgalaxies}, and predicting the effects of mutations
+particles~\citep{Melis-Higgs-boson-competition-2014}, % TODO ~\citep{YANNparticles}, 
+classifying galaxies, % %TODO ~\citep{YANNgalaxies}, 
+and predicting the effects of mutations
 in non-coding DNA on gene expression and
 disease~\citep{Keung-et-al-2014}. % Frey
 
@@ -328,19 +329,18 @@ of training examples to represent the same kinds of functions.
 \subsection*{Convolutional Networks}
 \vspace{-0.12cm}
 
-\iffalse
-\begin{figure}
-\begin{center}
-  \vspace{0.2cm}
-  % \includegraphics[width=0.99\linewidth]{convnet-diagram}
-  nice convnet figure goes here
-\end{center}
-\vspace{-0.6cm}
-\caption{A typical ConvNet architecture}
-\vspace{-0.8cm}
-\label{fig:convnet}
-\end{figure}
-\fi
+%\begin{figure}
+%\begin{center}
+%  \vspace{0.2cm}
+%  % \includegraphics[width=0.99\linewidth]{convnet-diagram}
+%  nice convnet figure goes here
+%\end{center}
+%\vspace{-0.6cm}
+%\caption{A typical ConvNet architecture}
+%\vspace{-0.8cm}
+%\label{fig:convnet}
+%\end{figure}
+
 
 One of the most widely used deep learning architectures is the
 convolutional networt, or ConvNet~\cite{lecun-90c,lecun-98}. ConvNets
@@ -353,8 +353,10 @@ There are four key ideas behind ConvNets that take advantage of the
 properties of many such natural signals: local connections, shared
 weights, pooling, and the use of many layers.
 
-The architecture of a typical ConvNet is shown in
-figure~\ref{fig-convnet}. The first few stages are composed of two
+The architecture of a typical ConvNet is 
+%shown in
+%figure~\ref{fig-convnet}. 
+structured as a series of stages. The first few stages are composed of two
 types of layers: convolutional layers and pooling layers. Units in a
 convolutional layer are organized in {\em faeture maps}, within which
 each unit is connected to local patches in the feature maps of the
@@ -396,7 +398,7 @@ appearance. The convolutional and pooling layers in ConvNets are
 directly inspired by the classic notions of simple cells and complex
 cells in visual neuroscience~\cite{Hubel62}, and the overall
 architecture is reminiscent of visual cortex ventral pathway hierarchy
-LGN-V1-V2-V4-IT~\cite{VanEssen}. ConvNets have their roots in
+LGN-V1-V2-V4-IT~\cite{Felleman+VanEssen-1991}. ConvNets have their roots in
 Fukushima's Neocognitron~\cite{fukushima-82} whose architecture was
 somewhat similar but did not have an end-to-end supervised learning
 algorithm such as backpropagation+SGD.
@@ -613,7 +615,8 @@ tasks in which labeled data was relatively abundant, such as traffic
 sign recognition~\cite{sermanet-ijcnn-11,Ciresan-et-al-2012}, the
 segmentation of biological images~\cite{ning-05} particularly for
 connectomics~\cite{Turaga2010}, the detection of faces, text, and human bodies in natural
-images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,nasse-09,taylor-xx,sermanet-cvpr-13,Tompson-et-al-arxiv2014}.
+images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,
+nasse-09,Jain-et-al-arxiv2013,sermanet-cvpr-13,Tompson-et-al-arxiv2014}.
 
 An important application is the labeling of images at the pixel level,
 whose applications include driving mobile robots and self-driving
@@ -621,7 +624,7 @@ cars~\cite{hadsell-jfr-09,farabet-icml-12},
 
 Other applications of ConvNets that are gaining importance concern
 natural language understanding~\citep{collobert:2011b}, and speech
-recognition~\cite{sainath-xx}.
+recognition~\cite{Sainath-et-al-ICASSP2013}.
 
 But works were largely ignored by the computer vision and machine
 learning community until the ImageNet competition in 2012.
