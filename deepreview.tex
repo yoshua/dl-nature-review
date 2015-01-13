@@ -416,23 +416,32 @@ limited~\citep{Bengio-nips-2006-small,Erhan+al-2010-small}.
 
 The first major application of this pre-training approach was in speech
 recognition and it was made possible by the advent of fast Graphics
-Processing Units (GPUs) that were convenient to program~\citep{RainaICML09-small}.  
-In 2009, the approach was used to map short temporal windows of coefficients extracted
-from a soundwave to a set of probabilities for the various fragments of
-speech that might be represented by the frame in the center of the window.
-It achieved record-breaking results on a standard speech recognition
-benchmark that used a small vocabulary~\citep{TIMITpaper} and was quickly
-developed to give record-breaking results on a large vocabulary
-task~\citep{Dahl2012}.  By 2012, versions of the deep net from 2009 were being
-developed by many of the major speech groups\citep{Hinton-et-al-2012} and were already
-being deployed in Android phones.  For smaller datasets, unsupervised
-pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small}, 
-leading to significantly better generalization when the number of
-labeled examples is small. Once deep
+Processing Units (GPUs) that were convenient to
+program~\citep{RainaICML09-small}.  In 2009, the approach was used to map
+short temporal windows of coefficients extracted from a soundwave to a set
+of probabilities for the various fragments of speech that might be
+represented by the frame in the center of the window.  It achieved
+record-breaking results on a standard speech recognition benchmark that
+used a small vocabulary~\citep{TIMITpaper} and was quickly developed to
+give record-breaking results on a large vocabulary task~\citep{Dahl2012}.
+By 2012, versions of the deep net from 2009 were being developed by many of
+the major speech groups~\citep{Hinton-et-al-2012} and were already being
+deployed in Android phones.  For smaller datasets, unsupervised
+pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small},
+leading to significantly better generalization when the number of labeled
+examples is small, or in a transfer setting, i.e., when we have lots of
+examples for some ``source'' tasks but very few for some ``target''
+task. In this context, unsupervised representation learning helped to win
+several transfer learning
+competitions~\citep{UTLC+LISA-2011-small,Goodfellow-icml2012}.  Once deep
 learning had been rehabilitated, it turned out that large labeled datasets
 did not need the pre-training stage, provided the scales of the initial
 random weights were carefully chosen to avoid very large or very small
-initial gradients.
+initial gradients~\citep{GlorotAISTATS2010-small} and that even better
+results (especially for very deep networks)
+could be obtained by using rectifying non-linearities rather than
+sigmoid or tanh
+non-linearities~\citep{Glorot+al-AI-2011-small,Krizhevsky-2012-small}.
 
 Interest in recurrent networks (which are deep in time) was revived by
 ``Long Short Term Memory'' networks (LSTMs) that use special hidden units
@@ -444,33 +453,37 @@ logistic gating unit that has an activation between $0$ and $1$. The input
 vector has little effect on the state of that cell if the cell's input
 gate has a low activation so memory cells can learn to selectively ignore
 the input.  Similarly, a memory cell has little effect on the output if its
-output gate has low activation. Each memory cell also has a connection to
-itself (it is a leaky neuron) at the next time-step that has a weight of 1 so it tends to copy its
-own real-valued state, but this self-connection is gated by a ``keep gate'' so
-the stored value leaks quickly unless the keep-gate has an activation
+output gate has low activation. Each memory cell is a gated leaky neuron, i.e.,
+it also has a connection to
+itself at the next time-step that has a weight of 1 (so it tends to copy its
+own real-valued state and accumulate the external signal), 
+but this self-connection is {\em gated} by a ``forget gate'' so
+the stored value leaks quickly unless the forget gate has an activation
 near $1$.  The gates themselves have their activities determined by
 weighted inputs that they receive from the input vectors and all of the
 memory cells.
 
 When LSTMs were first described % in English
-\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
+\citep{Hochreiter+Schmidhuber-1997},
+their complexity might have been off-putting
 and, despite their impressive ability to learn very long-range temporal
 structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
 hand-writing~\citep{Graves-et-al-2009}. They have subsequently proved to be very
-effective for tasks that have sequential input.  They are now better than
+effective for tasks that have sequential input.  Combined with depth of
+representation, they are now better than
 deep feed-forward networks for speech recognition~\citep{Graves-et-al-ICASSP2013} and
 unlike feed-forward nets they can implement an entire speech recognition
 system that goes all the way from coefficents derived from the soundwave to
-the sequence of characters in the transcription.  They
-are also what is currently used for the encoder and decoder networks that
+the sequence of characters in the transcription.  LSTMs or related forms of gated
+units are also what is currently used for the encoder and decoder networks that
 perform so well at machine
 translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 Recent work~\citep{Chung-et-al-NIPSDL2014-small,Yao-et-al-SLU-workshop2014} 
 suggests that not all the elements of the LSTM
 architecture are required, the crucial element being the presence and learnability 
-of the so-called forget gate, controlling the leaking rate (or time constant) of the cell.
+of the forget gate, controlling the leaking rate (or time constant) of the cell.
 %It is not yet clear which aspects of the complicated architecture of LSTMs
 %are really necessary. Memory cells are a good way of allowing the
 %backpropagated error derivatives to neither explode nor vanish, but they
@@ -510,6 +523,20 @@ parts of people.
 %%%%%%%%%%%%%%%%%%%%
 
 Cite at least \citep{LeCun+98} and \citep{Tompson-et-al-arxiv2014}
+
+
+\begin{figure}[ht]
+\fbox{
+\begin{minipage}{\textwidth}
+\centerline{
+\includegraphics[width=0.89\linewidth]{}
+}
+\caption{
+}
+\end{minipage}
+}
+\label{fig:imagenet-outputs}
+\end{figure}
 
 \section{Language processing with deep networks}
 
