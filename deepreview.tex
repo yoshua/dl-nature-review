@@ -26,50 +26,57 @@
 
 \section{Preface}
 
-Deep neural networks that learn many layers of feature detectors have
-dramatically improved the state-of-the-art for speech recognition, object
-recognition, object detection, predicting the activity of drug molecules,
-and many other tasks. Deep learning discovers intricate structure in large
-datasets by using the backpropagation algorithm to compute
-error-derivatives for the weights that define each feature detector and
-then repeatedly changing these weights in proportion to their derivatives
-averaged over small batches of training examples.  Deep recurrent neural
-networks, in which each layer also receives input from its own state at the
-previous time-step, can now generate good captions for images and are
-competitive for machine translation.
+Deep neural networks that learn to represent data in multiple layers
+of increasing abstration have dramatically improved the
+state-of-the-art for speech recognition, object recognition, object
+detection, predicting the activity of drug molecules, and many other
+tasks. Deep learning discovers intricate structure in large datasets
+by using the backpropagation algorithm to compute error-derivatives
+for the weights that define each layer of feature detector and then
+repeatedly changing these weights in proportion to their derivatives
+averaged over small batches of training examples.  Deep recurrent
+neural networks, in which each layer also receives input from its own
+state at the previous time-step, can now generate good captions for
+images and are competitive for language translation.
 
 %% this comment is geoff practising using github %%%
 \section{Introduction}
 
-Deep learning is currently making major advances in solving problems that
-have resisted the best attempts of the Artificial Intelligence community
-for many years. Deep learning is very good at discovering intricate
-structure in large, high-dimensional datasets and is therefore widely
-applicable in all of the sciences. For example, it has beaten previous
-machine learning techniques at predicting the activity of potential drug
-molecules~\citep{Dahl-et-al-arxiv2014}, detecting new fundamental particles~\citep{YANNparticles},
-classifying galaxies~\citep{YANNgalaxies}, and predicting the effects of mutations in
-non-coding DNA on gene expression and disease~\citep{Keung-et-al-2014}. % Frey
+Deep learning is currently making major advances in solving problems
+that have resisted the best attempts of the Artificial Intelligence
+community for many years. Deep learning is very good at discovering
+intricate structure in large, high-dimensional datasets and is
+therefore applicable to many domains of science and business. For
+example, it has beaten previous machine learning techniques at
+predicting the activity of potential drug
+molecules~\citep{Dahl-et-al-arxiv2014}, detecting new fundamental
+particles~\citep{YANNparticles}, classifying
+galaxies~\citep{YANNgalaxies}, and predicting the effects of mutations
+in non-coding DNA on gene expression and
+disease~\citep{Keung-et-al-2014}. % Frey
 
 So far, most applications of deep learning use feed-forward neural
-networks, but for tasks that involve sequential inputs it is often better
-to use recurrent neural networks. These are given one element from an input % YB term-->element
-sequence at each time step and their recurrent internal ``hidden'' state
-depends on the whole history of the input sequence. Recurrent networks are
-very good at predicting the next character in a string~\citep{Sutskever-et-al-ICML2011} or
-the next word in a sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be used for
-more complex tasks.  After reading an English sentence one word at a time,
-for example, an English``encoder'' network can be trained so that the final
-state vector of its hidden neurons is a good representation of the thought
-expressed by the sentence.  This thought vector can then be used as the
-initial hidden state (or as extra input) of a trained French ``decoder'' 
-network which outputs
-a probability distribution for the first word of the French translation. If
-a particular first word is chosen (e.g., according to that probability)
-and provided as input to the decoder
-network it will then output a probability distribution for the second word
-of the translation and so on until a full stop is 
-chosen~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}. 
+networks, but for tasks that involve sequential inputs, such as speech
+and language, it is often better to use recurrent neural
+networks. These are given one element from an input 
+% YB term-->element 
+sequence at each time step and their recurrent internal
+``hidden'' state depends on the whole history of the input
+sequence. Recurrent networks are very good at predicting the next
+character in text~\citep{Sutskever-et-al-ICML2011} or the next
+word in a sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be
+used for more complex tasks.  After reading an English sentence one
+word at a time, for example, an English``encoder'' network can be
+trained so that the final state vector of its hidden units is a good
+representation of the thought expressed by the sentence.  This thought
+vector can then be used as the initial hidden state (or as extra
+input) of a trained French ``decoder'' network which outputs a
+probability distribution for the first word of the French
+translation. If a particular first word is chosen (e.g., according to
+that probability) and provided as input to the decoder network it will
+then output a probability distribution for the second word of the
+translation and so on until a full stop is
+chosen~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
 
@@ -152,15 +159,15 @@ different groups in the 1970s and 1980s~\citep{Werbos74,Parker85,LeCun85,RHW}.
 Backpropagation is simply an application of
 the chain rule of derivatives (left of Figure~\ref{fig:backprop-box}),
 which yields an efficient way of computing the gradient of a
-smooth objective function with respect to all of the weights in a layered
-network (Figures~\ref{fig:backprop-box} and~\ref{fig:mlp}). 
+smooth objective function with respect to all of the weights and parameters in 
+a layered network (Figures~\ref{fig:backprop-box} and~\ref{fig:mlp}). 
 The objective function typically measures an error to be minimized: 
 the discrepancy between
 the actual output of the network on a given training case and the target
 output for that case.  The key insight is that the error derivatives with
-respect to the {\it outputs} of a layer can be computed by working
-backwards from the error derivatives with respect to the outputs of the
-subsequent layer. Once this backwards recursion has been used to compute
+respect to the {\it inputs} of a layer can be computed by working
+backwards from the error derivatives with respect to its {\em outputs}. 
+Once this backwards recursion has been used to compute
 error derivatives for the outputs of all layers, it is easy to compute
 error derivatives for the parameters (or weights) of each layer 
 (Figure~\ref{fig:mlp}).
@@ -217,7 +224,7 @@ the weights in a layered network on a single training case, but there are
 still many ways to make use of these gradients. The most obvious method is
 to average the gradients over all of the cases in the training set and then
 to change each weight in proportion to its negative gradient, which is the
-direction where a small change will most improve the objective function. 
+direction where a small change will most decrease the objective function. 
 When the training set contains millions of cases and is highly redundant
 % explaining what ``redundant'' means, here
 (with many examples illustrating variations of the same underlying 
@@ -310,14 +317,106 @@ or decision trees~\citep{Bengio-decision-trees10}
 would require an exponentially large number
 of training examples to represent the same kinds of functions.
 
-\section{Convolutional neural networks}
+\section{Convolutional networks}
 
 %%%%%%%% YANN %%%%%%% 
+% YANN: can you summarize convnets and their use for reading cheques in about
+% 350 words?
+% I couldn't do it in 350 words.
 
-YANN: can you summarize convnets and their use for reading cheques in about
-350 words?
+\vspace{-0.12cm}
+\subsection*{Convolutional Networks}
+\vspace{-0.12cm}
 
-\citep{LeCun89-small}
+\iffalse
+\begin{figure}
+\begin{center}
+  \vspace{0.2cm}
+  % \includegraphics[width=0.99\linewidth]{convnet-diagram}
+  nice convnet figure goes here
+\end{center}
+\vspace{-0.6cm}
+\caption{A typical ConvNet architecture}
+\vspace{-0.8cm}
+\label{fig:convnet}
+\end{figure}
+\fi
+
+One of the most widely used deep learning architectures is the
+convolutional networt, or ConvNet~\cite{lecun-90c,lecun-98}. ConvNets
+are designed to process data that come in the form of arrays, for
+example a color image composed of three 2D arrays containing pixel
+intensities in the three color channels. Many data modalities are in
+the form of multiple arrays: 1D for signals and language, 2D for
+images or audio spectrograms, 3D for video or volumetric images.
+There are four key ideas behind ConvNets that take advantage of the
+properties of many such natural signals: local connections, shared
+weights, pooling, and the use of many layers.
+
+The architecture of a typical ConvNet is shown in
+figure~\ref{fig-convnet}. The first few stages are composed of two
+types of layers: convolutional layers and pooling layers. Units in a
+convolutional layer are organized in {\em faeture maps}, within which
+each unit is connected to local patches in the feature maps of the
+previous layer through a set of weights called a {\em filter
+  bank}. The result of this local weight sum is then passed through a
+non-linearity.  All units in a feature map share the same filter
+bank. Multiple feature maps in a layer use different filter banks. The
+reason for this architecture is twofold. First, In array data such as
+images, local groups of values are often highly correlated forming
+local motifs that are easily detected. Second, the local statistics of
+images and other signals are invariant to location. In other word, if
+a motif can appear in one part of the image, it could appear anywhere,
+hence the idea of units at different locations sharing the same
+weights.  Mathematically, the filtering operation performed by a
+feature map is a {\em discrete convolution}, hence the name
+ConvNet. While the role of the convolutional layer is to detect local
+conjunctions of features in the previous layer, the role of the
+pooling layer is to merge semantically similar features into
+one. Since the relative positions of the features forming a motif can
+vary somewhat, reliably detecting the motif can be done by
+coarse-graining the position of each feature. A typical pooling unit
+computes the max of a local patch of units in one feature map (or in a
+few). Neighboring pooling units take input from patches that are
+shifted by more than one row or column, thereby reducing the dimension
+of the representation and creating an invariance to small shifts.  Two
+or three stages of convolutionas, non-linearity, and pooling are
+stacked, followed by more convolutional and fully-connected layers.
+Back-propagating gradients through a ConvNet is as simple
+as through a regular deep network, allowing all the weights in all the
+filter banks to be trained.
+
+This architecture exploits the property that many natural signals are
+{\em compositional hierarchies}. In images, local combinations of
+edges form motifs, motifs assemble into parts, and parts form objects.
+Similar hierarchies exists in speech and text from sounds to phones,
+phonemes, syllables, words, and sentences. The elements that form
+elements in the next level can vary in relative position and
+appearance. The convolutional and pooling layers in ConvNets are
+directly inspired by the classic notions of simple cells and complex
+cells in visual neuroscience~\cite{Hubel1962}, and the overall
+architecture is reminiscent of visual cortex ventral pathway hierarchy
+LGN-V1-V2-V4-IT~\cite{VanEssen}. ConvNets have their roots in
+Fukushima's Neocognitron~\cite{fukushima-82} whose architecture was
+somewhat similar but did not have an end-to-end supervised learning
+algorithm such as backpropagation+SGD.
+
+There have been numerous applications of convolutional networks going
+back to the early 1990s. Perhaps the earliest success was a bank check
+reading system which was commercially deployed by AT\&T and NCR in
+1994~\cite{lecun-98}. The system used a ConvNets trained jointly with
+a graphical model that implemented language constraints. By the late
+1990s this system was reading over 10\% of all the checks in the
+US. Microsoft later deploy ConvNets in a number of OCR and handwriting
+recognition
+systems~\cite{simard-03,chellapilla-ist-06,chellapilla-iwfhr-06b}
+including for Arabic and
+Chinese~\cite{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. ConvNets
+have also been used since the early 1990s for object detection in
+natural images, including faces and
+pedestrians~\cite{vaillant-monrocq-lecun-94,garcia-delakis-04,osadchy-07,nasse-09,sermanet-cvpr-13}.
+
+
 
 %%%%%%%%%%%%%%%%%%%% 
 
@@ -505,15 +604,34 @@ of the forget gate, controlling the leaking rate (or time constant) of the cell.
 %predicting the next word in text\citep{LeHinton}.
 
 
-\section{Object recognition and detection with deep convolutional networks}
+\section{Image understanding with deep convolutional networks}
+
+Since the early 2000s, there have been many tasks in which ConvNets
+have been applied with success to the detection, segmentation, and
+recognition of objects and regions in images. These were invariably
+tasks in which labeled data was relatively abundant, such as traffic
+sign recognition~\cite{sermanet-ijcnn-11,schmidhuber-traffic}, the
+segmentation of biological images~\cite{ning-05} particularly for
+connectomics~\cite{seung-xx}, the detection of faces, text, and human bodies in natural
+images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,nasse-09,taylor-xx,sermanet-cvpr-13,thompson-14}.
+
+An important application is the labeling of images at the pixel level,
+whose applications include driving mobile robots and self-driving
+cars~\cite{hadsell-jfr-09,farabet-icml-12}, 
+
+Other applications of ConvNets that are gaining importance concern
+natural language understanding~\cite{collobert-weston-xx}, and speech
+recognition~\cite{sainath-xx}.
+
+But works were largely ignored by the computer vision and machine
+learning community until the ImageNet competition in 2012.
 
 When deep convolutional networks were applied to a dataset of about a
 million images from the web that contained a thousand different classes
 they achieved spectacular results, almost halving the error rates of the
 best computer vision sytems~\citep{Krizhevsky-2012-small}.  
-%Some of the images and the
-%network's predictions are shown in figure~\ref{fig:imagenet-outputs}.  
 The same kind of network is used to generate the captions shown in Figure~\ref{fig:caption-generation}.
+
 The major factors in this
 success were the large labeled dataset~\citep{imagenet_cvpr09}, the use of fast GPUs,
 and the convolutional early layers.  It had already been shown that deep
@@ -530,27 +648,9 @@ tagging, object detection, face recognition, facial expression recognition
 and scene parsing.
 
 %%%%%%%% YANN %%%%%%%
-YANN: Add about 300 words plus another part of the figure showing detected
-parts of people.
-%%%%%%%%%%%%%%%%%%%%
-
-Cite at least \citep{LeCun+98} and \citep{Tompson-et-al-arxiv2014}
+% MORE TEXT on other applications of convnets goes here, including Thompson and such.\citep{Tompson-et-al-arxiv2014}
 
 
-\iffalse
-\begin{figure}[ht]
-\fbox{
-\begin{minipage}{\textwidth}
-\centerline{
-%\includegraphics[width=0.89\linewidth]{}
-}
-\caption{
-}
-\end{minipage}
-}
-\label{fig:imagenet-outputs}
-\end{figure}
-\fi
 
 \section{Language processing with deep networks}
 
@@ -916,7 +1016,7 @@ deep convolutional neural net.\\
 
 \fi
 
-\bibliography{strings,ml,aigaion}
+\bibliography{strings,ml,aigaion,convnetyann,lecun}
 \bibliographystyle{natbib}
 
 \end{document}
