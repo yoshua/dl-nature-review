@@ -1,8 +1,18 @@
-\documentclass[]{article}
+\documentclass[10pts]{article}
+\usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{float}
+
+\addtolength{\textwidth}{2cm}
+%\addtolength{\textwidth}{1cm}
+\addtolength{\textheight}{2cm}
+%\addtolength{\textheight}{1cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+
 \parskip 0.1in
 \parindent 0.0in
 \setcounter{secnumdepth}{1}
@@ -500,8 +510,10 @@ of the forget gate, controlling the leaking rate (or time constant) of the cell.
 When deep convolutional networks were applied to a dataset of about a
 million images from the web that contained a thousand different classes
 they achieved spectacular results, almost halving the error rates of the
-best computer vision sytems~\citep{Krizhevsky-2012-small}.  Some of the images and the
-network's predictions are shown in figure~\ref{fig:imagenet-outputs}.  
+best computer vision sytems~\citep{Krizhevsky-2012-small}.  
+%Some of the images and the
+%network's predictions are shown in figure~\ref{fig:imagenet-outputs}.  
+The same kind of network is used to generate the captions shown in Figure~\ref{fig:caption-generation}.
 The major factors in this
 success were the large labeled dataset~\citep{imagenet_cvpr09}, the use of fast GPUs,
 and the convolutional early layers.  It had already been shown that deep
@@ -525,11 +537,12 @@ parts of people.
 Cite at least \citep{LeCun+98} and \citep{Tompson-et-al-arxiv2014}
 
 
+\iffalse
 \begin{figure}[ht]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
-\includegraphics[width=0.89\linewidth]{}
+%\includegraphics[width=0.89\linewidth]{}
 }
 \caption{
 }
@@ -537,6 +550,7 @@ Cite at least \citep{LeCun+98} and \citep{Tompson-et-al-arxiv2014}
 }
 \label{fig:imagenet-outputs}
 \end{figure}
+\fi
 
 \section{Language processing with deep networks}
 
@@ -554,19 +568,22 @@ paragraph below along with a figure.
 \fi
 
 Prior to the introduction of neural language
-models~\citet{BenDucVin01-short} the standard approach to statistical
+models~\citep{BenDucVin01-short}, the standard approach to statistical
 modeling of language was based on counting frequencies of occurrences of
 short symbol sequences (called n-grams). One disadvantage of the n-gram
-approach is that taking into account context more than a handful of words would require
+approach is that taking into account context of more than a handful of words would require
 training corpora of exponentially growing size (with respect to the
 desired context size), since the number of configurations of $n$
-words from a vocabulary of size $V$ grows as $V^n$. Related to this
+words from a vocabulary of size $V$ grows as $V^n$. Although this can
+be mitigated by only considering the more frequent of the longer sequences of 
+words, it means that less frequent sequences of words are modeled in a 
+context-blind way. Related to this
 problem and the very notion of symbol introduced above, n-grams
 treat each word as an atomic unit, so cannot generalize across
 semantically related sequences of words,
 while we know that there are many ways of expressing roughly the same thing.
 Instead, neural language models can generalize across semantically related words
-and semantically related phrases by learning to associate each word to a
+and semantically related phrases by learning to associate each word with a
 distributed representation (a vector) such that semantically related
 words end up close to each other in that space, as illustrated in
 Figure~\ref{fig:word-embeddings}. To obtain that effect, one
@@ -575,7 +592,8 @@ a function that computes a quantity of interest that is relevant
 to a language related task, such as predicting the next word
 in a sequence (neural language models) or predicting the sequence
 of translated words given the sequence of source words, i.e., neural
-machine translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+machine translation~\citep{Devlin-et-al-ACL2014,Bahdanau-et-al-arxiv2014,
+Sutskever-et-al-NIPS2014}.
 
 
 \begin{figure}[ht]
@@ -603,7 +621,7 @@ that generates possible translations are conditioned on (i.e., receive as extra
 input or as initialization) a ``thought
 vector'' which is the final hidden state of an encoder network.  But it is
 also possible to initialize a decoder network using a linear transformation
-of the last hidden layer of a deep convolutonal network that has already
+of the last hidden layer of a deep convolutional network that has already
 been trained to recognize objects in images. The decoder network can then
 be trained by BPTT on a dataset of captioned
 images~\citep{Kiros-et-al-ICML2014,Mao+al-arxiv2014,Donahue-et-al-arxiv2014,
