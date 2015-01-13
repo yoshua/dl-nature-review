@@ -1,8 +1,18 @@
-\documentclass[]{article}
+\documentclass[10pts]{article}
+\usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{natbib}
-\usepackage{float}
+%\usepackage{float}
+
+\addtolength{\textwidth}{2cm}
+%\addtolength{\textwidth}{1cm}
+\addtolength{\textheight}{2cm}
+%\addtolength{\textheight}{1cm}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+
 \parskip 0.1in
 \parindent 0.0in
 \setcounter{secnumdepth}{1}
@@ -37,7 +47,7 @@ for many years. Deep learning is very good at discovering intricate
 structure in large, high-dimensional datasets and is therefore widely
 applicable in all of the sciences. For example, it has beaten previous
 machine learning techniques at predicting the activity of potential drug
-molecules~\citep{DahlKaggle}, detecting new fundamental particles~\citep{YANNparticles},
+molecules~\citep{Dahl-et-al-arxiv2014}, detecting new fundamental particles~\citep{YANNparticles},
 classifying galaxies~\citep{YANNgalaxies}, and predicting the effects of mutations in
 non-coding DNA on gene expression and disease~\citep{Keung-et-al-2014}. % Frey
 
@@ -158,7 +168,7 @@ error derivatives for the parameters (or weights) of each layer
 %%%%%%% GEOFF %%%%%%%%%%
 %GEOFF: Do box explaining backprop equatons
 %%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[H]
+\begin{figure}[htp]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -194,9 +204,9 @@ is
 $\frac{\partial u_N}{\partial u_j} = \sum_{i: j \in a_i} \frac{\partial u_N}{\partial u_i}
 \frac{\partial f(a_i)}{\partial u_j}.$
 }
+\label{fig:backprop-box}
 \end{minipage}
 }
-\label{fig:backprop-box}
 \end{figure}
 
 
@@ -328,9 +338,11 @@ sum of its gradients at each time-step.
 Recurrent neural networks are very powerful dynamical systems, but training
 them with BPTT proved to be problematic, because the backpropagated
 gradients either grow or shrink at each time step, so over many time-steps
-they typically explode or vanish~\citep{Bengio-et-al-TNN1994,Hochreiter91-small}.
+they typically explode or vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994},
+and the conditions which allow stable dynamics also correspond to
+vanishing gradients~\citep{Bengio-et-al-TNN1994},
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -352,22 +364,24 @@ Bottom: a recurrent neural network (left) and the unfolding in time of the
 computation involved in its forward computation. The artificial neurons
 (e.g. hidden units grouped under node $s$ with values $s_t$ at time $t$) 
 get inputs from other neurons at previous time steps
-(this is represented with the black square, for delay of
+(this is represented with the black square, standing for a delay of
 one time step, on the left). In this way, a recurrent net can map an input sequence
 with elements $x_t$ into an output sequence with elements $o_t$, with
 each $o_t$ depending on all the previous $x_{t'}$ (for $t'\leq t$). The
 same parameters (matrices $U$, $V$, $W$) are used at each time step.
 Many other architectures are possible, including a variant in which
-the outputs (e.g. words) can be generated according to a distribution 
-(the probability of the next word) and used as inputs for the next time step.
+the sampled outputs (e.g. words) can be generated according to an output 
+distribution (the probability of the next word, for every possible next word) 
+and used as inputs for the next time step.
 The back-propagation algorithm (Figure~\ref{fig:backprop-box})
 can be directly applied to the computational graph of the unfolded network
 on the right hand side, to compute the derivative of a total error
-(at all time steps) with respect to all the states $s_t$ and all the parameters.
-}
-\end{minipage}
+(e.g., the log-probability of generating the right sequence of
+words) with respect to all the states $s_t$ and all the parameters.
 }
 \label{fig:mlp}
+\end{minipage}
+}
 \end{figure}
 
 \section{Overcoming the limitations of backpropagation in deep networks}
@@ -380,15 +394,17 @@ for a simple gradient descent procedure and that the networks were getting
 trapped in poor local minima. We now know that the main reasons for the
 limited success of backpropagation in deep networks were quite different:
 The labeled datasets were far too small, the computers were far too slow,
-and the weights were not initialised sensibly.
+and the weights were not initialised sensibly~\citep{GlorotAISTATS2010-small}.
 
 The obvious weakness of gradient descent is that it can get trapped in poor
 local minima, but in high-dimensional weight-spaces this is much less
 common than getting stuck close to saddle points where the error surface
 curves upwards in most directions but downwards in a few. Recent
 results~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-arxiv2014} strongly suggest
-that in deep networks almost all of these local minima give very similar
-performance so it does not matter which one we find.  This goes a long way
+the vast majority of critical points (where derivatives of the total
+objective function with respect to parameters vanish) are saddle points, not
+local minima, and that in large deep networks almost all of these local minima 
+give very similar performance so it does not matter which one we find.  This goes a long way
 towards explaining why stochastic gradient descent works so well for deep
 neural networks.
 
@@ -410,23 +426,32 @@ limited~\citep{Bengio-nips-2006-small,Erhan+al-2010-small}.
 
 The first major application of this pre-training approach was in speech
 recognition and it was made possible by the advent of fast Graphics
-Processing Units (GPUs) that were convenient to program~\citep{RainaICML09-small}.  
-In 2009, the approach was used to map short temporal windows of coefficients extracted
-from a soundwave to a set of probabilities for the various fragments of
-speech that might be represented by the frame in the center of the window.
-It achieved record-breaking results on a standard speech recognition
-benchmark that used a small vocabulary~\citep{TIMITpaper} and was quickly
-developed to give record-breaking results on a large vocabulary
-task~\citep{Dahl}.  By 2012, versions of the deep net from 2009 were being
-developed by many of the major speech groups\citep{Hinton-et-al-2012} and were already
-being deployed in Android phones.  For smaller datasets, unsupervised
-pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small}, 
-leading to significantly better generalization when the number of
-labeled examples is small. Once deep
+Processing Units (GPUs) that were convenient to
+program~\citep{RainaICML09-small}.  In 2009, the approach was used to map
+short temporal windows of coefficients extracted from a soundwave to a set
+of probabilities for the various fragments of speech that might be
+represented by the frame in the center of the window.  It achieved
+record-breaking results on a standard speech recognition benchmark that
+used a small vocabulary~\citep{TIMITpaper} and was quickly developed to
+give record-breaking results on a large vocabulary task~\citep{Dahl2012}.
+By 2012, versions of the deep net from 2009 were being developed by many of
+the major speech groups~\citep{Hinton-et-al-2012} and were already being
+deployed in Android phones.  For smaller datasets, unsupervised
+pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small},
+leading to significantly better generalization when the number of labeled
+examples is small, or in a transfer setting, i.e., when we have lots of
+examples for some ``source'' tasks but very few for some ``target''
+task. In this context, unsupervised representation learning helped to win
+several transfer learning
+competitions~\citep{UTLC+LISA-2011-small,Goodfellow-icml2012}.  Once deep
 learning had been rehabilitated, it turned out that large labeled datasets
 did not need the pre-training stage, provided the scales of the initial
 random weights were carefully chosen to avoid very large or very small
-initial gradients.
+initial gradients~\citep{GlorotAISTATS2010-small} and that even better
+results (especially for very deep networks)
+could be obtained by using rectifying non-linearities rather than
+sigmoid or tanh
+non-linearities~\citep{Glorot+al-AI-2011-small,Krizhevsky-2012-small}.
 
 Interest in recurrent networks (which are deep in time) was revived by
 ``Long Short Term Memory'' networks (LSTMs) that use special hidden units
@@ -438,33 +463,37 @@ logistic gating unit that has an activation between $0$ and $1$. The input
 vector has little effect on the state of that cell if the cell's input
 gate has a low activation so memory cells can learn to selectively ignore
 the input.  Similarly, a memory cell has little effect on the output if its
-output gate has low activation. Each memory cell also has a connection to
-itself (it is a leaky neuron) at the next time-step that has a weight of 1 so it tends to copy its
-own real-valued state, but this self-connection is gated by a ``keep gate'' so
-the stored value leaks quickly unless the keep-gate has an activation
+output gate has low activation. Each memory cell is a gated leaky neuron, i.e.,
+it also has a connection to
+itself at the next time-step that has a weight of 1 (so it tends to copy its
+own real-valued state and accumulate the external signal), 
+but this self-connection is {\em gated} by a ``forget gate'' so
+the stored value leaks quickly unless the forget gate has an activation
 near $1$.  The gates themselves have their activities determined by
 weighted inputs that they receive from the input vectors and all of the
 memory cells.
 
 When LSTMs were first described % in English
-\citep{Hochreiter+Schmidhuber-1997} their complexity was off-putting
+\citep{Hochreiter+Schmidhuber-1997},
+their complexity might have been off-putting
 and, despite their impressive ability to learn very long-range temporal
 structure on toy problems, they were largely ignored until they achieved
 excellent results in a competition to read cursive
 hand-writing~\citep{Graves-et-al-2009}. They have subsequently proved to be very
-effective for tasks that have sequential input.  They are now better than
+effective for tasks that have sequential input.  Combined with depth of
+representation, they are now better than
 deep feed-forward networks for speech recognition~\citep{Graves-et-al-ICASSP2013} and
 unlike feed-forward nets they can implement an entire speech recognition
 system that goes all the way from coefficents derived from the soundwave to
-the sequence of characters in the transcription.  They
-are also what is currently used for the encoder and decoder networks that
+the sequence of characters in the transcription.  LSTMs or related forms of gated
+units are also what is currently used for the encoder and decoder networks that
 perform so well at machine
 translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 Recent work~\citep{Chung-et-al-NIPSDL2014-small,Yao-et-al-SLU-workshop2014} 
 suggests that not all the elements of the LSTM
 architecture are required, the crucial element being the presence and learnability 
-of the so-called forget gate, controlling the leaking rate (or time constant) of the cell.
+of the forget gate, controlling the leaking rate (or time constant) of the cell.
 %It is not yet clear which aspects of the complicated architecture of LSTMs
 %are really necessary. Memory cells are a good way of allowing the
 %backpropagated error derivatives to neither explode nor vanish, but they
@@ -481,8 +510,10 @@ of the so-called forget gate, controlling the leaking rate (or time constant) of
 When deep convolutional networks were applied to a dataset of about a
 million images from the web that contained a thousand different classes
 they achieved spectacular results, almost halving the error rates of the
-best computer vision sytems~\citep{Krizhevsky-2012-small}.  Some of the images and the
-network's predictions are shown in figure~\ref{fig:imagenet-outputs}.  
+best computer vision sytems~\citep{Krizhevsky-2012-small}.  
+%Some of the images and the
+%network's predictions are shown in figure~\ref{fig:imagenet-outputs}.  
+The same kind of network is used to generate the captions shown in Figure~\ref{fig:caption-generation}.
 The major factors in this
 success were the large labeled dataset~\citep{imagenet_cvpr09}, the use of fast GPUs,
 and the convolutional early layers.  It had already been shown that deep
@@ -505,6 +536,22 @@ parts of people.
 
 Cite at least \citep{LeCun+98} and \citep{Tompson-et-al-arxiv2014}
 
+
+\iffalse
+\begin{figure}[ht]
+\fbox{
+\begin{minipage}{\textwidth}
+\centerline{
+%\includegraphics[width=0.89\linewidth]{}
+}
+\caption{
+}
+\end{minipage}
+}
+\label{fig:imagenet-outputs}
+\end{figure}
+\fi
+
 \section{Language processing with deep networks}
 
 \iffalse
@@ -521,19 +568,22 @@ paragraph below along with a figure.
 \fi
 
 Prior to the introduction of neural language
-models~\citet{BenDucVin01-short} the standard approach to statistical
+models~\citep{BenDucVin01-short}, the standard approach to statistical
 modeling of language was based on counting frequencies of occurrences of
 short symbol sequences (called n-grams). One disadvantage of the n-gram
-approach is that taking into account context more than a handful of words would require
+approach is that taking into account context of more than a handful of words would require
 training corpora of exponentially growing size (with respect to the
 desired context size), since the number of configurations of $n$
-words from a vocabulary of size $V$ grows as $V^n$. Related to this
+words from a vocabulary of size $V$ grows as $V^n$. Although this can
+be mitigated by only considering the more frequent of the longer sequences of 
+words, it means that less frequent sequences of words are modeled in a 
+context-blind way. Related to this
 problem and the very notion of symbol introduced above, n-grams
 treat each word as an atomic unit, so cannot generalize across
 semantically related sequences of words,
 while we know that there are many ways of expressing roughly the same thing.
 Instead, neural language models can generalize across semantically related words
-and semantically related phrases by learning to associate each word to a
+and semantically related phrases by learning to associate each word with a
 distributed representation (a vector) such that semantically related
 words end up close to each other in that space, as illustrated in
 Figure~\ref{fig:word-embeddings}. To obtain that effect, one
@@ -542,10 +592,11 @@ a function that computes a quantity of interest that is relevant
 to a language related task, such as predicting the next word
 in a sequence (neural language models) or predicting the sequence
 of translated words given the sequence of source words, i.e., neural
-machine translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+machine translation~\citep{Devlin-et-al-ACL2014,Bahdanau-et-al-arxiv2014,
+Sutskever-et-al-NIPS2014}.
 
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -560,9 +611,9 @@ neural network~\citep{Cho-et-al-EMNLP2014}. One can observe that
 semantically similar words or sequences of words are  mapped to
 nearby representations.
 }
+\label{fig:word-embeddings}
 \end{minipage}
 }
-\label{fig:word-embeddings}
 \end{figure}
 
 When translating between languages, the hidden units of the decoder network
@@ -570,7 +621,7 @@ that generates possible translations are conditioned on (i.e., receive as extra
 input or as initialization) a ``thought
 vector'' which is the final hidden state of an encoder network.  But it is
 also possible to initialize a decoder network using a linear transformation
-of the last hidden layer of a deep convolutonal network that has already
+of the last hidden layer of a deep convolutional network that has already
 been trained to recognize objects in images. The decoder network can then
 be trained by BPTT on a dataset of captioned
 images~\citep{Kiros-et-al-ICML2014,Mao+al-arxiv2014,Donahue-et-al-arxiv2014,
@@ -585,14 +636,16 @@ captions (see Figure~\ref{fig:caption-generation}).
 \centerline{\includegraphics[width=\linewidth]{caption-generation-Vinyals-et-al.png}}
 \centerline{\includegraphics[width=0.49\linewidth]{Examples_im2txt_001.png}
 \includegraphics[width=0.49\linewidth]{Examples_im2txt_002.png}}
-\caption{Examples of captions generated by a recurrent network taking
+\caption{Three examples of captions generated by a recurrent network taking
 as extra input the representation extracted by a deep convolutional
-net from an image, with the whole system trained to ``translate''
-images into captions. Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
-}
-\end{minipage}
+net from a test image, with the whole system trained to ``translate''
+images into captions. GT stands for ``Ground Truth'' and was labeled by humans
+whereas the other text is machine-generated.
+Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
 }
 \label{fig:caption-generation}
+\end{minipage}
+}
 \end{figure}
 
 Similarly, instead of translating the meaning of a French sentence to an English sentence,
