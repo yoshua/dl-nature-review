@@ -3,7 +3,7 @@
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{natbib}
-\usepackage{float}
+%\usepackage{float}
 
 \addtolength{\textwidth}{2cm}
 %\addtolength{\textwidth}{1cm}
@@ -168,7 +168,7 @@ error derivatives for the parameters (or weights) of each layer
 %%%%%%% GEOFF %%%%%%%%%%
 %GEOFF: Do box explaining backprop equatons
 %%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[ht]
+\begin{figure}[htp]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -204,9 +204,9 @@ is
 $\frac{\partial u_N}{\partial u_j} = \sum_{i: j \in a_i} \frac{\partial u_N}{\partial u_i}
 \frac{\partial f(a_i)}{\partial u_j}.$
 }
+\label{fig:backprop-box}
 \end{minipage}
 }
-\label{fig:backprop-box}
 \end{figure}
 
 
@@ -379,9 +379,9 @@ on the right hand side, to compute the derivative of a total error
 (e.g., the log-probability of generating the right sequence of
 words) with respect to all the states $s_t$ and all the parameters.
 }
+\label{fig:mlp}
 \end{minipage}
 }
-\label{fig:mlp}
 \end{figure}
 
 \section{Overcoming the limitations of backpropagation in deep networks}
@@ -611,9 +611,9 @@ neural network~\citep{Cho-et-al-EMNLP2014}. One can observe that
 semantically similar words or sequences of words are  mapped to
 nearby representations.
 }
+\label{fig:word-embeddings}
 \end{minipage}
 }
-\label{fig:word-embeddings}
 \end{figure}
 
 When translating between languages, the hidden units of the decoder network
@@ -643,9 +643,9 @@ images into captions. GT stands for ``Ground Truth'' and was labeled by humans
 whereas the other text is machine-generated.
 Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
 }
+\label{fig:caption-generation}
 \end{minipage}
 }
-\label{fig:caption-generation}
 \end{figure}
 
 Similarly, instead of translating the meaning of a French sentence to an English sentence,
