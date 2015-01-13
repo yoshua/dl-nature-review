@@ -37,7 +37,7 @@ for many years. Deep learning is very good at discovering intricate
 structure in large, high-dimensional datasets and is therefore widely
 applicable in all of the sciences. For example, it has beaten previous
 machine learning techniques at predicting the activity of potential drug
-molecules~\citep{DahlKaggle}, detecting new fundamental particles~\citep{YANNparticles},
+molecules~\citep{Dahl-et-al-arxiv2014}, detecting new fundamental particles~\citep{YANNparticles},
 classifying galaxies~\citep{YANNgalaxies}, and predicting the effects of mutations in
 non-coding DNA on gene expression and disease~\citep{Keung-et-al-2014}. % Frey
 
@@ -158,7 +158,7 @@ error derivatives for the parameters (or weights) of each layer
 %%%%%%% GEOFF %%%%%%%%%%
 %GEOFF: Do box explaining backprop equatons
 %%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[H]
+\begin{figure}[ht]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -328,9 +328,11 @@ sum of its gradients at each time-step.
 Recurrent neural networks are very powerful dynamical systems, but training
 them with BPTT proved to be problematic, because the backpropagated
 gradients either grow or shrink at each time step, so over many time-steps
-they typically explode or vanish~\citep{Bengio-et-al-TNN1994,Hochreiter91-small}.
+they typically explode or vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994},
+and the conditions which allow stable dynamics also correspond to
+vanishing gradients~\citep{Bengio-et-al-TNN1994},
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -352,18 +354,20 @@ Bottom: a recurrent neural network (left) and the unfolding in time of the
 computation involved in its forward computation. The artificial neurons
 (e.g. hidden units grouped under node $s$ with values $s_t$ at time $t$) 
 get inputs from other neurons at previous time steps
-(this is represented with the black square, for delay of
+(this is represented with the black square, standing for a delay of
 one time step, on the left). In this way, a recurrent net can map an input sequence
 with elements $x_t$ into an output sequence with elements $o_t$, with
 each $o_t$ depending on all the previous $x_{t'}$ (for $t'\leq t$). The
 same parameters (matrices $U$, $V$, $W$) are used at each time step.
 Many other architectures are possible, including a variant in which
-the outputs (e.g. words) can be generated according to a distribution 
-(the probability of the next word) and used as inputs for the next time step.
+the sampled outputs (e.g. words) can be generated according to an output 
+distribution (the probability of the next word, for every possible next word) 
+and used as inputs for the next time step.
 The back-propagation algorithm (Figure~\ref{fig:backprop-box})
 can be directly applied to the computational graph of the unfolded network
 on the right hand side, to compute the derivative of a total error
-(at all time steps) with respect to all the states $s_t$ and all the parameters.
+(e.g., the log-probability of generating the right sequence of
+words) with respect to all the states $s_t$ and all the parameters.
 }
 \end{minipage}
 }
@@ -380,15 +384,17 @@ for a simple gradient descent procedure and that the networks were getting
 trapped in poor local minima. We now know that the main reasons for the
 limited success of backpropagation in deep networks were quite different:
 The labeled datasets were far too small, the computers were far too slow,
-and the weights were not initialised sensibly.
+and the weights were not initialised sensibly~\citep{GlorotAISTATS2010-small}.
 
 The obvious weakness of gradient descent is that it can get trapped in poor
 local minima, but in high-dimensional weight-spaces this is much less
 common than getting stuck close to saddle points where the error surface
 curves upwards in most directions but downwards in a few. Recent
 results~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-arxiv2014} strongly suggest
-that in deep networks almost all of these local minima give very similar
-performance so it does not matter which one we find.  This goes a long way
+the vast majority of critical points (where derivatives of the total
+objective function with respect to parameters vanish) are saddle points, not
+local minima, and that in large deep networks almost all of these local minima 
+give very similar performance so it does not matter which one we find.  This goes a long way
 towards explaining why stochastic gradient descent works so well for deep
 neural networks.
 
@@ -545,7 +551,7 @@ of translated words given the sequence of source words, i.e., neural
 machine translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
@@ -585,10 +591,12 @@ captions (see Figure~\ref{fig:caption-generation}).
 \centerline{\includegraphics[width=\linewidth]{caption-generation-Vinyals-et-al.png}}
 \centerline{\includegraphics[width=0.49\linewidth]{Examples_im2txt_001.png}
 \includegraphics[width=0.49\linewidth]{Examples_im2txt_002.png}}
-\caption{Examples of captions generated by a recurrent network taking
+\caption{Three examples of captions generated by a recurrent network taking
 as extra input the representation extracted by a deep convolutional
-net from an image, with the whole system trained to ``translate''
-images into captions. Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
+net from a test image, with the whole system trained to ``translate''
+images into captions. GT stands for ``Ground Truth'' and was labeled by humans
+whereas the other text is machine-generated.
+Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
 }
 \end{minipage}
 }
