@@ -94,7 +94,7 @@ results with recurrent nets suggest that it may not be a good model of
 the way we normally reason or understand language. Recurrent neural
 networks that represent thoughts as big vectors are more compatible with
 the view that everyday reasoning involves many simultaneous analogies that
-each contribute plausibility to a conclusion~\citep{metaphors,rogers}.
+each contribute plausibility to a conclusion~\citep{metaphors,Rogers+McClelland-book2004}.
 
 This review is organized chronologically. We start with the introduction of
 the backpropagation algorithm in the 1980's and early demonstrations
@@ -190,12 +190,13 @@ error derivatives for the incoming weights of the neurons in each layer
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
-\includegraphics[width=0.33\linewidth]{chain-rule.pdf}
-\includegraphics[width=0.33\linewidth]{forward-graph.pdf}
-\includegraphics[width=0.33\linewidth]{backward-graph.pdf}
+\includegraphics[width=0.3\linewidth]{chain-rule.pdf}}
+\centerline{
+\hspace*{.5mm}\fbox{\includegraphics[width=0.49\linewidth]{bpfig_forward.pdf}}
+\hspace*{0mm}\fbox{\includegraphics[width=0.49\linewidth]{bpfig_backward.pdf}}
 }
 \caption{
-Left: the chain rule of derivatives tells us how
+{\bf Top.} The chain rule of derivatives tells us how
 two small effects (that of a small change of $x$ on $y$, and that of $y$ on $z$)
 are composed. A small change $\Delta x$ in $x$
 gets transformed first into a small change $\Delta y$ in $y$
@@ -207,20 +208,20 @@ $\Delta x$ gets turned into $\Delta z$ through multiplication
 by the product of $\frac{\partial y}{\partial x}$ and
 $\frac{\partial z}{\partial x}$. It also works when $x$, $y$
 and $z$ are vectors (and the derivatives are Jacobian matrices). \newline
-Middle: many computations, such as the succession of linear and non-linear 
-transformations of multi-layer neural networks, can be described as
-a graph where each node $i$ computes a quantity $u_i$ (e.g. the
-output of an artificial neuron or the value of a parameter such as
-a synaptic weight), based on the set of values $a_i$, composed of elements $u_j$ of
-predecessors in the graph, i.e., $u_i = f_i(a_i)$. This can be readily
-generalized to nodes whose output is a vector or a matrix.\newline
-Right: the chain rule can be applied efficiently to computational
-flow graphs by recursively computing the derivative of the final
-node $u_N$ (e.g., the error to be minimized or the output of the neural network)
-with respect to every internal node. The basic recursive equation
-is
-$\frac{\partial u_N}{\partial u_j} = \sum_{i: j \in a_i} \frac{\partial u_N}{\partial u_i}
-\frac{\partial f(a_i)}{\partial u_j}.$
+{\bf Bottom left.} The equations used for computing the forward pass in a neural net
+with two hidden layers. At each layer, we first compute the total input,
+$z$, to each unit which is a weighted sum of the outputs of the units in
+the layer below. Then a non-linear function $f(.)$ is applied to $z$ to get
+the output of the unit.  For simplicity, we have omitted bias terms. \newline
+{\bf Bottom right.} The equations used for computing the backward pass. At each hidden
+layer we compute the error-derivative w.r.t. the output of each unit which
+is a weighted sum of the error-derivatives w.r.t. the total inputs to the
+units in the layer above. We then convert the error-derivative w.r.t. the
+output into the error-derivative w.r.t. the input by multipling it by the
+derivative of $f(z)$.  At the output layer, the error-derivative w.r.t. the
+output of a unit is computed by differentiating the cost function. This
+gives $y_l-t_l$ If the cost function for unit $l$ is $0.5(y_l-t_l)^2$ where
+$t_l$ is the target value.
 }
 \label{fig:backprop-box}
 \end{minipage}
