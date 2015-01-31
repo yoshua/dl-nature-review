@@ -54,7 +54,7 @@ and predicting the effects of mutations
 in non-coding DNA on gene expression and
 disease~\citep{Keung-et-al-2014}. % Frey
 
-So far, most applications of deep learning use feed-forward neural
+So far, most applications of deep learning use feedforward neural
 networks, illustrated in Figure~\ref{fig:backprop-box}, which learn
 to map a fixed-size input (e.g., an image) to a fixed-size output
 (e.g. a probability for each one of several candidate object categories). 
@@ -240,7 +240,8 @@ by the product of $\frac{\partial y}{\partial x}$ and
 $\frac{\partial z}{\partial x}$. It also works when $x$, $y$
 and $z$ are vectors (and the derivatives are Jacobian matrices). \newline
 {\bf Bottom left.} The equations used for computing the forward pass in a neural net
-with two hidden layers. At each layer, we first compute the total input,
+with two hidden layers (each composed of a group of hidden units that are
+similarly connected). At each layer, we first compute the total input,
 $z$, to each unit which is a weighted sum of the outputs of the units in
 the layer below. Then a non-linear function $f(.)$ is applied to $z$ to get
 the output of the unit.  For simplicity, we have omitted bias terms. \newline
@@ -276,11 +277,13 @@ objective function.
 However, this is needlessly slow when the 
 training set contains millions of cases because each example or small batch of
 examples can be seen as a noisy (but correct in average) version of the true total gradient: a very large
-number of these noisy steps can converge much faster than very few but expensive clean steps because even
+number of these noisy steps can converge to a good solution
+much faster than very few but expensive clean steps, because even
 the clean gradient is not the optimal direction in which to go.
 %
-It is much faster to compute the average gradient
-on a small ``mini-batch'' of randomly chosen training cases and to update
+It is much faster to proceed one small ``mini-batch'' examples at a time,
+i.e., compute the average gradient
+on a small set of randomly chosen training cases (say 128) and to update
 each weight by this stochastic estimate of its full gradient, times a
 learning rate which decays as learning proceeds. Stochastic gradient
 descent can be improved by using the history of the individual weight
@@ -289,7 +292,7 @@ or to provide additional increments that depend on earlier gradients
 but these techniques are still the subject of controversy and are beyond
 the scope of this review (see~\citet{Montavon2012} for tricks of the trade). 
 However, it is now widely accepted that some
-form of stochastic gradient descent is the best bet for large, redundant
+form of stochastic gradient descent is the best bet for large
 datasets.
 
 \section{Distributed representations}
@@ -300,23 +303,30 @@ outputs. This is nicely demonstrated by training a multi-layer neural
 network to predict the next word in a sequence from a local context of
 earlier words~\citep{BenDucVin01-short}. 
 Each context word is presented to the network as a one-of-N
-vector in which one component has a value of $1$ and the rest are $0$. The
+vector, i.e., in which one component has a value of $1$ and the rest are $0$. The
 output layer has one unit per word and is forced to produce a probability
 distribution over words by using the ``softmax'' function:
 \begin{equation}
 p_j = \frac{e^{z_j}}{\sum_i e^{z_i}}
 \end{equation}
-where $z_j$ is the total input received by output unit $j$. The hidden
+where $z_j$ is the total input received by output unit $j$. 
+\iffalse
+The hidden
 layers use a non-linearity such as the logistic, tanh, or rectifier, respectively:
 \begin{equation}
 y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}}, \ \ \
- y_j = \max(0, z_j)
+ y_j = \max(0, z_j).
 \end{equation}
+\fi
 
-The connectivity of the network is restricted so that each of the one-of-N
-input vectors must first be converted to a ``word-vector'' before being
-used by subsequent layers to give a high probability to the target next
-word.  The network learns word-vectors that contain many active components
+The presence of a particular word at the $i$-th position in the input of the network 
+sets the value of specialized hidden units to values that correspond to the
+representation of that word. Different words create a different pattern of
+activations, or word-vector, illustrated in Figure~\ref{fig:word-embeddings}.
+In a language model, the other layers of the network learn to convert the input word-vectors
+into an output word-vector for the predicted next-word, which can be used
+to predict the probability for any word in the vocabulary to appear as the next word.
+The network learns word-vectors that contain many active components
 each of which can be interpreted as a separate feature of the word. This
 was first demonstrated using sequences of three words, such as
 (Colin, Mother, Victoria), derived from two family trees~\citep{RHW}. The learned word
@@ -341,10 +351,24 @@ the features were easy to interpret, but learned word-vectors also work
 very well when the word sequences come from a large corpus of real text and
 the individual micro-rules are unreliable~\citep{BenDucVin01-short}. When trained to
 predict the next word in a news story, for example, the learned word
-vectors for Monday and Tuesday are very similar, as are the word vectors
-for Vietnam and Iraq.  Vector representations of words learned from text
+vectors for Tuesday and Wednesday are very similar, as are the word vectors
+for Vietnam and Iraq. This is not to say that Tuesday and Wednesday are
+put in the same category, but rather that they share many semantic and
+grammatical attributes, so that what the neural network learns from one day of
+the week can often be generalized to the other, while individual days remain
+different (for example one imagines that the neural network also
+learns to some features that distinguises week-end days and weekdays, while
+Saturday and Sunday might have special roles in some religions, etc.).
+Such representations are called {\em distributed representations} because
+its elements (the features) are not mutually exclusive and there exists
+a rich and vast set of possible configurations of values of these features,
+corresponding to the variations seen in the observed data.
+These word-vectors are thus {\em learned features} that were not determined
+ahead of time by humans, but automatically discovered by the neural network.
+Vector representations of words learned from text
 are now very widely used in natural language 
-applications~\citep{Schwenk-2007,collobert:2011b,Socher-2011,Mikolov-et-al-NIPS2013}.
+applications~\citep{Schwenk-2007,collobert:2011b,Socher-2011,
+Mikolov-et-al-NIPS2013,Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 The issue of representation lies at the heart of the debate between the
 logic-inspired and the neurally-inspired paradigms for cognition. In the
@@ -372,351 +396,6 @@ would require exponential storage
 %% THIS WOULD BE VERY CONFUSING FOR MOST READERS WHO WILL NOT KNOW
 %% ABOUT NON-PARAMETERIC METHODS.
 to represent the same kinds of functions.
-
-\section{Convolutional networks}
-
-
-%\begin{figure}
-%\begin{center}
-%  \vspace{0.2cm}
-%  % \includegraphics[width=0.99\linewidth]{convnet-diagram}
-%  nice convnet figure goes here
-%\end{center}
-%\vspace{-0.6cm}
-%\caption{A typical ConvNet architecture}
-%\vspace{-0.8cm}
-%\label{fig:convnet}
-%\end{figure}
-
-
-One of the most widely used deep learning architectures is the
-convolutional neural network, or ConvNet~\cite{lecun-90c,lecun-98}. ConvNets
-are designed to process data that come in the form of arrays, for
-example a color image composed of three 2D arrays containing pixel
-intensities in the three color channels. Many data modalities are in
-the form of multiple arrays: 1D for signals and language, 2D for
-images or audio spectrograms, 3D for video or volumetric images.
-There are four key ideas behind ConvNets that take advantage of the
-properties of many such natural signals: local connections, shared
-weights, pooling, and the use of many layers.
-
-The architecture of a typical ConvNet is 
-%shown in
-%figure~\ref{fig-convnet}. 
-structured as a series of stages. The first few stages are composed of two
-types of layers: convolutional layers and pooling layers. Units in a
-convolutional layer are organized in {\em feature maps}, within which
-each unit is connected to local patches in the feature maps of the
-previous layer through a set of weights called a {\em filter
-  bank}. The result of this local weight sum is then passed through a
-non-linearity.  All units in a feature map share the same filter
-bank. Different feature maps in a layer use different filter banks. The
-reason for this architecture is twofold. First, in array data such as
-images, local groups of values are often highly correlated forming
-local motifs that are easily detected. Second, the local statistics of
-images and other signals are invariant to location. In other word, if
-a motif can appear in one part of the image, it could appear anywhere,
-hence the idea of units at different locations sharing the same
-weights.  Mathematically, the filtering operation performed by a
-feature map is a {\em discrete convolution}, hence the name
-ConvNet. 
-
-While the role of the convolutional layer is to detect local
-conjunctions of features in the previous layer, the role of the
-pooling layer is to merge semantically similar features into
-one. Since the relative positions of the features forming a motif can
-vary somewhat, reliably detecting the motif can be done by
-coarse-graining the position of each feature. A typical pooling unit
-computes the max of a local patch of units in one feature map (or in a
-few). Neighboring pooling units take input from patches that are
-shifted by more than one row or column, thereby reducing the dimension
-of the representation and creating an invariance to small shifts.  Two
-or three stages of convolution, non-linearity, and pooling are
-stacked, followed by more convolutional and fully-connected layers.
-Back-propagating gradients through a ConvNet is as simple
-as through a regular deep network, allowing all the weights in all the
-filter banks to be trained. The error derivative for a shared weight
-is just the sum the derivatives for all the instances of that weight.
-
-This architecture exploits the property that many natural signals are
-{\em compositional hierarchies}. In images, local combinations of
-edges form motifs, motifs assemble into parts, and parts form objects.
-Similar hierarchies exists in speech and text from sounds to phones,
-phonemes, syllables, words, and sentences. The features that form
-elements at the next level can vary in relative position and
-appearance. The convolutional and pooling layers in ConvNets are
-directly inspired by the classic notions of simple cells and complex
-cells in visual neuroscience~\cite{Hubel62}, and the overall
-architecture is reminiscent of visual cortex ventral pathway hierarchy
-LGN-V1-V2-V4-IT~\citep{Felleman+VanEssen-1991}. ConvNets have their roots in
-Fukushima's Neocognitron~\citep{fukushima-82} whose architecture was
-somewhat similar but did not have an end-to-end supervised learning
-algorithm such as backpropagation+SGD.
-
-There have been numerous applications of convolutional networks going
-back to the early 1990s. A major early success
-%% THIS REWORDING AVOIDS COMPLAINTS FROM HECHT NIELSEN ETC.
-was a bank check
-reading system which was commercially deployed by AT\&T and NCR in
-1994~\cite{lecun-98}. The system used a ConvNets trained jointly with
-a graphical model that implemented language constraints. By the late
-1990s this system was reading over 10\% of all the checks in the
-US. Microsoft later deploy ConvNets in a number of OCR and handwriting
-recognition
-systems~\cite{simard-03,chellapilla-ist-06,chellapilla-iwfhr-06b}
-including for Arabic and
-Chinese~\cite{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. ConvNets
-have also been used since the early 1990s for object detection in
-natural images, including faces and
-pedestrians~\cite{vaillant-monrocq-lecun-94,garcia-delakis-04,osadchy-07,nasse-09,sermanet-cvpr-13}.
-
-
-
-%%%%%%%%%%%%%%%%%%%% 
-
-\section{Recurrent Neural Networks}
-\label{sec:rnn}
-
-When backpropagation was first introduced, its most exciting use was for
-training recurrent neural networks. These receive input vectors at each
-time-step and have one or more layers of hidden units that, in addition to
-having connections to higher layers or ouput units, also have connections
-that allow the neurons within a layer to receive weighted input from those
-same neurons at the previous time-step.  As illustrated in
-Figure~\ref{fig:rnn}, the gradient with respect to a recurrent
-weight, $w_{ij}$ that allows neuron $i$ at time $t$ to influence the
-activity of neuron $j$ at time $t+1$ can be computed by
-backpropagation-through-time (BPTT) of the error derivative for $j$ at time
-$t+1$. The full gradient with respect to $w_{ij}$ on a whole input sequence is just the
-sum of its gradients at each time-step.
-
-Recurrent neural networks are very powerful dynamical systems, but training
-them with BPTT proved to be problematic, because the backpropagated
-gradients either grow or shrink at each time step, so over many time-steps
-they typically explode or
-vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994}.
-%% THE TEXT BELOW IS TOO COMPLICATED AND ALSO TOO SIMPLE: THERE ARE
-%% STABLE CONDITIONS IN WHICH THE GRADIENTS DO NOT VANISH (ORTHONORMAL
-%% RECURRENT MATRICES). I THINK ITS BETTER NOT TO GET INTO THIS.
-%% and the conditions which allow stable dynamics also correspond to
-%% vanishing gradients~\citep{Bengio-et-al-TNN1994},
-
-\begin{figure}[ht]
-\fbox{
-\begin{minipage}{\textwidth}
-%\centerline{
-%\includegraphics[width=0.49\linewidth]{bp-mlp1.pdf}
-%\includegraphics[width=0.49\linewidth]{bp-mlp5.pdf}
-%}
-\centerline{
-\includegraphics[width=0.89\linewidth]{fig-hidden-recurrence-rnn.pdf}
-}
-\caption{
-%Top left: graph of feedforward computations in a multi-layer
-%neural network with one input layer ($x$), two hidden layers ($h_1$ and $h_2$),
-%one output layer (out), a target $y$, and an error that compares the output
-%and the target. The synaptic weight matrices $W_1$, $W_2$ and $W_3$ are
-%the parameters of the neural network.\newline
-%Top right: back-propagation through the same multi-layer neural network
-%(downward arrows compute the partial derivative of the error with respect
-%to every node, i.e., the units value and the parameters).\newline
-A recurrent neural network (left) and the unfolding in time of the
-computation involved in its forward computation. The artificial neurons
-(e.g. hidden units grouped under node $s$ with values $s_t$ at time $t$) 
-get inputs from other neurons at previous time steps
-(this is represented with the black square, standing for a delay of
-one time step, on the left). In this way, a recurrent net can map an input sequence
-with elements $x_t$ into an output sequence with elements $o_t$, with
-each $o_t$ depending on all the previous $x_{t'}$ (for $t'\leq t$). The
-same parameters (matrices $U$, $V$, $W$) are used at each time step.
-Many other architectures are possible, including a variant in which
-the sampled outputs (e.g. words) can be generated according to an output 
-distribution (the probability of the next word, for every possible next word) 
-and used as inputs for the next time step.
-The back-propagation algorithm (Figure~\ref{fig:backprop-box})
-can be directly applied to the computational graph of the unfolded network
-on the right hand side, to compute the derivative of a total error
-(e.g., the log-probability of generating the right sequence of
-words) with respect to all the states $s_t$ and all the parameters.
-}
-\label{fig:rnn}
-\end{minipage}
-}
-\end{figure}
-
-\section{Overcoming the limitations of backpropagation in deep networks}
-
-In the 1990s, the machine learning community decided that backpropagation
-in deep neural networks did not work well in practice and it was largely
-abandoned.  At the time, people believed that learning many layers of
-non-linear feature detectors with no prior knowledge was much too difficult
-for a simple gradient descent procedure and that the networks were getting
-trapped in poor local minima. We now know that the main reasons for the
-limited success of backpropagation in deep networks were quite different:
-The labeled datasets were far too small, the computers were far too slow,
-and the weights were not initialised sensibly~\citep{GlorotAISTATS2010-small}.
-
-The obvious weakness of gradient descent is that it can get trapped in poor
-local minima, but in high-dimensional weight-spaces this is much less
-common than getting stuck close to saddle points where the error surface
-curves upwards in most directions but downwards in a few. Recent
-results~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015} strongly suggest
-the vast majority of the critical points (where derivatives of the total
-objective function with respect to the parameters vanish) are saddle points, not
-local minima, and that in large, deep networks almost all of the 
-saddle points with predominantly upwards curvature  
-give very similar performance so it does not matter which one we find.  This goes a long way
-towards explaining why stochastic gradient descent works so well for deep
-neural networks.
-
-Interest in deep feed-forward networks was revived in
-%% Even though I had a conference  paper in 2005, the revival was in 2006!
-2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small} 
-by the introduction
-of unsupervised learning procedures that could create layers of feature
-detectors without requiring labeled data. The objective in learning each
-layer of feature detectors was to be able to reconstruct or model the
-activities of feature detectors (or raw inputs) in the layer below.  By
-``pre-training'' several layers of progressively more complex feature
-detectors using this reconstruction objective, the weights of a deep
-network could be initialized to sensible values.  A final layer of output
-units could then be added to the top of the network and the whole deep
-system could be fine-tuned using standard
-backpropagation \citep{Hinton-Science2006}. This worked remarkably well for recognizing
-handwritten digits especially when the amount of labeled data was very
-limited~\citep{Bengio-nips-2006-small,Erhan+al-2010-small}.
-
-The first major application of this pre-training approach was in speech
-recognition and it was made possible by the advent of fast Graphics
-Processing Units (GPUs) that were convenient to
-program~\citep{RainaICML09-small}.  In 2009, the approach was used to map
-short temporal windows of coefficients extracted from a soundwave to a set
-of probabilities for the various fragments of speech that might be
-represented by the frame in the center of the window.  It achieved
-record-breaking results on a standard speech recognition benchmark that
-used a small vocabulary~\citep{TIMITpaper} and was quickly developed to
-give record-breaking results on a large vocabulary task~\citep{Dahl2012}.
-By 2012, versions of the deep net from 2009 were being developed by many of
-the major speech groups~\citep{Hinton-et-al-2012} and were already being
-deployed in Android phones.  For smaller datasets, unsupervised
-pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small},
-leading to significantly better generalization when the number of labeled
-examples is small, or in a transfer setting where we have lots of
-examples for some ``source'' tasks but very few for some ``target''
-task. In this context, unsupervised representation learning helped to win
-several transfer learning
-competitions~\citep{UTLC+LISA-2011-small,Goodfellow-icml2012}.  Once deep
-learning had been rehabilitated, it turned out that large labeled datasets
-did not need the pre-training stage, provided the scales of the initial
-random weights were carefully chosen to avoid very large or very small
-initial gradients~\citep{GlorotAISTATS2010-small} and that even better
-results (especially for very deep networks)
-could be obtained by using rectifying non-linearities rather than
-sigmoid or tanh non-linearities
-~\citep{Nair-2010-small,Glorot+al-AI-2011-small,Krizhevsky-2012-small,Dahl-et-al-ICASSP2013}.
-
-Interest in recurrent networks (which are deep in time) was revived by
-``Long Short Term Memory'' networks (LSTMs) that use special hidden units
-whose natural behaviour is to remember inputs for a long
-time~\citep{Hochreiter+Schmidhuber-1997}.  
-A linear ``memory cell'' interacts with other units
-via gated connections whose weights are multiplied by the state of a
-logistic gating unit that has an activation between $0$ and $1$. The input
-vector has little effect on the state of that cell if the cell's input
-gate has a low activation so memory cells can learn to selectively ignore
-the input.  Similarly, a memory cell has little effect on the output if its
-output gate has low activation. Each memory cell is a gated leaky neuron: 
-it has a connection to
-itself at the next time-step that has a weight of 1 so it copies its
-own real-valued state and accumulates the external signal, 
-but this self-connection is {\em gated} by a ``forget gate'' so
-the stored value quickly leaks away unless the forget gate has an activation
-near $1$.  The gates themselves have their activities determined by
-weighted inputs that they receive from the input vectors and all of the
-memory cells.
-
-When LSTMs were first described % in English
-\citep{Hochreiter+Schmidhuber-1997},
-their complexity may have been off-putting
-and, despite their impressive ability to learn very long-range temporal
-structure on toy problems, they were largely ignored until they achieved
-excellent results in a competition to read cursive
-hand-writing~\citep{Graves-et-al-2009}. They have subsequently proved to be very
-effective for tasks that have sequential input.  When they use several
-hidden layers, they are better than
-deep feed-forward networks for speech recognition~\citep{Graves-et-al-ICASSP2013} and
-unlike feed-forward nets they can implement an entire speech recognition
-system that goes all the way from coefficents derived from the soundwave to
-the sequence of characters in the transcription.  LSTMs or related forms of gated
-units are also what is currently used for the encoder and decoder networks that
-perform so well at machine
-translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
-
-Recent work~\citep{Chung-et-al-NIPSDL2014-small,Yao-et-al-SLU-workshop2014} 
-suggests that not all the elements of the LSTM
-architecture are required, the crucial element being the presence and learnability 
-of the forget gates which dynamically control the leaking rates  of
-the memory cells.
-%It is not yet clear which aspects of the complicated architecture of LSTMs
-%are really necessary. Memory cells are a good way of allowing the
-%backpropagated error derivatives to neither explode nor vanish, but they
-%are not the only way.  For example, recurrent nets with rectified linear
-%hidden units that use the non-linear function $y=max(0,x)$ are much simpler
-%than LSTMs and if the recurrent weight matrix is initialized to be close to
-%the identity matrix they work about as well as LSTMs both for toy problems
-%involving very long-range temporal structure and for real tasks like
-%predicting the next word in text\citep{LeHinton}.
-
-
-\section{Image understanding with deep convolutional networks}
-
-Since the early 2000s, there have been many tasks in which ConvNets
-have been applied with success to the detection, segmentation, and
-recognition of objects and regions in images. These were invariably
-tasks in which labeled data was relatively abundant, such as traffic
-sign recognition~\cite{sermanet-ijcnn-11,Ciresan-et-al-2012}, the
-segmentation of biological images~\cite{ning-05} particularly for
-connectomics~\cite{Turaga2010}, the detection of faces, text, and human bodies in natural
-images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,
-nasse-09,Jain-et-al-arxiv2013,sermanet-cvpr-13,Tompson-et-al-arxiv2014}.
-
-An important application is the labeling of images at the pixel level,
-whose applications include driving mobile robots and self-driving
-cars~\cite{hadsell-jfr-09,farabet-icml-12}. Other applications of ConvNets that are gaining importance concern
-natural language understanding~\citep{collobert:2011b}, and speech
-recognition~\cite{Sainath-et-al-ICASSP2013}.
-
-ConvNets were largely ignored by the mainline computer vision and machine
-learning community until the ImageNet competition in 2012.
-When deep convolutional networks were applied to a dataset of about a
-million images from the web that contained a thousand different classes
-they achieved spectacular results, almost halving the error rates of the
-best computer vision sytems~\citep{Krizhevsky-2012-small}.  
-The same kind of network is used to generate the captions shown in Figure~\ref{fig:caption-generation}.
-
-The major factors in this
-success were the large labeled dataset~\citep{imagenet_cvpr09}, the use of fast GPUs,
-and the convolutional early layers.  
-%% REPETITION : YB, actually it was not said earlier, only that ReLU was better than sigmoid or tanh
-It had already been shown that deep
-supervised nets with rectified linear units could be trained without
-unsupervised pre-training~\citep{Glorot+al-AI-2011-small}. 
-Rectified linear units made the
-training much faster and the fully connected final layers were prevented
-from overfitting the peculiarities of the training set by randomly omitting
-hidden units during training~\citep{Srivastava14}. Deep convolutional nets
-have quickly replaced the carefully engineered pipelines full of
-hand-designed features developed by the computer vision community and they
-are now deployed in many computer vision applications, including image
-tagging, object detection, face recognition, facial expression recognition
-and scene parsing. 
-
-\iffalse
-YANN:
-CAN WE MOVE SOME OF THE LATER REFS IN THE EARLIER CONVNET SECTION TO
-HERE?
-\fi
-
 
 \section{Language processing with deep networks}
 
@@ -795,6 +474,358 @@ Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
 \end{minipage}
 }
 \end{figure}
+
+\section{Convolutional networks}
+
+
+%\begin{figure}
+%\begin{center}
+%  \vspace{0.2cm}
+%  % \includegraphics[width=0.99\linewidth]{convnet-diagram}
+%  nice convnet figure goes here
+%\end{center}
+%\vspace{-0.6cm}
+%\caption{A typical ConvNet architecture}
+%\vspace{-0.8cm}
+%\label{fig:convnet}
+%\end{figure}
+
+
+One of the most widely used deep learning architectures is the
+convolutional neural network, or ConvNet~\cite{lecun-90c,lecun-98}. ConvNets
+are designed to process data that come in the form of arrays, for
+example a color image composed of three 2D arrays containing pixel
+intensities in the three color channels. Many data modalities are in
+the form of multiple arrays: 1D for signals and language, 2D for
+images or audio spectrograms, 3D for video or volumetric images.
+There are four key ideas behind ConvNets that take advantage of the
+properties of many such natural signals: local connections, shared
+weights, pooling, and the use of many layers.
+
+The architecture of a typical ConvNet is 
+%shown in
+%figure~\ref{fig-convnet}. 
+structured as a series of stages. The first few stages are composed of two
+types of layers: convolutional layers and pooling layers. Units in a
+convolutional layer are organized in {\em feature maps}, within which
+each unit is connected to local patches in the feature maps of the
+previous layer through a set of weights called a {\em filter
+  bank}. The result of this local weight sum is then passed through a
+non-linearity.  All units in a feature map share the same filter
+bank. Different feature maps in a layer use different filter banks. The
+reason for this architecture is twofold. First, in array data such as
+images, local groups of values are often highly correlated forming
+local motifs that are easily detected. Second, the spatially local statistics of
+images and other signals are invariant to location. In other word, if
+a motif can appear in one part of the image, it could appear anywhere,
+hence the idea of units at different locations sharing the same
+weights.  Mathematically, the filtering operation performed by a
+feature map is a {\em discrete convolution}, hence the name
+ConvNet. 
+
+While the role of the convolutional layer is to detect local
+conjunctions of features in the previous layer, the role of the
+pooling layer is to merge semantically similar features into
+one. Since the relative positions of the features forming a motif can
+vary somewhat, reliably detecting the motif can be done by
+coarse-graining the position of each feature. A typical pooling unit
+computes the max of a local patch of units in one feature map (or in a
+few). Neighboring pooling units take input from patches that are
+shifted by more than one row or column, thereby reducing the dimension
+of the representation and creating an invariance to small shifts.  Two
+or three stages of convolution, non-linearity, and pooling are
+stacked, followed by more convolutional and fully-connected layers.
+Back-propagating gradients through a ConvNet is as simple
+as through a regular deep network, allowing all the weights in all the
+filter banks to be trained. The error derivative for a shared weight
+is just the sum the derivatives for all the instances of that weight.
+
+This architecture exploits the property that many natural signals are
+{\em compositional hierarchies}. In images, local combinations of
+edges form motifs, motifs assemble into parts, and parts form objects.
+Similar hierarchies exists in speech and text from sounds to phones,
+phonemes, syllables, words, and sentences. The features that form
+elements at the next level can vary in relative position and
+appearance. The convolutional and pooling layers in ConvNets are
+directly inspired by the classic notions of simple cells and complex
+cells in visual neuroscience~\citep{Hubel62}, and the overall
+architecture is reminiscent of the LGN-V1-V2-V4-IT visual cortex ventral pathway hierarchy
+~\citep{Felleman+VanEssen-1991}. ConvNets have their roots in
+Fukushima's Neocognitron~\citep{fukushima-82} whose architecture was
+somewhat similar but did not have an end-to-end supervised learning
+algorithm such as backpropagation plus stochastic gradient descent.
+
+There have been numerous applications of convolutional networks going
+back to the early 1990s. A major early success
+%% THIS REWORDING AVOIDS COMPLAINTS FROM HECHT NIELSEN ETC.
+was a bank check
+reading system which was commercially deployed by AT\&T and NCR in
+1994~\citep{lecun-98}. The system used a ConvNet trained jointly with
+a probabilistic model that implemented language constraints. By the late
+1990s this system was reading over 10\% of all the checks in the
+US. Microsoft later deployed ConvNets in a number of OCR and handwriting
+recognition
+systems~\citep{simard-03,chellapilla-ist-06,chellapilla-iwfhr-06b}
+including for Arabic and
+Chinese~\citep{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. ConvNets
+have also been used since the early 1990s for object detection in
+natural images, including faces and
+pedestrians~\cite{vaillant-monrocq-lecun-94,garcia-delakis-04,osadchy-07,nasse-09,sermanet-cvpr-13}.
+
+
+\section{Image understanding with deep convolutional networks}
+
+Since the early 2000s, there have been many tasks in which ConvNets
+have been applied with success to the detection, segmentation, and
+recognition of objects and regions in images. These were invariably
+tasks in which labeled data was relatively abundant, such as traffic
+sign recognition~\cite{sermanet-ijcnn-11,Ciresan-et-al-2012}, the
+segmentation of biological images~\cite{ning-05} particularly for
+connectomics~\cite{Turaga2010}, the detection of faces, text, and human bodies in natural
+images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,
+nasse-09,Jain-et-al-arxiv2013,sermanet-cvpr-13,Tompson-et-al-arxiv2014}.
+
+An important application is the labeling of images at the pixel level,
+whose applications include driving mobile robots and self-driving
+cars~\cite{hadsell-jfr-09,farabet-icml-12}. Other applications of ConvNets that are gaining importance concern
+natural language understanding~\citep{collobert:2011b}, and speech
+recognition~\cite{Sainath-et-al-ICASSP2013}.
+
+ConvNets were largely ignored by the mainline computer vision and machine
+learning community until the ImageNet competition in 2012.
+When deep convolutional networks were applied to a dataset of about a
+million images from the web that contained a thousand different classes
+they achieved spectacular results, almost halving the error rates of the
+best computer vision sytems~\citep{Krizhevsky-2012-small}.  
+The same kind of network is used to generate the captions shown in Figure~\ref{fig:caption-generation}.
+
+The major factors in this
+success were the large labeled dataset~\citep{imagenet_cvpr09}, the use of fast GPUs,
+and the convolutional early layers.  
+%% REPETITION : YB, actually it was not said earlier, only that ReLU was better than sigmoid or tanh
+It had already been shown that deep
+supervised nets with rectified linear units could be trained without
+unsupervised pre-training~\citep{Glorot+al-AI-2011-small}. 
+Rectified linear units made the
+training much faster and the fully connected final layers were prevented
+from overfitting the peculiarities of the training set by randomly omitting
+hidden units during training~\citep{Srivastava14}. Deep convolutional nets
+have quickly replaced the carefully engineered pipelines full of
+hand-designed features developed by the computer vision community and they
+are now deployed in many computer vision applications, including image
+tagging, object detection, face recognition, facial expression recognition
+and scene parsing. 
+
+\iffalse
+YANN:
+CAN WE MOVE SOME OF THE LATER REFS IN THE EARLIER CONVNET SECTION TO
+HERE?
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%% 
+
+\section{Recurrent Neural Networks}
+\label{sec:rnn}
+
+When backpropagation was first introduced, its most exciting use was for
+training recurrent neural networks. These receive input vectors at each
+time-step and have one or more layers of hidden units that, in addition to
+having connections to higher layers or ouput units, also have connections
+that allow the neurons within a layer to receive weighted input from those
+same neurons at the previous time-step.  As illustrated in
+Figure~\ref{fig:rnn}, when we consider the outputs of the hidden units at
+different discrete time steps as if they were the outputs of different neurons
+in a deep multi-layer network, it becomes clear how we can apply backpropagation
+to train recurrent networks. The
+the gradient with respect to a recurrent
+weight, $w_{ij}$ that allows neuron $i$ at time $t$ to influence the
+activity of neuron $j$ at time $t+1$ can be computed by
+backpropagation-through-time (BPTT) of the error derivative for $j$ at time
+$t+1$. The full gradient with respect to $w_{ij}$ on a whole input sequence is just the
+sum of its gradients at each time-step.
+
+Recurrent neural networks are very powerful dynamical systems, but training
+them with BPTT proved to be problematic, because the backpropagated
+gradients either grow or shrink at each time step, so over many time-steps
+they typically explode or
+vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994}.
+%% THE TEXT BELOW IS TOO COMPLICATED AND ALSO TOO SIMPLE: THERE ARE
+%% STABLE CONDITIONS IN WHICH THE GRADIENTS DO NOT VANISH (ORTHONORMAL
+%% RECURRENT MATRICES). I THINK ITS BETTER NOT TO GET INTO THIS.
+%% and the conditions which allow stable dynamics also correspond to
+%% vanishing gradients~\citep{Bengio-et-al-TNN1994},
+
+\begin{figure}[ht]
+\fbox{
+\begin{minipage}{\textwidth}
+%\centerline{
+%\includegraphics[width=0.49\linewidth]{bp-mlp1.pdf}
+%\includegraphics[width=0.49\linewidth]{bp-mlp5.pdf}
+%}
+\centerline{
+\includegraphics[width=0.89\linewidth]{fig-hidden-recurrence-rnn.pdf}
+}
+\caption{
+%Top left: graph of feedforward computations in a multi-layer
+%neural network with one input layer ($x$), two hidden layers ($h_1$ and $h_2$),
+%one output layer (out), a target $y$, and an error that compares the output
+%and the target. The synaptic weight matrices $W_1$, $W_2$ and $W_3$ are
+%the parameters of the neural network.\newline
+%Top right: back-propagation through the same multi-layer neural network
+%(downward arrows compute the partial derivative of the error with respect
+%to every node, i.e., the units value and the parameters).\newline
+A recurrent neural network (left) and the unfolding in time of the
+computation involved in its forward computation. The artificial neurons
+(e.g. hidden units grouped under node $s$ with values $s_t$ at time $t$) 
+get inputs from other neurons at previous time steps
+(this is represented with the black square, standing for a delay of
+one time step, on the left). In this way, a recurrent net can map an input sequence
+with elements $x_t$ into an output sequence with elements $o_t$, with
+each $o_t$ depending on all the previous $x_{t'}$ (for $t'\leq t$). The
+same parameters (matrices $U$, $V$, $W$) are used at each time step.
+Many other architectures are possible, including a variant in which
+the sampled outputs (e.g. words) can be generated according to an output 
+distribution (the probability of the next word, for every possible next word) 
+and used as inputs for the next time step.
+The back-propagation algorithm (Figure~\ref{fig:backprop-box})
+can be directly applied to the computational graph of the unfolded network
+on the right hand side, to compute the derivative of a total error
+(e.g., the log-probability of generating the right sequence of
+words) with respect to all the states $s_t$ and all the parameters.
+}
+\label{fig:rnn}
+\end{minipage}
+}
+\end{figure}
+
+\section{Overcoming the limitations of backpropagation in deep networks}
+
+In the 1990s, the machine learning community decided that backpropagation
+in deep neural networks did not work well in practice and it was largely
+abandoned.  At the time, people believed that learning many layers of
+non-linear feature detectors with no prior knowledge was much too difficult
+for a simple gradient descent procedure and that the networks were getting
+trapped in poor local minima, weight configurations for which no small
+change would reduce the average error. We now know that the main reasons for the
+limited success of backpropagation in deep networks were quite different:
+The labeled datasets were far too small, the computers were far too slow,
+and the weights were not initialised sensibly~\citep{GlorotAISTATS2010-small}.
+
+The obvious perceived weakness of gradient descent is that it can get trapped in poor
+local minima, but in high-dimensional weight-spaces this is much less
+common than getting stuck close to {\em saddle points}, where the error surface
+curves upwards in most directions but downwards in a few. Recent
+results~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015} strongly suggest
+that the vast majority of the critical points\footnote{where derivatives of the total
+objective function with respect to the parameters vanish, and include minima,
+maxima and saddle points} are saddle points, not
+local minima, and that in large and deep networks almost all of the 
+saddle points with predominantly upwards curvature  
+give very similar performance, so it does not matter which one we find.  This goes a long way
+towards explaining why stochastic gradient descent works so well for deep
+neural networks.
+
+Interest in deep feedforward networks was revived in
+%% Even though I had a conference  paper in 2005, the revival was in 2006!
+2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small} 
+by the introduction
+of unsupervised learning procedures that could create layers of feature
+detectors without requiring labeled data. The objective in learning each
+layer of feature detectors was to be able to reconstruct or model the
+activities of feature detectors (or raw inputs) in the layer below.  By
+``pre-training'' several layers of progressively more complex feature
+detectors using this reconstruction objective, the weights of a deep
+network could be initialized to sensible values.  A final layer of output
+units could then be added to the top of the network and the whole deep
+system could be fine-tuned using standard
+backpropagation \citep{Hinton-Science2006,Bengio-nips-2006-small,ranzato-07-small}. 
+This worked remarkably well for recognizing
+handwritten digits especially when the amount of labeled data was very
+limited~\citep{Erhan+al-2010-small}.
+
+The first major application of this pre-training approach was in speech
+recognition and it was made possible by the advent of fast Graphics
+Processing Units (GPUs) that were convenient to
+program~\citep{RainaICML09-small} and allowed researchers to train
+networks 10 or 20 times faster.  In 2009, the approach was used to map
+short temporal windows of coefficients extracted from a soundwave to a set
+of probabilities for the various fragments of speech that might be
+represented by the frame in the center of the window.  It achieved
+record-breaking results on a standard speech recognition benchmark that
+used a small vocabulary~\citep{TIMITpaper} and was quickly developed to
+give record-breaking results on a large vocabulary task~\citep{Dahl2012}.
+By 2012, versions of the deep net from 2009 were being developed by many of
+the major speech groups~\citep{Hinton-et-al-2012} and were already being
+deployed in Android phones.  For smaller datasets, unsupervised
+pre-training helps to prevent overfitting~\citep{Erhan+al-2010-small},
+leading to significantly better generalization when the number of labeled
+examples is small, or in a transfer setting where we have lots of
+examples for some ``source'' tasks but very few for some ``target''
+task. In this context, unsupervised representation learning helped to win
+several transfer learning
+competitions~\citep{UTLC+LISA-2011-small,Goodfellow-icml2012}.  Once deep
+learning had been rehabilitated, it turned out that large labeled datasets
+did not need the pre-training stage, provided the scales of the initial
+random weights were carefully chosen to avoid very large or very small
+initial gradients~\citep{GlorotAISTATS2010-small}. Even better
+results, especially for very deep networks,
+could be obtained by using rectifying non-linearities rather than
+sigmoid or tanh non-linearities
+~\citep{Nair-2010-small,Glorot+al-AI-2011-small,Krizhevsky-2012-small,Dahl-et-al-ICASSP2013}.
+
+Interest in recurrent networks (which correspond to a very deep network
+when unfolded in time as in Figure~\ref{fig:rnn}) was revived by
+``Long Short Term Memory'' networks (LSTMs) that use special hidden units
+whose natural behaviour is to remember inputs for a long
+time~\citep{Hochreiter+Schmidhuber-1997}.  
+A linear ``memory cell'' interacts with other units
+via gated connections whose weights are multiplied by the state of a
+logistic gating unit that takes a value between $0$ and $1$. An input gating
+unit can learn when to isolate the cell from the effect of the outside world,
+and an output gating unit prevents the content of the memory cell to be
+broadcast to the rest of the neural network. More importantly, the
+memory cell itself acts like an accumulator or a gated leaky neuron:  it has a connection to
+itself at the next time-step that has a weight of 1 so it copies its
+own real-valued state and accumulates the external signal, 
+but this self-connection is {\em gated} by a ``forget gate'' so
+the stored value quickly leaks away unless the forget gate has an activation
+near $1$.  The gates themselves have their activities determined by
+weighted inputs that they receive from the input vectors and all of the
+memory cells.
+
+When LSTMs were first described % in English
+\citep{Hochreiter+Schmidhuber-1997},
+their complexity may have been off-putting
+and, despite their impressive ability to learn very long-range temporal
+structure on toy problems, they were largely ignored until they achieved
+excellent results in a competition to read cursive
+hand-writing~\citep{Graves-et-al-2009}. They have subsequently proved to be very
+effective for tasks that have sequential input.  When they use several
+hidden layers, they are better than
+deep feedforward networks for speech recognition~\citep{Graves-et-al-ICASSP2013} and
+unlike feedforward nets they can implement an entire speech recognition
+system that goes all the way from coefficents derived from the soundwave to
+the sequence of characters in the transcription.  LSTMs or related forms of gated
+units are also what is currently used for the encoder and decoder networks that
+perform so well at machine
+translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+
+Recent work~\citep{Chung-et-al-NIPSDL2014-small,Yao-et-al-SLU-workshop2014} 
+suggests that not all the elements of the LSTM
+architecture are required, the crucial element being the presence and learnability 
+of the forget gates which dynamically control the leaking rates  of
+the memory cells.
+%It is not yet clear which aspects of the complicated architecture of LSTMs
+%are really necessary. Memory cells are a good way of allowing the
+%backpropagated error derivatives to neither explode nor vanish, but they
+%are not the only way.  For example, recurrent nets with rectified linear
+%hidden units that use the non-linear function $y=max(0,x)$ are much simpler
+%than LSTMs and if the recurrent weight matrix is initialized to be close to
+%the identity matrix they work about as well as LSTMs both for toy problems
+%involving very long-range temporal structure and for real tasks like
+%predicting the next word in text\citep{LeHinton}.
+
 
 
 \section{Deep reinforcement learning}
