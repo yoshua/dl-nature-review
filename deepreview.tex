@@ -55,13 +55,19 @@ in non-coding DNA on gene expression and
 disease~\citep{Keung-et-al-2014}. % Frey
 
 So far, most applications of deep learning use feed-forward neural
-networks, but for tasks that involve sequential inputs, such as speech
+networks, illustrated in Figure~\ref{fig:backprop-box}, which learn
+to map a fixed-size input (e.g., an image) to a fixed-size output
+(e.g. a probability for each one of several candidate object categories). 
+They do so by successive transformations corresponding to different
+layers of artificial neurons (called {\em hidden units}),
+which can be interpreted as learned derived features of the raw input. However, 
+for tasks that involve sequential inputs, such as speech
 and language, it is often better to use recurrent neural
-networks. These are given one element from an input 
-% YB term-->element 
-sequence at each time step and their recurrent internal
-``hidden'' state depends on the whole history of the input
-sequence. Recurrent networks are very good at predicting the next
+networks, illustrated in Figure~\ref{fig:rnn} and discussed in Section~\ref{sec:rnn}. 
+Recurrent neural networks process an input sequence one element at a time,
+maintaining in their hidden units a ``state vector'' that implicitly contains information
+about the history all the past elements of the sequence.
+Recurrent networks are very good at predicting the next
 character in text~\citep{Sutskever-et-al-ICML2011} or the next
 word in a sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be
 used for more complex tasks.  After reading an English sentence one
@@ -71,7 +77,8 @@ representation of the thought expressed by the sentence.  This thought
 vector can then be used as the initial hidden state of (or as extra
 input to)  a jointly trained French ``decoder'' network which outputs a
 probability distribution for the first word of the French
-translation. If a particular first word is chosen from this distribution and provided as input to the decoder network it will
+translation. If a particular first word is chosen 
+from this distribution and provided as input to the decoder network it will
 then output a probability distribution for the second word of the
 translation and so on until a full stop is
 chosen~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
@@ -81,14 +88,16 @@ a probability distribution that depends on the English sentence.
 This rather naive way of performing machine translation has quickly become
 competitive with the state-of-the-art and this raises serious doubts about
 whether understanding a sentence requires anything like internal symbolic
-expressions that are manipulated by binding their symbols to the variables
-in judiciously chosen rules of inference.  The encoder-decoder translation
+expressions that are manipulated by binding their symbols to variables
+in judiciously chosen rules of inference, as was previously thought by
+many early AI researchers.  The encoder-decoder translation
 networks do not work by using internal rules of inference in which
 variables get bound to symbols. They just use big state vectors, big weight
-matrices and scalar non-linearities to get the job done.  Deriving conclusions using only the form of the premises (which is
+matrices and scalar non-linearities to get the job done.  
+Deriving conclusions using only the form of the premises (which is
 what formal logic does) is a powerful
 technique that people can eventually master, but the translation
-results with recurrent nets suggest that it may not be a good model of
+results with recurrent neural networks suggest that it may not be a good model of
 the way we normally reason or understand language. Recurrent neural
 networks that represent thoughts as big vectors are more compatible with
 the view that everyday reasoning involves many simultaneous analogies that
@@ -442,6 +451,7 @@ pedestrians~\cite{vaillant-monrocq-lecun-94,garcia-delakis-04,osadchy-07,nasse-0
 %%%%%%%%%%%%%%%%%%%% 
 
 \section{Recurrent Neural Networks}
+\label{sec:rnn}
 
 When backpropagation was first introduced, its most exciting use was for
 training recurrent neural networks. These receive input vectors at each
