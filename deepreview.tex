@@ -3,7 +3,7 @@
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{natbib}
-%\usepackage{float}
+\usepackage{hyperref}
 
 \addtolength{\textwidth}{2cm}
 %\addtolength{\textwidth}{1cm}
@@ -112,19 +112,28 @@ these limitations were eventually overcome.
 
 \section{Pattern recognition and the back-propagation algorithm}
 
+A neural network has input neurons that can be driven by raw input
+signals such as the pixels of an image, forming an {\em input vector},
+similarly to how sensory neurons are driven by outside signals like photons or sounds.
 Patterns can be classified by first converting each raw input vector into a
-vector of feature activations and then collecting evidence for each
+vector of feature activations (by analogy to the response of brain neurons
+to these raw signals) and then collecting evidence for each
 different class by computing a differently weighted sum of the feature
 activations. If good
 features can be designed by hand, it is relatively easy to learn
 class-specific weights that optimize
-discrimination~\citep{Rosenblatt57}. Widely-used examples of such linear
-classification methods are logistic regression and linear support vector
-machines~\citep{bishop-book95,Boser92}.
+discrimination~\citep{Rosenblatt57}. Widely-used examples of such {\em linear
+classifiers} are {\em logistic regression} and {\em linear support vector
+machines}~\citep{bishop-book95,Boser92}.
 
 However, even with good hand-crafted features, many interesting tasks
-cannot be solved by linear classifiers. A common method to get around this
+cannot be solved by linear classifiers. By distorting the space
+as in Figure~\ref{fig:space-distortion}, a linear discrimination
+becomes possible.
+\iffalse
+A common method to get around this
 problem is to transform the feature vector into a higher dimensional vector
+(i.e., corresponding to a much larger set of features)
 through a non-linear mapping, exploiting the fact that collections of
 vectors are more likely to be easily separated when they are spread around
 a high-dimensional space~\citep{Cover65}. When there are at least
@@ -152,6 +161,7 @@ simple kernel function is ineffective.
 %% in high-dimensional spaces. However, kernel machines would perform well if a
 %% very good set of features were provided: learning very good
 %% features is what deep learning can do.
+\fi
 
 Problems such as image and speech recognition require the input-output
 function to be insensitive to irrelevant variations of the input, such as
@@ -169,7 +179,7 @@ learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
 different groups in the 1970s and 1980s~\citep{Werbos74,Parker85,LeCun85,RHW}.  
 Backpropagation is simply an application of
-the chain rule of derivatives (left of Figure~\ref{fig:backprop-box}),
+the chain rule of derivatives (Figure~\ref{fig:backprop-box}),
 which yields an efficient way of computing the gradient of a
 smooth objective function with respect to all of the weights 
 %% and parameters 
@@ -197,13 +207,23 @@ error derivatives for the incoming weights of the neurons in each layer
 \fbox{
 \begin{minipage}{\textwidth}
 \centerline{
-\includegraphics[width=0.3\linewidth]{chain-rule.pdf}}
+\fbox{\includegraphics[width=0.69\linewidth]{netvis-simple-2S.png}}
+\fbox{\includegraphics[width=0.28\linewidth]{chain-rule.pdf}}}
 \centerline{
 \hspace*{.5mm}\fbox{\includegraphics[width=0.49\linewidth]{bpfig_forward.pdf}}
 \hspace*{0mm}\fbox{\includegraphics[width=0.49\linewidth]{bpfig_backward.pdf}}
 }
 \caption{
-{\bf Top.} The chain rule of derivatives tells us how
+{\bf Top left.} A multi-layer neural network can distort the
+input space to make the classes (whose examples are supposed to
+be on the red and blue lines, here) linearly separable. Note how
+a regular grid in input space is also transformed. This is an
+illustrative example with only two input units, two hidden units
+and one output unit, but the networks used for object recognition
+or natural language processing contain tens or hundreds of thousand
+of units. Reproduced with permission by Chris Olah from~\url{http://colah.github.io/}.
+\newline
+{\bf Top right.} The chain rule of derivatives tells us how
 two small effects (that of a small change of $x$ on $y$, and that of $y$ on $z$)
 are composed. A small change $\Delta x$ in $x$
 gets transformed first into a small change $\Delta y$ in $y$
