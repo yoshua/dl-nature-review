@@ -178,15 +178,18 @@ researchers aimed to replace hand-engineered features by multiple layers of
 learned features.  This was eventually achieved by using the
 backpropagation algorithm which was discovered independently by several
 different groups in the 1970s and 1980s~\citep{Werbos74,Parker85,LeCun85,RHW}.  
+The gradient of an objective function with respect to the network
+weights tells us how a change in each of the weights would influence
+the final error (top left of Figure~\ref{fig:backprop-box}).
+Gradient descent changes the weights accordingly, in the direction of the
+gradient, towards reducing the error.
 Backpropagation is simply an application of
-the chain rule of derivatives (Figure~\ref{fig:backprop-box}),
-which yields an efficient way of computing the gradient of a
-smooth objective function with respect to all of the weights 
-%% and parameters 
+the chain rule of derivatives 
+which yields an efficient way of computing this gradient in
+a deep neural network (or any other composition of differentiable operations).
 %% FOR THE NOVICE READER INCLUDING BOTH WEIGHTS AND "PARAMTERS" IS CONFUSING.
 %% ITS BETTER TO SAY SOMETHING CLEARER EVEN IF IT IS LESS GENERAL OR CORRECT.
-in  a layered network (Figure~\ref{fig:backprop-box}). 
-The objective function typically measures an error to be minimized: 
+The objective function being minimized typically measures an error to be minimized: 
 the discrepancy between
 the actual output of the network on a given training case and the target
 output for that case.  The key insight is that the error derivatives with
