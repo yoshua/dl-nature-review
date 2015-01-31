@@ -236,10 +236,18 @@ still many ways to make use of these gradients. The most obvious method is
 to average the gradients over all of the cases in the training set and then
 to change each weight in proportion to its negative gradient. This
 moves the weight vector in the direction of steepest descent in the
-objective function. However, this is needlessly slow when the 
-training set contains millions of cases and is highly redundant
-with most examples conveying no new information about the mapping from
-inputs to outputs.  It is much faster to compute the average gradient
+objective function. 
+%However, this is needlessly slow when the 
+%training set contains millions of cases and is highly redundant
+%with most examples conveying no new information about the mapping from
+%inputs to outputs.  
+However, this is needlessly slow when the 
+training set contains millions of cases because each example or small batch of
+examples can be seen as a noisy (but correct in average) version of the true total gradient: a very large
+number of these noisy steps can converge much faster than very few but expensive clean steps because even
+the clean gradient is not the optimal direction in which to go.
+%
+It is much faster to compute the average gradient
 on a small ``mini-batch'' of randomly chosen training cases and to update
 each weight by this stochastic estimate of its full gradient, times a
 learning rate which decays as learning proceeds. Stochastic gradient
@@ -569,8 +577,8 @@ random weights were carefully chosen to avoid very large or very small
 initial gradients~\citep{GlorotAISTATS2010-small} and that even better
 results (especially for very deep networks)
 could be obtained by using rectifying non-linearities rather than
-sigmoid or tanh
-non-linearities~\citep{NairRelu,Glorot+al-AI-2011-small,Krizhevsky-2012-small,DahlRelu}.
+sigmoid or tanh non-linearities
+~\citep{Nair-2010-small,Glorot+al-AI-2011-small,Krizhevsky-2012-small,Dahl-et-al-ICASSP2013}.
 
 Interest in recurrent networks (which are deep in time) was revived by
 ``Long Short Term Memory'' networks (LSTMs) that use special hidden units
