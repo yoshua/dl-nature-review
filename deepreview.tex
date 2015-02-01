@@ -238,22 +238,31 @@ into the other gives the chain rule of derivatives, i.e., how
 $\Delta x$ gets turned into $\Delta z$ through multiplication
 by the product of $\frac{\partial y}{\partial x}$ and
 $\frac{\partial z}{\partial x}$. It also works when $x$, $y$
-and $z$ are vectors (and the derivatives are Jacobian matrices). \newline
-{\bf Bottom left.} The equations used for computing the forward pass in a neural net
-with two hidden layers (each composed of a group of hidden units that are
-similarly connected). At each layer, we first compute the total input,
-$z$, to each unit which is a weighted sum of the outputs of the units in
-the layer below. Then a non-linear function $f(.)$ is applied to $z$ to get
-the output of the unit.  For simplicity, we have omitted bias terms. \newline
-{\bf Bottom right.} The equations used for computing the backward pass. At each hidden
-layer we compute the error-derivative w.r.t. the output of each unit which
-is a weighted sum of the error-derivatives w.r.t. the total inputs to the
-units in the layer above. We then convert the error-derivative w.r.t. the
-output into the error-derivative w.r.t. the input by multipling it by the
-derivative of $f(z)$.  At the output layer, the error-derivative w.r.t. the
-output of a unit is computed by differentiating the cost function. This
-gives $y_l-t_l$ If the cost function for unit $l$ is $0.5(y_l-t_l)^2$ where
-$t_l$ is the target value.
+and $z$ are vectors (and the derivatives are Jacobian matrices). 
+\newline
+{\bf Bottom left.} 
+The equations used for computing the forward pass in a neural
+net with two hidden layers. At each layer, we first compute the total
+input $z$ to each unit, which is a weighted sum of the outputs of the
+units in the layer below. Then a non-linear function $f(.)$ is applied
+to $z$ to get the output of the unit.  For simplicity, we have omitted
+bias terms. The functions commonly used in neural networks include the
+logistic sigmoid, $f(z) = 1/(1+\exp(-z))$, the hyberbolic tangent,
+$f(z) = (\exp(z)-\exp(-z))/(\exp(z)+\exp(-z))$ and, more recently, the
+rectified linear unit, $f(z) = max(0, z)$.
+{\bf Bottom right.} 
+The equations used for computing the backward pass. At each
+hidden layer we compute the error-derivative w.r.t. the output of each
+unit which is a weighted sum of the error-derivatives w.r.t. the total
+inputs to the units in the layer above. We then convert the
+error-derivative w.r.t. the output into the error-derivative w.r.t.
+the input by multipling it by the gradient of $f(z)$.  At the output
+layer, the error-derivative w.r.t. the output of a unit is computed by
+differentiating the cost function. This gives $y_l-t_l$ if the cost
+function for unit $l$ is $0.5(y_l-t_l)^2$ where $t_l$ is the target
+value. Once the $\partial E/\partial z_k$ is known, the
+error-derivative for the weight $w_{jk}$ on the connection from unit
+$j$ in the layer below is just $y_j \partial E/\partial z_k$.
 }
 \label{fig:backprop-box}
 \end{minipage}
