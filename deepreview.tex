@@ -112,7 +112,7 @@ understanding~\citep{collobert:2011b}, particularly topic
 classification~\citep{topic-classification}, sentiment
 analysis~\citep{Glorot+al-ICML-2011-small},
 question-answering~\cite{bordes-14}, and language
-translation~\cite{Sutskever-et-al-NIPS2014}.
+translation~\cite{Jean-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
 
 % supervised learning, objective function, gradient.
@@ -121,7 +121,7 @@ The most common form of machine learning, deep or not, is {\em
 can classify images as containing, say, a house, a car, a person, or a
 pet. We first collect a large dataset of images of houses, cars,
 persons and pets, each labeled with its category. During training, the
-machine is shown an image and produces an output label in the form of
+machine is shown an image and produces an output in the form of
 a vector of scores, one for each category. We want the desired
 category to have the highest score of all categories, but this is
 unlikely to happen before training.  We compute an {\em objective
@@ -142,9 +142,9 @@ opposite direction of the gradient vector.
 
 % GD
 The objective function, averaged over all the training examples, can
-be seen as a kind hilly landscape in the high-dimensional space of
+be seen as a kind of hilly landscape in the high-dimensional space of
 weight values. The negative gradient vector indicates the direction of
-steepest descent in this landscape, taking is closer to a minimum
+steepest descent in this landscape, taking it closer to a minimum
 where the output error is low on average.
 
 % SGD
@@ -156,11 +156,11 @@ the training set, again and again, until the average of the objective
 function stops decreasing. It is called stochastic because each sample
 gives a noisy estimate of the average gradient. The procedure gets
 close to a good minimum very quickly in
-practice~\cite{bottou-bousquet-2008-small} Following this, the
+practice~\cite{bottou-bousquet-2008-small}. Following this, the
 performance of the system is measured on a different set of examples,
 not seen during training, called a {\em test set}. This serves to test
 the {\em generalization ability} of the machine, i.e. its ability to
-produce sensible answers on new inputs that is has never seen during
+produce sensible answers on new inputs that it has never seen during
 training.
 
 % shallow linear classifiers
@@ -287,8 +287,8 @@ weight matrices interspersed with scalar non-linearities.
 Many applications of deep learning use feedforward neural network
 architectures, illustrated in Figure~\ref{fig:backprop-box}, which
 learn to map a fixed-size input (e.g., an image) to a fixed-size
-output (e.g. a probability for each one of several categories). Each
-pair of layer can be seen as a set of units that compute a weighted
+output (e.g. a probability for each one of several categories). To go
+from one layer to the next, a set of units compute a weighted
 sum of their inputs from the previous layer and pass the result
 through a non-linear function. The most common non-linear function is
 the so-called {\em ReLU} (Rectified Linear Unit) which is simply the
@@ -519,7 +519,7 @@ when training data is abundant, and large labeled image datasets such
 as ImageNet~\citep{imagenet_cvpr09} only appeared recently. Second,
 the appearance of GPU cards capable of over 1Tflops, together with
 GPU-optimized software for ConvNet made it possible to train these
-large networks in a few weeks (naw days) of computer time. Third, the
+large networks in a few weeks (now days) of computer time. Third, the
 use of rectifying non-linearities instead of sigmoids allowed to train
 much deeper networks than previously possible without unsupervised
 pre-training~\cite{jarrett-iccv-09,Glorot+al-AI-2011-small}. Lastly,
@@ -606,7 +606,7 @@ put in the same category, but rather that they share many semantic and
 grammatical attributes, so that what the neural network learns from
 one day of the week can often be generalized to the other, while
 individual days remain different (for example one imagines that the
-neural network also learns to some features that distinguises week-end
+neural network also learns some features that distinguishes week-end
 days and weekdays, while Saturday and Sunday might have special roles
 in some religions, etc.).  Such representations are called {\em
   distributed representations} because its elements (the features) are
@@ -739,15 +739,39 @@ Reproduced with permission from~\citet{Vinyals-et-al-arxiv2014}.
 \section{Recurrent Neural Networks}
 \label{sec:rnn}
 
-%% YLC: I moved this section down from the intro. It was redundant there.
-%% Some of it is probably redundant with much of what follows
+When backpropagation was first introduced, its most exciting use was
+for training recurrent neural networks. 
 For tasks that involve sequential inputs, such as speech and language,
 it is often better to use recurrent neural networks, illustrated in
 Figure~\ref{fig:rnn}.  Recurrent neural networks process an input
 sequence one element at a time, maintaining in their hidden units a
 ``state vector'' that implicitly contains information about the
-history all the past elements of the sequence.  Recurrent networks are
-very good at predicting the next character in
+history all the past elements of the sequence.  
+When we consider the outputs of
+the hidden units at different discrete time steps as if they were the
+outputs of different neurons in a deep multi-layer network (right of
+Figure~\ref{fig:rnn}), it becomes
+clear how we can apply backpropagation to train recurrent
+networks. The the gradient with respect to a recurrent weight,
+$w_{ij}$ that allows neuron $i$ at time $t$ to influence the activity
+of neuron $j$ at time $t+1$ can be computed by
+backpropagation-through-time (BPTT) of the error derivative for $j$ at
+time $t+1$. The full gradient with respect to $w_{ij}$ on a whole
+input sequence is just the sum of its gradients at each time-step.
+
+Recurrent neural networks are very powerful dynamical systems, but
+training them with BPTT proved to be problematic, because the
+backpropagated gradients either grow or shrink at each time step, so
+over many time-steps they typically explode or
+vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994}.
+%% THE TEXT BELOW IS TOO COMPLICATED AND ALSO TOO SIMPLE: THERE ARE
+%% STABLE CONDITIONS IN WHICH THE GRADIENTS DO NOT VANISH (ORTHONORMAL
+%% RECURRENT MATRICES). I THINK ITS BETTER NOT TO GET INTO THIS.
+%% and the conditions which allow stable dynamics also correspond to
+%% vanishing gradients~\citep{Bengio-et-al-TNN1994},
+
+Thanks to advances in their architecture and ways of training them, recurrent networks 
+have been found to be very good at predicting the next character in
 text~\citep{Sutskever-et-al-ICML2011} or the next word in a
 sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be used for
 more complex tasks.  After reading an English sentence one word at a
@@ -784,38 +808,7 @@ the view that everyday reasoning involves many simultaneous analogies that
 each contribute plausibility to a 
 conclusion~\citep{Lakoff+Johnson-2008,Rogers+McClelland-book2004}.
 
-%% YLC: This is where the original recurrent net section begins.
-%% There should be some merging between the stuff above and the stuff below.
-
-When backpropagation was first introduced, its most exciting use was
-for training recurrent neural networks. These receive input vectors at
-each time-step and have one or more layers of hidden units that, in
-addition to having connections to higher layers or ouput units, also
-have connections that allow the neurons within a layer to receive
-weighted input from those same neurons at the previous time-step.  As
-illustrated in Figure~\ref{fig:rnn}, when we consider the outputs of
-the hidden units at different discrete time steps as if they were the
-outputs of different neurons in a deep multi-layer network, it becomes
-clear how we can apply backpropagation to train recurrent
-networks. The the gradient with respect to a recurrent weight,
-$w_{ij}$ that allows neuron $i$ at time $t$ to influence the activity
-of neuron $j$ at time $t+1$ can be computed by
-backpropagation-through-time (BPTT) of the error derivative for $j$ at
-time $t+1$. The full gradient with respect to $w_{ij}$ on a whole
-input sequence is just the sum of its gradients at each time-step.
-
-Recurrent neural networks are very powerful dynamical systems, but
-training them with BPTT proved to be problematic, because the
-backpropagated gradients either grow or shrink at each time step, so
-over many time-steps they typically explode or
-vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994}.
-%% THE TEXT BELOW IS TOO COMPLICATED AND ALSO TOO SIMPLE: THERE ARE
-%% STABLE CONDITIONS IN WHICH THE GRADIENTS DO NOT VANISH (ORTHONORMAL
-%% RECURRENT MATRICES). I THINK ITS BETTER NOT TO GET INTO THIS.
-%% and the conditions which allow stable dynamics also correspond to
-%% vanishing gradients~\citep{Bengio-et-al-TNN1994},
-
-\begin{figure}[H]
+\begin{figure}[htp*]
 \fbox{
 \begin{minipage}{\textwidth}
 %\centerline{
