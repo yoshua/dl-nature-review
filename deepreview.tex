@@ -13,6 +13,8 @@
 \addtolength{\oddsidemargin}{-1cm}
 \addtolength{\evensidemargin}{-1cm}
 
+\newcommand{\deri}[2]{\frac{\partial  #1}{\partial #2}}
+
 \parskip 0.1in
 \parindent 0.0in
 \setcounter{secnumdepth}{1}
@@ -271,7 +273,7 @@ $\deri{E}{x}$ and $\deri{E}{y}$ are gradient vectors, and
 $\deri{y}{x}$ is a {\em Jacobian matrix} of $M$ where element $(i,j)$
 indicates by how much output $j$ would increase proportionally if
 input $i$ were increased by a tiny amount $\Delta y_j =
-$\left(\deri{y}{x}\right)_{ij} \Delta x_i$. The above equation
+\left(\deri{y}{x}\right)_{ij} \Delta x_i$. The above equation
 constitutes a recurrence formula that can be used to propagate
 gradients from the top layer all the way to the bottom. Once all these
 gradients are computed, one can similarly compute the gradients with
@@ -370,8 +372,7 @@ $j$ in the layer below is just $y_j \partial E/\partial z_k$.
 \begin{figure}
 \begin{center}
   \vspace{0.2cm}
-  % \includegraphics[width=0.99\linewidth]{convnet-diagram}
-  nice convnet figure goes here
+  \includegraphics[width=0.70\linewidth]{convnet-diagram}
 \end{center}
 \vspace{-0.6cm}
 \caption{A typical convolutional network architecture}
