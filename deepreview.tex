@@ -377,11 +377,13 @@ $j$ in the layer below is just $y_j \partial E/\partial z_k$.
   \includegraphics[width=0.70\linewidth]{convnet-diagram}
 \end{center}
 \vspace{-0.6cm}
-\caption{The outputs of each layer of a typical convolutional network architecture
+\caption{The outputs of each layer (column) and feature map (rectangular image)
+of a typical convolutional network architecture
 applied on the image of a handwritten digit (on the top left). Each rectangular
-image corresponds to one of the features, detected at each of the image positions.
+image is a feature map, corresponding to one of the learned features 
+detected at each of the image positions.
 Each column corresponds to a layer, with information flowing from the left to
-the right.
+the right. We see that lower level features mostly act as oriented edge detectors.
 }
 %\vspace{-0.8cm}
 \label{fig:convnet}
