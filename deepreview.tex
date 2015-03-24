@@ -28,24 +28,24 @@
 
 \section{Preface}
 
-Deep Learning techniques allow a machine composed of multiple layers
-of processing to learn to represent data, so that each layer transforms
-the representation of the previous layer in a more abstract
-fashion. These methods have dramatically improved the state-of-the-art
+Deep Learning techniques allow a machine composed of multiple processing layers
+which define representations of the data that are more abstract for deeper layers.
+These methods have dramatically improved the state-of-the-art
 for speech recognition, object recognition, object detection,
 predicting the activity of drug molecules, and many other tasks. Deep
 learning discovers intricate structure in large datasets by using the
-{\em backpropagation algorithm} to compute how the machine should
-change in order to make less errors.  Deep {\em convolutional nets}
-have brought about dramatic improvements in the processing of array
-data, such as images, video, speech and audio, while {\em recurrent
-  nets} have shown excellent performance for analyzing sequential
-inputs and producing sequential outputs such as text and
-speech. Convolutional nets have quickly become the leading technology for image
-recognition and speech recognition, while recurrent nets are
-competitive in several natural language processing tasks, including
-language translation. Combinations of recurrent and convolutional nets
-can generate good textual captions of images.
+{\em backpropagation algorithm} to indicate how the machine should
+change.  Deep {\em convolutional nets}
+have brought about dramatic improvements to process
+images, video, speech and audio, while {\em recurrent
+  nets} have shone on sequential data such as text and
+speech.
+%Convolutional nets have quickly become the leading technology for image
+%recognition and speech recognition, while recurrent nets are
+%competitive in several natural language processing tasks, including
+%language translation. 
+%Combinations of recurrent and convolutional nets
+%can generate good textual captions of images.
 
 \section{Introduction}
 
@@ -389,6 +389,7 @@ image is a feature map, corresponding to the output for one of the learned featu
 detected at each of the image positions.
 Each column corresponds to a layer, with information flowing from the left to
 the right. We see that lower level features mostly act as oriented edge detectors.
+The last layer is fully connected so it has no spatial structure.
 }
 %\vspace{-0.8cm}
 \label{fig:convnet}
