@@ -262,26 +262,29 @@ derivatives. The key insight is that the derivative (or gradient) of
 the objective with respect to the {\it input} of a module can be
 computed by working backwards from the gradient with respect to the
 {\em output} of that module (or the input of the subsequent
-module). Basically, take a module $M$ inside the network, whose input
-is $x$, weight vector is $w$, and output is $y = M(x,w)$. If one knows
-the gradient $\deri{E}{y}$ of the objective function $E$ with respect
-to the module's output $y$, one can blindly apply chain rule to
-compute the gradient with respect to the input:
-\[
-  \deri{E}{x} = \deri{y}{x}\deri{E}{y}
-\]
-This equation works even when $x$ and $y$ are vectors, in which case
-$\deri{E}{x}$ and $\deri{E}{y}$ are gradient vectors, and
-$\deri{y}{x}$ is a {\em Jacobian matrix} of $M$ where element $(i,j)$
-indicates by how much output $j$ would increase proportionally if
-input $i$ were increased by a tiny amount $\Delta y_j =
-\left(\deri{y}{x}\right)_{ij} \Delta x_i$. The above equation
+module), as illustrated in Figure~\ref{fig:backprop-box}.
+% Basically, take a module $M$ inside the network, whose input
+%is $x$, weight vector is $w$, and output is $y = M(x,w)$. If one knows
+%the gradient $\deri{E}{y}$ of the objective function $E$ with respect
+%to the module's output $y$, one can blindly apply chain rule to
+%compute the gradient with respect to the input:
+%\[
+%  \deri{E}{x} = \deri{y}{x}\deri{E}{y}
+%\]
+%This equation works even when $x$ and $y$ are vectors, in which case
+%$\deri{E}{x}$ and $\deri{E}{y}$ are gradient vectors, and
+%$\deri{y}{x}$ is a {\em Jacobian matrix} of $M$ where element $(i,j)$
+%indicates by how much output $j$ would increase proportionally if
+%input $i$ were increased by a tiny amount $\Delta y_j =
+%\left(\deri{y}{x}\right)_{ij} \Delta x_i$. 
+The backpropagation equation
 constitutes a recurrence formula that can be used to propagate
 gradients from the top layer all the way to the bottom. Once all these
 gradients are computed, one can similarly compute the gradients with
-respect to the weights of the module. Figure~\ref{fig:backprop-box})
-shows how this works out when the network is composed of layers of
-weight matrices interspersed with scalar non-linearities.
+respect to the weights of the module. 
+%Figure~\ref{fig:backprop-box})
+%shows how this works out when the network is composed of layers of
+%weight matrices interspersed with scalar non-linearities.
 %% the notation in the figure should be updated.
 
 

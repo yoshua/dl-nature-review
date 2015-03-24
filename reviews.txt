@@ -107,7 +107,10 @@ This ms. reviews recent breakthroughs in Deep Learning in the context of the his
 
 As this is a review article, I approach it from the point of view of accessibility, clarity of presentation, and due credit to originators of ideas.  Overall the paper seems fairly approachable, though I would say that the choice of level of detail to present in the text could use a bit more consideration. 
 
-The text starting 'the backpropagation procedure' on p 4 is the key case in point.  The mathematical ideas here, particularly their presentation in equation form, might derail some readers.  Do we need to know that the matrix of partial derivatives is called the Jacobian Matrix?  Do we need to see the expression for dE/dx = dy/dx dE/dy?  I think all of the symbols and definitions can be placed in figure 1.  Additional comments here:
+The text starting 'the backpropagation procedure' on p 4 is the key case in point.  The mathematical ideas here, particularly their presentation in equation form, might derail some readers.  Do we need to know that the matrix of partial derivatives is called the Jacobian Matrix?  Do we need to see the expression for dE/dx = dy/dx dE/dy?  I think all of the symbols and definitions can be placed in figure 1.  
+% YB: DONE. We have removed the equations and their mathematical explanation from the text.
+
+Additional comments here:
 
 - The naive reader sould be a touch confused by the reversal of order of z and y from the top right of the figure to the rest of the figure lower down.  I understand that in the top right x, y, and z are strictly generic, whereas they have specific roles as neural network values in the bottom panels.  It would be easy to avoid confusion here by using a, b, and c to refer to generic variables and using x, z, and y to refer to neural network variables.  Of course the neural network variables could be more memorable than x, y, and z -- z could be replaced by n for net input for example.
 
