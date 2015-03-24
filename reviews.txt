@@ -113,10 +113,14 @@ The text starting 'the backpropagation procedure' on p 4 is the key case in poin
 Additional comments here:
 
 - The naive reader sould be a touch confused by the reversal of order of z and y from the top right of the figure to the rest of the figure lower down.  I understand that in the top right x, y, and z are strictly generic, whereas they have specific roles as neural network values in the bottom panels.  It would be easy to avoid confusion here by using a, b, and c to refer to generic variables and using x, z, and y to refer to neural network variables.  Of course the neural network variables could be more memorable than x, y, and z -- z could be replaced by n for net input for example.
+% YB: suggest to Nature staff to redo the chain-rule.pdf figure with y and z swapped for one another, to match the other figures.
+% YB: alternatively, if redoing all the figures, use x for input h for hidden and y for output.
 
 - The abstract discussion of modules could be related more explicitly to the layers in the neural network.  For example, the network on the bottom of the figure could be decribed explicitly as having three modules, where the role of x for the top module is played by the y's at h2, etc.
+% YB: done, in the caption of the backprop figure-box 1.
 
 - The interpretation of Fig 2 is far from obvious.  I assume that the second column of the figure is the first set of filters, and the third column is the result of pooling/downsampling the first set of filters, but it is not perfectly clear that the column are arranged so that the pooled result corresponds to the unpooled input.  Lines connecting layers appropriately would help (first col goes to all six first-layer arrays, each of these to just one downsampling array -- then I assume each of these goes to all of the arrays at the next later, which in turn each project to the corresponding down-sampled array in the 5th column.  The sixth column appears to be different -- is this convolutional?  Another improvement would be to label the columns 'first filter layer' first pooling layer, etc.
+% YB: done, labels added in the figure and caption clarifying as requested the meaning of what is displayed.
 
 A major issue that needs to be dealt with in revision is the handling of the material related to unsupervised learning.  The paper currently reflects the differing perspectives of the authors on this issue and a greater degree of integration is necessary to avoid the perception that the different parts were written independently and without cognizance of each other.  The story about unsupervised learning can and should be woven into the main narrative of the paper.  Giving credit to the wave of unsupervised learning work of the early part of the new century together with the subsequent breakthroughs in back propagation methods as currenrly described.  In this way the material on pages 15-16 will not seem so starkly out of place as it does at present.
 

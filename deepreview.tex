@@ -73,7 +73,8 @@ patterns in the input.
 Deep learning is a set of methods that allows a machine to be fed with
 raw data and to automatically discover suitable representations of the
 data. The name comes from the fact that deep learning machines are
-multilayer stacks of trainable modules, each of which turns the
+multilayer stacks of trainable modules, each of which (e.g. a neural
+network layer) turns the
 representation of the data in its input into a more abstract and
 higher-level representation on its output in which relevant
 characteristics and amplified and irrelevant variabilities are
@@ -342,7 +343,8 @@ and $z$ are vectors (and the derivatives are Jacobian matrices).
 \newline
 {\bf Bottom left.} 
 The equations used for computing the forward pass in a neural
-net with two hidden layers. At each layer, we first compute the total
+net with two hidden layers and one output layer, each constituting
+a module through which one can backpropagate gradients. At each layer, we first compute the total
 input $z$ to each unit, which is a weighted sum of the outputs of the
 units in the layer below. Then a non-linear function $f(.)$ is applied
 to $z$ to get the output of the unit.  For simplicity, we have omitted
@@ -377,13 +379,13 @@ $j$ in the layer below is just $y_j \partial E/\partial z_k$.
 \begin{figure}
 \begin{center}
   \vspace{0.2cm}
-  \includegraphics[width=0.70\linewidth]{convnet-diagram}
+  \includegraphics[width=0.70\linewidth]{convnet-diagram-labeled}
 \end{center}
 \vspace{-0.6cm}
-\caption{The outputs of each layer (column) and feature map (rectangular image)
+\caption{The {\em outputs} (not the filters) of each layer (each column of the figure) 
 of a typical convolutional network architecture
-applied on the image of a handwritten digit (on the top left). Each rectangular
-image is a feature map, corresponding to one of the learned features 
+applied on the image of a handwritten digit (left). Each rectangular
+image is a feature map, corresponding to the output for one of the learned features 
 detected at each of the image positions.
 Each column corresponds to a layer, with information flowing from the left to
 the right. We see that lower level features mostly act as oriented edge detectors.
