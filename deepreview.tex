@@ -527,15 +527,18 @@ deploy ConvNet-based image understanding products and services
 including Google, Facebook, Microsoft, Yahoo!, Twitter, Adobe, and a
 quickly-growing number of startups.
 
-If ConvNets existed in the 1990s, why did they become so popular and
-dominant only now? The idea of convexity of the objective function grew
-as an attractive property of learning algorithms, thanks to the success
-of kernel machines, which made neural nets (that involve a non-convex
-training criterion) less appealing. As discussed below, it is only
+If ConvNets and other neural nets existed in the 1990s, why did they become so popular and
+dominant only now? It was initially thought that training of neural nets
+would get stuck in poor solutions (called local minima) due to non-convexity
+of the training objective, whereas the alternative learning framework
+of {\em kernel machines}~\citep{Scholkopf+Smola-2002book} was more appealing
+because it involved a convex optimization. As discussed below, it is only
 in 2014 that theoretical and empirical evidence have suggested that local
-minima are probably not as much of a problem as was initially thought~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
-Much before that realization, though, a number of recent
-ideas and technologies enabled the success. First, supervised ConvNets work best
+minima are probably not as much of a problem as was initially 
+thought~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
+Much before that realization, though, a number of 
+ideas and technologies over the last decade enabled the success. 
+First, supervised ConvNets work best
 when training data is abundant, and large labeled image datasets such
 as ImageNet~\citep{imagenet_cvpr09} only appeared recently. Second,
 the appearance of GPU cards capable of over 1Tflops, together with
