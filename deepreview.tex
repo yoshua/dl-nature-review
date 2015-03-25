@@ -203,10 +203,11 @@ important aspects of the image, while being {\em invariant} to its
 irrelevant aspects, like the pose of the animal.
 
 % classical extensions of simple classifiers
+% YB: I propose to mostly remove the paragraph below (but keep the Scholkopf book ref)
 There have been numerous attempts, going back to the early 1960s, to
 increase the flexibility of classifiers so as to allow them to
 separate categories from one another by more complex surfaces than
-flat hyperplanes. A popular example is the class of kernel methods,
+flat hyperplanes. A popular example is the class of kernel methods~\citep{Scholkopf+Smola-2002book}, % added ref for BS
 particularly the Support Vector Machine~\citep{Boser92} which
 represents inputs by a vector whose components are similarities to
 each of the training samples computed through a so-called {\em kernel
@@ -249,7 +250,7 @@ weights, one can compute gradients through the {\em backpropagation
 
 The idea that this could be done, and that it could work at all, took
 a surprisingly long time to emerge. It was discovered independently by
-everal different groups in the 1970s and
+several different groups in the 1970s and
 1980s~\citep{Werbos74,Parker85,LeCun85,RHW}, and became quite popular
 in the late 1980s, spurring the second wave of interest for neural
 networks. But for reasons that historians of science will have to
@@ -527,9 +528,14 @@ including Google, Facebook, Microsoft, Yahoo!, Twitter, Adobe, and a
 quickly-growing number of startups.
 
 If ConvNets existed in the 1990s, why did they become so popular and
-dominant only now? Certainly, the prejudice of the ML and vision
-communities against neural nets played a role. But a number of recent
-ideas and technologies enabled the success. First, ConvNets strive
+dominant only now? The idea of convexity of the objective function grew
+as an attractive property of learning algorithms, thanks to the success
+of kernel machines, which made neural nets (that involve a non-convex
+training criterion) less appealing. As discussed below, it is only
+in 2014 that theoretical and empirical evidence have suggested that local
+minima are probably not as much of a problem as was initially thought~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
+Much before that realization, though, a number of recent
+ideas and technologies enabled the success. First, supervised ConvNets work best
 when training data is abundant, and large labeled image datasets such
 as ImageNet~\citep{imagenet_cvpr09} only appeared recently. Second,
 the appearance of GPU cards capable of over 1Tflops, together with
@@ -565,13 +571,14 @@ outputs. This is nicely demonstrated by training a multi-layer neural
 network to predict the next word in a sequence from a local context of
 earlier words~\citep{BenDucVin01-short}.  Each context word is
 presented to the network as a one-of-N vector, i.e., in which one
-component has a value of $1$ and the rest are $0$. The output layer
-has one unit per word and is forced to produce a probability
-distribution over words by using the ``softmax'' function:
-\begin{equation}
-p_j = \frac{e^{z_j}}{\sum_i e^{z_i}}
-\end{equation}
-where $z_j$ is the total input received by output unit $j$. 
+component has a value of $1$ and the rest are $0$. 
+%The output layer
+%has one unit per word and is forced to produce a probability
+%distribution over words by using the ``softmax'' function:
+%\begin{equation}
+%p_j = \frac{e^{z_j}}{\sum_i e^{z_i}}
+%\end{equation}
+%where $z_j$ is the total input received by output unit $j$. 
 \iffalse
 The hidden
 layers use a non-linearity such as the logistic, tanh, or rectifier, respectively:
@@ -580,37 +587,42 @@ y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}
  y_j = \max(0, z_j).
 \end{equation}
 \fi
-
-The presence of a particular word at the $i$-th position in the input
-of the network sets the value of specialized hidden units to values
-that correspond to the representation of that word. Different words
-create a different pattern of activations, or word-vector, illustrated
+%
+%The presence of a particular word at the $i$-th position in the input
+%of the network sets the value of specialized hidden units to values
+%that correspond to the representation of that word. 
+In the first layer, each word
+creates a different pattern of activations, or word-vector, illustrated
 in Figure~\ref{fig:word-embeddings}.  In a language model, the other
 layers of the network learn to convert the input word-vectors into an
 output word-vector for the predicted next-word, which can be used to
 predict the probability for any word in the vocabulary to appear as
 the next word.  The network learns word-vectors that contain many
 active components each of which can be interpreted as a separate
-feature of the word. This was first demonstrated using sequences of
-three words, such as (Colin, Mother, Victoria), derived from two
-family trees~\citep{RHW}. The learned word vector for Colin contained
-``semantic'' features representing which family tree Colin was in,
-what branch of that tree he was in, and what generation he was from.
+feature of the word, as was first demonstrated by~\citet{RHW} in the context
+of learning distributed representations for symbols.
+%. This was first demonstrated using sequences of
+%three words, such as (Colin, Mother, Victoria), derived from two
+%family trees~\citep{RHW}. The learned word vector for Colin contained
+%``semantic'' features representing which family tree Colin was in,
+%what branch of that tree he was in, and what generation he was from.
 %% TWO NATIVE ENGLISH SPEAKERS AGREE THAT THE "FROM" SHOULD STAY AT THE
 %% END IN ORDER NOT TO SOUND STILTED.
 These semantic features were not explicitly present
 in the input.  They were discovered by the learning procedure as a good way
 of factorizing the structured relationships between the input and output
-symbols into multiple ``micro-rules''.  For example, given Colin's
-generation and the learned feature of Mother that the output should be one
-generation higher than the input, we can already restrict the answer to
-people in a specific generation. The ability of deep learning to discover
-many such micro-rules allows it to generalize well to novel combinations of
-individually familiar context words.
-
-The family tree demonstration used a small, clean dataset in which the
-regularities could be captured by micro-rules that were never violated
-and the features were easy to interpret, but learned word-vectors also
+symbols into multiple ``micro-rules''.  
+%For example, given Colin's
+%generation and the learned feature of Mother that the output should be one
+%generation higher than the input, we can already restrict the answer to
+%people in a specific generation. The ability of deep learning to discover
+%many such micro-rules allows it to generalize well to novel combinations of
+%individually familiar context words.
+%
+%The family tree demonstration used a small, clean dataset in which the
+%regularities could be captured by micro-rules that were never violated
+%and the features were easy to interpret, 
+Learning word-vectors turned out to also
 work very well when the word sequences come from a large corpus of
 real text and the individual micro-rules are
 unreliable~\citep{BenDucVin01-short}. When trained to predict the next
@@ -766,13 +778,13 @@ it is often better to use recurrent neural networks, illustrated in
 Figure~\ref{fig:rnn}.  Recurrent neural networks process an input
 sequence one element at a time, maintaining in their hidden units a
 ``state vector'' that implicitly contains information about the
-history all the past elements of the sequence.  
+history of all the past elements of the sequence.  
 When we consider the outputs of
 the hidden units at different discrete time steps as if they were the
 outputs of different neurons in a deep multi-layer network (right of
 Figure~\ref{fig:rnn}), it becomes
 clear how we can apply backpropagation to train recurrent
-networks. The the gradient with respect to a recurrent weight,
+networks. The gradient with respect to a recurrent weight,
 $w_{ij}$ that allows neuron $i$ at time $t$ to influence the activity
 of neuron $j$ at time $t+1$ can be computed by
 backpropagation-through-time (BPTT) of the error derivative for $j$ at
@@ -790,7 +802,8 @@ vanish~\citep{Hochreiter91-small,Bengio-et-al-TNN1994}.
 %% and the conditions which allow stable dynamics also correspond to
 %% vanishing gradients~\citep{Bengio-et-al-TNN1994},
 
-Thanks to advances in their architecture and ways of training them, recurrent networks 
+Thanks to advances in their architecture~\citep{Hochreiter+Schmidhuber-1997,ElHihi+Bengio-nips8-small} 
+and ways of training them~\citep{Sutskever-thesis2012}, recurrent networks 
 have been found to be very good at predicting the next character in
 text~\citep{Sutskever-et-al-ICML2011} or the next word in a
 sequence~\citep{Mikolov-et-al-NIPS2013} but they can also be used for
@@ -857,9 +870,8 @@ with elements $x_t$ into an output sequence with elements $o_t$, with
 each $o_t$ depending on all the previous $x_{t'}$ (for $t'\leq t$). The
 same parameters (matrices $U$, $V$, $W$) are used at each time step.
 Many other architectures are possible, including a variant in which
-the sampled outputs (e.g. words) can be generated according to an output 
-distribution (the probability of the next word, for every possible next word) 
-and used as inputs for the next time step.
+the network can generate a sequence of outputs (e.g. words), each of which
+is used as inputs for the next time step.
 The back-propagation algorithm (Figure~\ref{fig:backprop-box})
 can be directly applied to the computational graph of the unfolded network
 on the right hand side, to compute the derivative of a total error
@@ -965,7 +977,7 @@ when they are told a story, so that they can answer questions about
 the state of the world at the end of the story. Following a sequence
 of actions in a virtual world described in words, in a scenario
 similar to a text adventure game, the network is shown an
-automatically0generate question and taught to produce the
+automatically generate question and taught to produce the
 corresponding answer (also generated automatically).  In one test
 example, the network is shown a 15-sentence version of the Lord of The
 Rings and correctly answers questions like ``where is Frodo now?''.
@@ -980,11 +992,12 @@ and multiplication of strings containing several decimal
 digits. Achieving this kind of behaviour seemed ludicrously optimistic
 when BPTT was first proposed.
 
-In a somewhat related work, a network is trained to evaluate whether a
-particular mathematical transformation of a formula is lilely to lead
-to a correct mathematical identity~\cite{zaremba-nips-2014}. The
-system was able to produce efficient identities for matrix expressions
-whose formula fill several pages.
+% Bernhard was not impressed, so maybe just cut this off
+%In a somewhat related work, a network is trained to evaluate whether a
+%particular mathematical transformation of a formula is lilely to lead
+%to a correct mathematical identity~\citep{zaremba-nips-2014}. The
+%system was able to produce efficient identities for matrix expressions
+%whose formula fill several pages.
 
 The renewal of interest in deep learning and recurrent neural nets is
 spurring a whole new generation of creative ideas.
@@ -997,7 +1010,8 @@ very large number of possible states. One impressive recent development is
 a single system that can learn to play many different video
 games~\citep{Deepmind-atari-arxiv2013}. The system uses a deep convolutional network to
 map from the pixels on the screen at several time steps to the
-expected future reward of each possible action and its only inputs are the
+expected future reward of each possible action (assuming some policy is followed
+in the future) and its only inputs are the
 pixels and the current score in the game. The learning works by minimizing
 the difference between the system's current estimate of future reward and a
 noisy but less biased estimate that is obtained by using the same deep
@@ -1038,11 +1052,11 @@ Hence it doesn't seem to matter which one the algorithm
 finds. Avoiding being trapped near saddle points seems more important.
 
 It also took an inordinate amount of time for the community to adopt
-stochastic gradient methods for large-scale machine learning. key
+stochastic gradient methods for large-scale machine learning. Key
 theoretical and practical work showed that, while SGD has terrible
 asymptotic convergence properties, it is extremely efficient for the
 kind of approximate optimization required in ML
-applications~\citep{bottou-bousquet-2008-small}. But when trainnig a
+applications~\citep{bottou-bousquet-2008-small}. But when training a
 large ConvNet can take days or weeks on the fastest GPUs, one is eager
 to discover more efficient optimization methods that use the curvature
 information the past update directions~\citep{lecun-98b,Montavon2012}.
@@ -1051,12 +1065,14 @@ The parallelization of large neural nets over a single GPU has
 required to use ``mini-batches'' of samples over which the gradients
 are averaged. The purpose of this is to saturate the GPU. But one big
 unsolved question is how to scale up the training of very large neural
-nets over multiple GPU card across multiple machines. As of today, this
+nets over multiple GPU cards across multiple machines. As of today, this
 question is unresolved.
 
 Interest in deep feedforward networks was revived around
 2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small}
-by the introduction of unsupervised learning procedures that could
+thanks to the effort of a forward-looking Canadian funding agency 
+(the Canadian Institute for Advanced Research, or CIFAR), with
+the introduction of unsupervised learning procedures that could
 create layers of feature detectors without requiring labeled data. The
 objective in learning each layer of feature detectors was to be able
 to reconstruct or model the activities of feature detectors (or raw

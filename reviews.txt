@@ -124,11 +124,17 @@ Additional comments here:
 % YB: done, labels added in the figure and caption clarifying as requested the meaning of what is displayed.
 
 A major issue that needs to be dealt with in revision is the handling of the material related to unsupervised learning.  The paper currently reflects the differing perspectives of the authors on this issue and a greater degree of integration is necessary to avoid the perception that the different parts were written independently and without cognizance of each other.  The story about unsupervised learning can and should be woven into the main narrative of the paper.  Giving credit to the wave of unsupervised learning work of the early part of the new century together with the subsequent breakthroughs in back propagation methods as currenrly described.  In this way the material on pages 15-16 will not seem so starkly out of place as it does at present.
-%
+% YB: I am not sure to understand the concern; we do talk about unsupervised pre-training in the section on 'overcoming the limitations of backprop'. What differing perspectives?
 
 In addition to the above comments, I had several minor comments that I provide on an annotated copy of the ms.  These comments relate to literature that I think needs to be cited from early work in the 1980s on neural networks, as well as issues of rhetorical stance.  As written the article does not do justice to the reasons why some were not convinced to use neural networks -- these people had reasons that seemed to make sense, and should not simply be characterized as hostile or biased.  The better way to present the work is that it suggests that these reasons, however legitimate, might have stood in the way of progress, which is possible if these considerations are downweighted.  A more concilliatory tone to past researchers will also minimize future resentments, which will not serve the current authors well when the current approaches hit an inevitable plateau.
-
+% full re-read with that in mind is needed; proposed to remove the kernel paragraph altogether
+% YB: rephrased the sentence about "prejudice" to talk in positive terms about the appeal of convexity
 Finally the paper has many typos and infelicities of writing and deserves a careful proof-reading by a person who is careful and graceful in the use of English definite and indefinite articles. I have provided a commented version of the ms that highlights several such issues, though far from all of the ones that need attention in the ms.
+% 
+% YB: added a mention of CIFAR as informally suggested
+% YB: added the Scholkopf book citation
+% YB: removed the details of the family tree example, following the manuscript note in Bernhard's pdf
+% YB: corrected many typos from Bernhard's pdf, and made suggested changes
 
 
 ------------------------------
