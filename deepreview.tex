@@ -178,7 +178,7 @@ combination, for which the gradient is very easy to compute. Linear
 classifiers have been widely used for many decades, starting with the
 Perceptron model~\citep{Rosenblatt57}, the still-popular logistic
 regression~\cite{Hastie2001}, and the linear support vector
-machine~\cite{Boser92}. 
+machine~\cite{Vapnik+Chervonenkis-1964,Boser92}. 
 
 % features: solving the selectivity-invariance dilemma
 It has been known since the 1960s that linear classifiers can only
@@ -201,21 +201,22 @@ feature extractor that solve the {\em selectivity-invariance dilemma},
 i.e. that produces representations that are {\em selective} to the
 important aspects of the image, while being {\em invariant} to its
 irrelevant aspects, like the pose of the animal.
-
+%
 % classical extensions of simple classifiers
 % YB: I propose to mostly remove the paragraph below (but keep the Scholkopf book ref)
-There have been numerous attempts, going back to the early 1960s, to
-increase the flexibility of classifiers so as to allow them to
-separate categories from one another by more complex surfaces than
-flat hyperplanes. A popular example is the class of kernel methods~\citep{Scholkopf+Smola-2002book}, % added ref for BS
-particularly the Support Vector Machine~\citep{Boser92} which
-represents inputs by a vector whose components are similarities to
-each of the training samples computed through a so-called {\em kernel
-  function}. While these methods are good general-purpose classifiers,
-they do not perform well for tasks such as image or speech recognition
-in which the input space is very high-dimensional and the input-output
-mapping is so complex that computing similarities using a simple
-kernel function is ineffective. Designing feature extractors that are
+% There have been numerous attempts, going back to the early 1960s, to
+% increase the flexibility of classifiers so as to allow them to
+% separate categories from one another by more complex surfaces than
+% flat hyperplanes. A popular example is the class of kernel methods~\citep{Scholkopf+Smola-2002book}, % added ref for BS
+%particularly the Support Vector Machine~\citep{Boser92} which
+% represents inputs by a vector whose components are similarities to
+% each of the training samples computed through a so-called {\em kernel
+%   function}. While these methods are good general-purpose classifiers,
+% they do not perform well for tasks such as image or speech recognition
+% in which the input space is very high-dimensional and the input-output
+% mapping is so complex that computing similarities using a simple
+% kernel function is ineffective. 
+Designing feature extractors that are
 sensitive to the relevant information and invariant to the irrelevant
 one is what generations of computer vision and pattern recognition
 researchers have spent their careers on.
