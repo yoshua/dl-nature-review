@@ -377,26 +377,6 @@ $j$ in the layer below is just $y_j \partial E/\partial z_k$.
 
 \section{Convolutional networks}
 
-
-\begin{figure}
-\begin{center}
-  \vspace{0.2cm}
-  \includegraphics[width=0.70\linewidth]{convnet-diagram-labeled}
-\end{center}
-\vspace{-0.6cm}
-\caption{The {\em outputs} (not the filters) of each layer (each column of the figure) 
-of a typical convolutional network architecture
-applied on the image of a handwritten digit (left). Each rectangular
-image is a feature map, corresponding to the output for one of the learned features 
-detected at each of the image positions.
-Each column corresponds to a layer, with information flowing from the left to
-the right. We see that lower level features mostly act as oriented edge detectors.
-The last layer is fully connected so it has no spatial structure.
-}
-%\vspace{-0.8cm}
-\label{fig:convnet}
-\end{figure}
-
 One of the most widely used deep learning architectures is the
 convolutional neural network, or
 ConvNet~\cite{lecun-90c,lecun-98}. ConvNets are designed to process
@@ -454,6 +434,25 @@ parts form objects in various combinations.  Similar hierarchies
 exists in speech and text from sounds to phones, phonemes, syllables,
 words, and sentences. The pooling allow features that form elements at
 the next level to vary in relative position and appearance. 
+
+\begin{figure}[htp*]
+\vspace{-4mm}
+\begin{center}
+  \includegraphics[width=0.70\linewidth]{convnet-diagram-labeled}
+\end{center}
+\vspace{-3mm}
+\caption{The {\em outputs} (not the filters) of each layer (each column of the figure) 
+of a typical convolutional network architecture
+applied on the image of a handwritten digit (left). Each rectangular
+image is a feature map, corresponding to the output for one of the learned features 
+detected at each of the image positions.
+Each column corresponds to a layer, with information flowing from the left to
+the right. We see that lower level features mostly act as oriented edge detectors.
+The last layer is fully connected so it has no spatial structure.
+}
+\vspace{-2mm}
+\label{fig:convnet}
+\end{figure}
 
 The convolutional and pooling layers in ConvNets are directly inspired
 by the classic notions of simple cells and complex cells in visual

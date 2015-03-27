@@ -280,7 +280,10 @@ ADDITIONAL COMMENTS FROM REVIEWER #3 REGARDING CUTS:
 
 I was asked for suggestions which parts could be shortened. Here are some thoughts:
 - I think section 5 is a bit tedious. Some of it will be lost on the readers. The points made in the last paragraph are very good though and should certainly be made somewhere. The section is also somewhat oddly placed in between the sections on image understanding and language processing.
+% YB: Section 5 has been reduced
+
 - section 9 is interesting, but if space is tight you might be able to remove it and salvage some material by moving it into section 12.
+
 - section 11 is very interesting, but I think it could be shortened by 20% without losing much.
 
 
