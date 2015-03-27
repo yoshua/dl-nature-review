@@ -1010,10 +1010,11 @@ spurring a whole new generation of creative ideas.
 
 Learning which action will maximize the total future reward given a state
 of the world is difficult when the rewards are delayed and the world has a
-very large number of possible states. One impressive recent development is
-a single system that can learn to play many different video
-games~\citep{Deepmind-atari-arxiv2013}. The system uses a deep convolutional network to
-map from the pixels on the screen at several time steps to the
+very large number of possible states. After neural networks won backgammon
+olympiads in the 90's~\citep{Tesauro90}, an impressive recent development is
+combines deep convolutional networks with reinforcement learning in a single system that can learn to play many different video
+games~\citep{Mnih-et-al-2015}. 
+Pixels on the screen at several time steps are mapped to the
 expected future reward of each possible action (assuming some policy is followed
 in the future) and its only inputs are the
 pixels and the current score in the game. The learning works by minimizing
@@ -1141,7 +1142,10 @@ This review has focused on supervised learning because of its recent
 achievements and we have ignored much interesting work on unsupervised
 learning procedures for deep neural
 networks~\citep{Salakhutdinov2009-small,Hinton95,QuocLe-ICML2012,VincentPLarochelleH2008-small,koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014}.
-However, most data have not been hand-labeled by humans, and just like
+These papers often introduce a probabilistic view or the injection of randomness in the
+neural network computation, to allow neural networks to {\em generate} examples that are
+similar to training examples but generalize them.
+Unsupervised learning is important because most data have not been hand-labeled by humans, and just like
 children are not told what they should have done at each instant, we
 need learning machines that can learn from mostly unlabeled examples.
 In the long run, we believe unsupervised learning will be essential

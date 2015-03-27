@@ -13,6 +13,9 @@ As we've all known, size will, eventually, be an issue. I have battled on a coup
 
 In doing so, we should endeavour to preserve both accessibility and topicality. Deep Learning being red hot as it is, it is hard for us to select which places to cut in priority, for most areas covered seem quite vibrant indeed (with most references dating from just the past couple of years). We are, therefore, discussing the issue further with our peer-reviewers...
 
+% YB: reduced parts on kernel machines, keep core business of DL
+
+
 At this point, however, I thought I should give you this update, so you may start thinking carefully about where you might prefer to cut from in priority.
 
 More very soon!…
@@ -153,8 +156,11 @@ questions are the leads.
 
 MACHINE LEARNING
 1) should features be hand-designed vs. learned?
+% YB: this is already discussed
+
 2) do optimizations need to be convex?
 The text talks about the local minimum problem, but never mentions the word "convex." This was and is still a big deal in machine learning. Surprisingly,  neural nets suggest that convex optimization is a distraction.
+% YB: a brief discussion of convexity has been added
 
 ARTIFICIAL INTELLIGENCE
 3) should we imitate the brain or not?
@@ -166,23 +172,52 @@ explanation that the ConvNet architecture is inspired by Hubel and
 Wiesel, but don't discuss whether backpropagation is biologically
 plausible.  Also, now that neurocomputing is back in fashion, some are criticizing "brain-like" as hype.  See the recent interview with Michael Jordan for example.  Maybe the authors could give their opinion about this.
 http://spectrum.ieee.org/robotics/artificial-intelligence/machinelearning-maestro-michael-jordan-on-the-delusions-of-big-data-and-other-huge-engineering-efforts
+
+% YB: this is an interesting topic and we could talk about it, but we have been
+% asked to cut 1/4th of the paper, so adding more material seems difficult
+
 4) symbolic or connectionist?
 This was a huge debate in the old days, and the review shows that neural nets are better at symbolic computing than anyone ever suspected.
+% YB: that question is already covered
+
 5)  probabilistic or deterministic?
 People have argued that probabilistic representations are crucial for
 machine learning and AI.  The innards of backprop-trained neural nets
 are fully deterministic.  Isn't that surprising?
+% backprop-trained neural nets (a) can compute conditional probabilities (e.g. for machine translation)
+% and (b) can easily incorporate "injected noise", as in recent work with Variational Auto-Encoders cited
+% at the end (Kingma et al NIPS 2014)
+
 6)  modular or unstructured?
 Minsky criticized connectionists as naively hoping that intelligence would emerge spontaneously from unstructured networks.  In reality, modern neural nets do have modular structure. A ConvNet has the convolution and pooling layers.  LSTM is another module for recurrent nets. And ConvNets are being used as modules in larger systems.
 
 A few other thoughts:
 
 When the authors compare deep learning with the rest of machine learning, they emphasize support vector machines.  What about Markov random fields and other graphical models?  These terms have been and still are a big deal, yet they don't even appear in the text. Why have they been pushed aside by neural nets?
+% YB: graphical models are very present in the unsupervised side of deep learning
+% but much more space would be needed to give justice to that aspect.
+% Two sentences were added in the middle of this paragraph to clarify this:
+"This review has focused on supervised learning because of its recent
+achievements and we have ignored much interesting work on unsupervised
+learning procedures for deep neural
+networks~\citep{Salakhutdinov2009-small,Hinton95,QuocLe-ICML2012,VincentPLarochelleH2008-small,koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014}.
+These papers often introduce a probabilistic view or the injection of randomness in the
+neural network computation, to allow neural networks to {\em generate} examples that are
+similar to training examples but generalize them.
+Unsupervised learning is important because most data have not been hand-labeled by humans, and just like
+children are not told what they should have done at each instant, we
+need learning machines that can learn from mostly unlabeled examples."
+
 
 On a related note, the authors choose to emphasize the divide between
+% YB: we have rephrased in a few places to make the tone less confrontational
 deep learning and the rest of machine learning. One could also stress
 the similarities.  A support vector machine is similar to a two-layer
-perceptron.  Markov random fields and graphical models are similar to
+perceptron.  
+% YB: indeed, except that its first layer is fixed (the feature space view)
+% or parametrized directly by the training examples themselves (the kernel function view).
+% Again we would like to discuss that at greater length but space is heavily limited.
+Markov random fields and graphical models are similar to
 ConvNets and neural nets. Given the similarities, it seems especially strange that neural nets were rejected by the mainstream, and perhaps the authors could comment on the ideological reasons for that.
 
 ConvNets have emerged victorious for visual object recognition, both
@@ -191,10 +226,18 @@ whether recurrent nets have reached the same level of success. For
 example, do these nets outperform conventional language models based
 on quantitative metrics like BLEU?  Are recurrent nets used by
 industry in commercial systems?
+% YB: you are right that although there is enormous enthusiasm 
+% with recurrent nets, the industrial adoption in products is less well known;
+% we informally know of several products (e.g. for speech recognition)
+% based on recurrent nets, but convolutional nets clearly have a head start.
 
 It might be a good idea to be more cautious in declaring victory regarding the symbolic-connectionist debate, to avoid antagonizing the symbolic types.  Though I can see the appeal of kicking them while they are down :)
+% Geoff, say something
 
-Mnih et al. has appeared in Nature, so perhaps that should be cited rather than the tech report.  Tesauro's work on TD-gammon could be cited as an important precedent.
+Mnih et al. has appeared in Nature, so perhaps that should be cited rather than the tech report.
+% YB: Done  
+Tesauro's work on TD-gammon could be cited as an important precedent.
+% YB: Done
 
 Another bit of history: the earlier demonstrations that GPU implementations of neural nets could beat other machine learning techniques on the MNIST dataset were perhaps an important precursor to the ImageNet-winning ConvNet.
 
