@@ -240,6 +240,7 @@ Tesauro's work on TD-gammon could be cited as an important precedent.
 % YB: Done
 
 Another bit of history: the earlier demonstrations that GPU implementations of neural nets could beat other machine learning techniques on the MNIST dataset were perhaps an important precursor to the ImageNet-winning ConvNet.
+% YB: Schmidhuber?
 
 Referee #3 (Remarks to the Author):
 
@@ -248,20 +249,31 @@ This is a timely review of a highly dynamic subfield of machine learning researc
 There are two things that bothered me a little, but they are issues of personal taste, so I would not insist on those being changed in any way. 
 
 The first one is that the article comes across as every so slightly "whiny" (this might not be the right English term) - it sounds like the authors feel upset that their methods did not get the recognition they deserved. When I entered the field, (multi-layer) neural networks were actually the standard method on many tasks - so I think that impression probably only refers to the local minimum in between the current waves and the wave in the early nineties. Maybe it need not be discussed in as much detail..
+% YB: the tone has been changed to be less confrontational in a few places
 
 The second one is that many of the impressive features and successes of deep learning applications, as described in the paper, I would really view more generally as successes of applying high capacity models to huge datasets - i.e., they are the result of taking a rich and well-designed class of models and training it on a huge training set. The current deep learning hype may wane again one day, but whatever we will be using next will probably also involve data-driven rich models. To me, that is the underlying long term trend - but again, this is my personal opinion, and it is fine if the review expresses the subjective point of view of the authors.
+% YB: my opinion is different: yes high capacity flexible models trained on lots of data is an important ingredient,
+% but by far it is insufficient. Consider for example the fate of decision trees. They can be trained quickly,
+% they can efficiently handle very high capacity much better than neural nets, but they don't generalize well.
+% Deep learning is motivated by ideas about {\em non-local} generalization that is possible thanks to the
+% compositional effects arising out of (a) distributed representations (composition of features) and (b) depth
+% (composition of layers).
+%
 
 
 Finally, some comments on details:
 
 Section 3: I was surprized you're not mentioning the work of Bruna.
+% YB: who is Bruna?
 
 page 3: the linear support vector machine is much older and was developed by Vapnik and Chervonenkis
+% YB: thanks, added the 1964 reference
 
 page 3: kernel methods: I think Boser et al. is a good reference for SVMs, but for Kernel Methods in general (including the general kernel trick, and the fact that kernels can be defined on non-vectorial data, etc.), it would be better to cite the "Learning with Kernels" book, or the Cristianini book, or - if you prefer original articles - the kernel PCA paper.
+% YB: done, we are citing the "Learning with Kernels" book.
 
 page 12: "Thanks to advances..." - it would be interesting to know which advances you mean.
-
+% YB: we added references for both the architecture advances and the training advances
 
 
 ADDITIONAL COMMENTS FROM REVIEWER #3 REGARDING CUTS:
