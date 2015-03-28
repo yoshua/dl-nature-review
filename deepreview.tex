@@ -584,14 +584,14 @@ component has a value of $1$ and the rest are $0$.
 %p_j = \frac{e^{z_j}}{\sum_i e^{z_i}}
 %\end{equation}
 %where $z_j$ is the total input received by output unit $j$. 
-\iffalse
-The hidden
-layers use a non-linearity such as the logistic, tanh, or rectifier, respectively:
-\begin{equation}
-y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}}, \ \ \
- y_j = \max(0, z_j).
-\end{equation}
-\fi
+%\iffalse
+%The hidden
+%layers use a non-linearity such as the logistic, tanh, or rectifier, respectively:
+%\begin{equation}
+%y_j = \frac{1}{1+ e^{z_j}}, \ \ \ y_j = \frac{e^{z_j}-e^{-z_j}}{e^{z_j}+e^{-z_j}}, \ \ \
+% y_j = \max(0, z_j).
+%\end{equation}
+%\fi
 %
 %The presence of a particular word at the $i$-th position in the input
 %of the network sets the value of specialized hidden units to values
@@ -960,38 +960,38 @@ story about which the network is asked to answer questions.
 %predicting the next word in text\citep{LeHinton}.
 
 
-\section{Learning to reason and to manipulate symbols}
+% \section{Learning to reason and to manipulate symbols}
 
 Beyond simple memorization, Neural Turing Machines and Memory Networks
 are being used for task that would normally require to manipulate
 symbols and to reason.
-
 Neural Turing Machines can be taught ``algorithms''. Among other
 things, they can learn to ouput a sorted list of symbols when its
 input consists of an unsorted sequence in which each symbol is
-accompanied by a real value that indicates its priority in the list.
-To achieve this it must learn a sorting program purely from examples
-of the input and output sequences~\citep{Graves-et-al-arxiv2014}.
-
+accompanied by a real value that indicates its priority in the list
+~\citep{Graves-et-al-arxiv2014}.
+% To achieve this it must learn a sorting program purely from examples
+% of the input and output sequences
 Memory Networks can be trained to keep track of the state of the world
 when they are told a story, so that they can answer questions about
-the state of the world at the end of the story. Following a sequence
-of actions in a virtual world described in words, in a scenario
-similar to a text adventure game, the network is shown an
-automatically generate question and taught to produce the
-corresponding answer (also generated automatically).  In one test
+the state of the world at the end of the story. 
+% Following a sequence
+%of actions in a virtual world described in words, in a scenario
+%similar to a text adventure game, the network is shown an
+%automatically generate question and taught to produce the
+%corresponding answer (also generated automatically).  
+In one test
 example, the network is shown a 15-sentence version of the Lord of The
 Rings and correctly answers questions like ``where is Frodo now?''.
 ~\citep{weston-memorynet-2014}
 
-A different system that also uses BPTT can learn to map the sequence
+Another RNN can learn to map the sequence
 of characters in a simple program written in Python to the sequence of
 characters that the program would
-print~\citep{Zaremba+Sutskever-arxiv2014}.  Rather surprisingly, BPTT
-can learn about {\it for loops} and can also learn to perform addition
-and multiplication of strings containing several decimal
-digits. Achieving this kind of behaviour seemed ludicrously optimistic
-when BPTT was first proposed.
+print~\citep{Zaremba+Sutskever-arxiv2014}, 
+learning about {\it for loops} and small integer arithmetic.
+Achieving this kind of behaviour seemed ludicrously optimistic
+in the 1990's.
 
 % Bernhard was not impressed, so maybe just cut this off
 %In a somewhat related work, a network is trained to evaluate whether a
@@ -1003,27 +1003,27 @@ when BPTT was first proposed.
 % The renewal of interest in deep learning and recurrent neural nets is
 %spurring a whole new generation of creative ideas.
 
-\iffalse  
-\section{Deep reinforcement learning}
+%\iffalse  
+%\section{Deep reinforcement learning}
+%
+%Learning which action will maximize the total future reward given a state
+%of the world is difficult when the rewards are delayed and the world has a
+%% very large number of possible states. After neural networks won backgammon
+%% olympiads in the 90's~\citep{Tesauro90}, an impressive recent development is
+%% combines deep convolutional networks with reinforcement learning in a single system that can learn to play many different video
+%% games~\citep{Mnih-et-al-2015}. 
+%% Pixels on the screen at several time steps are mapped to the
+%% expected future reward of each possible action (assuming some policy is followed
+%% in the future) and its only inputs are the
+%% pixels and the current score in the game. The learning works by minimizing
+%% the difference between the system's current estimate of future reward and a
+%% noisy but less biased estimate that is obtained by using the same deep
+%% network to estimate the future reward of the next state, where the next
+%% state is chosen stochastically based on the predicted future rewards of all
+%% the currently legal actions.
+%% \fi
 
-Learning which action will maximize the total future reward given a state
-of the world is difficult when the rewards are delayed and the world has a
-very large number of possible states. After neural networks won backgammon
-olympiads in the 90's~\citep{Tesauro90}, an impressive recent development is
-combines deep convolutional networks with reinforcement learning in a single system that can learn to play many different video
-games~\citep{Mnih-et-al-2015}. 
-Pixels on the screen at several time steps are mapped to the
-expected future reward of each possible action (assuming some policy is followed
-in the future) and its only inputs are the
-pixels and the current score in the game. The learning works by minimizing
-the difference between the system's current estimate of future reward and a
-noisy but less biased estimate that is obtained by using the same deep
-network to estimate the future reward of the next state, where the next
-state is chosen stochastically based on the predicted future rewards of all
-the currently legal actions.
-\fi
-
-\section{Overcoming the limitations of backpropagation}
+\section{Historical perspective on backpropagation}
 
 In the late 1990s, neural nets and backpropagation were largely
 forsaken by the machine learning community. At the time, people
@@ -1326,34 +1326,34 @@ require hand-engineering of domain-specific knowledge.
 
 %\newpage
 
-\iffalse
-\section{Boxes (TODO)}
+%% \iffalse
+%% \section{Boxes (TODO)}
 
-A box for the forward propagation and backpropagation equations.
+%% A box for the forward propagation and backpropagation equations.
 
-\section{Figures}
+%% \section{Figures}
 
-1. Diagram showing:\\ a) A feedforward neural net.\\ b) A recurrent neural
-net expanded in time.\\ c) A convolutional neural net.
+%% 1. Diagram showing:\\ a) A feedforward neural net.\\ b) A recurrent neural
+%% net expanded in time.\\ c) A convolutional neural net.
 
-DONE 2. Maps showing:\\ a) that word vectors learned by backpropagation are very
-good at capturing the meanings of the words.\\ b) that the thought vectors
-extracted by a translation model are very good at capturing the thoughts
-expressed by sentences.
+%% DONE 2. Maps showing:\\ a) that word vectors learned by backpropagation are very
+%% good at capturing the meanings of the words.\\ b) that the thought vectors
+%% extracted by a translation model are very good at capturing the thoughts
+%% expressed by sentences.
 
-3. A diagram showing how unsupervised learning can be used to pre-train a
-deep feeedforward neural net.
+%% 3. A diagram showing how unsupervised learning can be used to pre-train a
+%% deep feeedforward neural net.
 
-4. Some images with:\\ a) The opinions of a deep convolutional net about
-the classes of the prominent objects.\\ 
-DONE b) Several alternative captions
-generated by using the output of the convolutional net to determine the
-initial hidden state of a decoder recurrent net.
+%% 4. Some images with:\\ a) The opinions of a deep convolutional net about
+%% the classes of the prominent objects.\\ 
+%% DONE b) Several alternative captions
+%% generated by using the output of the convolutional net to determine the
+%% initial hidden state of a decoder recurrent net.
  
-5. Some images showing the localizations of parts of a person found by a
-deep convolutional neural net.\\
+%% 5. Some images showing the localizations of parts of a person found by a
+%% deep convolutional neural net.\\
 
-\fi
+%% \fi
 
 \bibliography{strings,ml,aigaion,convnetyann,lecun}
 \bibliographystyle{natbib}
