@@ -469,7 +469,8 @@ inferro-temporal~\citep{cadieu-plos-2014}. ConvNets have their roots
 in Fukushima's Neocognitron~\citep{fukushima-82} whose architecture
 was somewhat similar but did not have an end-to-end supervised
 learning algorithm such as backpropagation plus stochastic gradient
-descent.
+descent. A primitive one-dimensional convnet called a time-delay
+neural net was used for phoneme recognition~cite{WaibelIEEE}.
 
 There have been numerous applications of convolutional networks going
 back to the early 1990s. A major early success was a bank check
@@ -510,13 +511,17 @@ ConvNets that are gaining importance concern natural language
 understanding~\citep{collobert:2011b}, and speech
 recognition~\cite{Sainath-et-al-ICASSP2013}.
 
-Depsite these successes, ConvNets were largely forsaken by the
+Despite these successes, ConvNets were largely forsaken by the
 mainstream computer vision and machine learning communities until the
 ImageNet competition in 2012.  When deep convolutional networks were
 applied to a dataset of about a million images from the web that
 contained a thousand different classes they achieved spectacular
 results, almost halving the error rates of the best competing
-approaches~\citep{Krizhevsky-2012-small}.  Recent ConvNet
+approaches~\citep{Krizhevsky-2012-small}.  This success came from efficient use of GPUs,
+ReLUs, and a new regularization technique called ``dropout''
+~\citep{Srivastava14} which prevented overfitting in the fully
+connected layers. 
+Recent ConvNet
 architectures have 10 to 20 layers of ReLUs, hundreds of millions of
 weights, and billions of connections between units. The same kind of
 network is used to generate the captions shown in
@@ -530,38 +535,40 @@ deploy ConvNet-based image understanding products and services
 including Google, Facebook, Microsoft, Yahoo!, Twitter, Adobe, and a
 quickly-growing number of startups.
 
-If ConvNets and other neural nets existed in the 1990s, why did they become so popular and
-dominant only now? It was initially thought that training of neural nets
-would get stuck in poor solutions (called local minima) due to non-convexity
-of the training objective, whereas the alternative learning framework
-of {\em kernel machines}~\citep{Scholkopf+Smola-2002book} was more appealing
-because it involved a convex optimization. As discussed below, it is only
-in 2014 that theoretical and empirical evidence have suggested that local
-minima are probably not as much of a problem as was initially 
-thought~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
-Much before that realization, though, a number of 
-ideas and technologies over the last decade enabled the success. 
-First, supervised ConvNets work best
-when training data is abundant, and large labeled image datasets such
-as ImageNet~\citep{imagenet_cvpr09} only appeared recently. Second,
-the appearance of GPU cards capable of over 1Tflops, together with
-GPU-optimized software for ConvNet made it possible to train these
-large networks in a few weeks (now days) of computer time. Third, the
-use of rectifying non-linearities instead of sigmoids allowed to train
-much deeper networks than previously possible without unsupervised
-pre-training~\cite{jarrett-iccv-09,Glorot+al-AI-2011-small}. Lastly,
-the ``drop out'' regularization method~\citep{Srivastava14} was shown
-to mitigate the effects of over-fitting in very large networks. 
 
-Deep convolutional nets have quickly replaced the carefully engineered
-pipelines full of hand-designed features developed by the computer
-vision community and they are now deployed in many computer vision
-applications, including image tagging, object detection, face
-recognition, facial expression recognition and scene parsing.
+%% If ConvNets and other neural nets existed in the 1990s, why did they become so popular and
+%% dominant only now? It was initially thought that training of neural nets
+%% would get stuck in poor solutions (called local minima) due to non-convexity
+%% of the training objective, whereas the alternative learning framework
+%% of {\em kernel machines}~\citep{Scholkopf+Smola-2002book} was more appealing
+%% because it involved a convex optimization. As discussed below, it is only
+%% in 2014 that theoretical and empirical evidence have suggested that local
+%% minima are probably not as much of a problem as was initially 
+%% thought~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
+%% Much before that realization, though, a number of 
+%% ideas and technologies over the last decade enabled the success. 
+%% First, supervised ConvNets work best
+%% when training data is abundant, and large labeled image datasets such
+%% as ImageNet~\citep{imagenet_cvpr09} only appeared recently. Second,
+%% the appearance of GPU cards capable of over 1Tflops, together with
+%% GPU-optimized software for ConvNet made it possible to train these
+%% large networks in a few weeks (now days) of computer time. Third, the
+%% use of rectifying non-linearities instead of sigmoids allowed to train
+%% much deeper networks than previously possible without unsupervised
+%% pre-training~\cite{jarrett-iccv-09,Glorot+al-AI-2011-small}. Lastly,
+%% the ``drop out'' regularization method was shown
+%% to mitigate the effects of over-fitting in very large networks. 
+%% 
+%% Deep convolutional nets have quickly replaced the carefully engineered
+%% pipelines full of hand-designed features developed by the computer
+%% vision community and they are now deployed in many computer vision
+%% applications, including image tagging, object detection, face
+%% recognition, facial expression recognition and scene parsing.
+%% 
 
 ConvNets have been implemented in efficient hardware, using
 Field-Programmable Gate Arrays~\citep{farabet-suml-11} and are
-currently the subject of chip development in several companies that
+currently the subject of chip development that
 could enable real-time vision applications in embedded devices,
 robots, cars, and mobile devices.
 
@@ -645,7 +652,7 @@ Vietnam and Iraq.
 %% in some religions, etc.).  
 Such representations are called {\em
   distributed representations} because their elements (the features) are
-not mutually exclusive and their exponentially many configurations
+not mutually exclusive and their many configurations
 %% exists a rich and vast set of
 %% possible configurations of values of these features, 
 correspond to
@@ -1121,7 +1128,7 @@ systems~\citep{ba+mnih} at classification tasks, but much more remains to be
 explored.   Similarly, when understanding sentences or
 whole documents we expect future systems to learn strategies for
 selectively attending to one part at a
-time~\citep{Bahdanau-et-al-arxiv2014}. We also expect that in the next
+time~\citep{Bahdanau-et-al-ICLR2015}. We also expect that in the next
 few years deep RNNs will become far better at understanding the
 meaning of documents, including the way in which the thoughts
 expressed by nearby sentences are related to one another.
