@@ -28,11 +28,11 @@
 
 \section{Preface}
 
-Deep Learning techniques allow machines that are composed of multiple processing layers
-to learn representations of data that become progressively more abstract in deeper layers.
+Deep Learning allows machines that are composed of multiple processing 
+layers to learn representions of data with multiple levels of abstraction.
 These methods have dramatically improved the state-of-the-art
-for speech recognition, object recognition, object detection,
-predicting the activity of drug molecules, and many other tasks. Deep
+in speech recognition, object recognition, object detection,
+and many other domains such as drug discovery and genommics. Deep
 learning discovers intricate structure in large datasets by using the
 {\em backpropagation algorithm} to indicate how the machine should
 change the weights that are used to compute the representation in each layer from
@@ -58,7 +58,7 @@ present in consumer products such as cameras and smartphones. ML
 systems are used to identify objects in images, transcribe speech into
 text, match news items, posts, or products with users' interests, and
 select relevant results of search. Increasingly, these applications
-make use a new class of techniques called {\em deep learning}.
+make use of a new class of techniques called {\em deep learning}.
 
 % handcrafted features
 Traditional ML techniques were limited in their ability to process
@@ -87,7 +87,7 @@ the image. The second layer typically detects motifs by spotting particular
 arrangements of edges, regardless of small variations in the edge positions
 The third layer  may assemble motifs into larger
 combinations that correspond to parts of familiar
-objects, and subsequent layers would to detect objects as combinations of
+objects, and subsequent layers would detect objects as combinations of
 these parts. The key aspect of deep learning is that these layers of
 features are not designed by human engineers: {\em They are learned from
 data using a general purpose learning procedure.}
@@ -96,7 +96,7 @@ data using a general purpose learning procedure.}
 Deep learning is making major advances in solving problems that have
 resisted the best attempts of the Artificial Intelligence community
 for many years. It has turned out to be very good at discovering
-intricate structure in large, high-dimensional data and is therefore
+intricate structures in large, high-dimensional data and is therefore
 applicable to many domains of science, business, and government. In
 addition to beating records in image
 recognition~\citep{Krizhevsky-2012-small,farabet-pami-13,tompson-nips-14,szegedy-2014}
@@ -192,7 +192,7 @@ half-spaces separated by a hyperplane~\citep{Duda-Hart}.  But problems
 such as image and speech recognition require the input-output function
 to be insensitive to irrelevant variations of the input, such as
 variations in position, orientation or illumination of an object, or
-variation in the pitch or accent of speech, while being very sensitive to
+variations in the pitch or accent of speech, while being very sensitive to
 particular minute variations, such as the difference between a white
 wolf and a samoyed (a breed of wolf-like white dog).  At the pixel
 level, images of two samoyeds in different poses and in different
@@ -221,10 +221,10 @@ irrelevant aspects like the pose of the animal.
 % in which the input space is very high-dimensional and the input-output
 % mapping is so complex that computing similarities using a simple
 % kernel function is ineffective. 
-Designing good feature extractors traditionally required a lot of
-engineering skill and domain expertise, but this can all be avoided if
+Designing good feature extractors traditionally required considerable amounts
+of engineering skills and domain expertise. But this can all be avoided if
 good features can be learned automatically using a general purpose
-learning procedure.  That is the key idea of deep
+learning procedure.  That is the key advantage of deep
 learning.
 
 % deep architectures
@@ -256,9 +256,9 @@ weights, one can compute gradients using the {\em backpropagation
 
 The idea that this could be done, and that it worked, was discovered independently by
 several different groups in the 1970s and
-1980s~\citep{Werbos74,Parker85,LeCun85,RHW}, and became quite popular
-in the late 1980s, spurring a wave of interest for neural
-networks. 
+1980s~\citep{Werbos74,Parker85,LeCun85,RHW}. It spurred a wave of interest for
+neural networks, becoming quite popular in the late 1980s, but fell out of favor
+between the mid 1990s until its rennaissance in the late 2000s.
 
 The backpropagtion procedure to compute gradient of an objective
 function with respect to the weights of a multilayer stack of modules
@@ -282,10 +282,11 @@ module), as illustrated in Figure~\ref{fig:backprop-box}.
 %indicates by how much output $j$ would increase proportionally if
 %input $i$ were increased by a tiny amount $\Delta y_j =
 %\left(\deri{y}{x}\right)_{ij} \Delta x_i$. 
-The backpropagation equation can be used repeatedly to propagate
-gradients with respect to the outputs of a module from the top layer all the way to the bottom. Once these
-gradients have  computed, it is straightforward to compute the gradients with
-respect to the weights of each module. 
+The backpropagation equation can be applied repeatedly to propagate
+gradients through all modules, starting from the output at the top 
+all the way to the bottom. Once these
+gradients have been computed, it is straightforward to compute the gradients 
+with respect to the weights of each module. 
 %Figure~\ref{fig:backprop-box})
 %shows how this works out when the network is composed of layers of
 %weight matrices interspersed with scalar non-linearities.
@@ -388,7 +389,7 @@ three color channels. Many data modalities are in the form of multiple
 arrays: 1D for signals and sequences including language, 2D for images
 or audio spectrograms, 3D for video or volumetric images.  There are
 four key ideas behind ConvNets that take advantage of the properties
-of many such natural signals: local connections, shared weights,
+of natural signals: local connections, shared weights,
 pooling, and the use of many layers.
 
 The architecture of a typical ConvNet is shown in
@@ -398,7 +399,7 @@ layers and pooling layers. Units in a convolutional layer are
 organized in {\em feature maps}, within which each unit is connected
 to local patches in the feature maps of the previous layer through a
 set of weights called a {\em filter bank}. The result of this local
-weight sum is then passed through a non-linearity such as a ReLU.  All
+weighted sum is then passed through a non-linearity such as a ReLU.  All
 units in a feature map share the same filter bank. Different feature
 maps in a layer use different filter banks. The reason for this
 architecture is twofold. First, in array data such as images, local
@@ -409,7 +410,7 @@ a motif can appear in one part of the image, it could appear anywhere,
 hence the idea of units at different locations sharing the same
 weights, and detecting the same pattern in different parts of the
 array.  Mathematically, the filtering operation performed by a feature
-map is a {\em discrete convolution}, hence the name ConvNet.
+map is a {\em discrete convolution}, hence the name.
 
 While the role of the convolutional layer is to detect local
 conjunctions of features from the previous layer, the role of the
@@ -429,13 +430,13 @@ the weights in all the filter banks to be trained. The error
 derivative for a shared weight is just the sum the derivatives for all
 the instances of that weight.
 
-This ConvNet architecture exploits the property that many natural
+ConvNets exploit the property that many natural
 signals are {\em compositional hierarchies}. In images, local
 combinations of edges form motifs, motifs assemble into parts, and
-parts form objects in various combinations.  Similar hierarchies
+parts form objects.  Similar hierarchies
 exists in speech and text from sounds to phones, phonemes, syllables,
-words, and sentences. The pooling allow features that form elements at
-the next level to vary in relative position and appearance. 
+words, and sentences. The pooling allows representations to vary very little
+when elements in the previous layer vary in position and appearance. 
 
 %\begin{figure}[htp*]
 \begin{figure}[b]
@@ -460,17 +461,18 @@ The last layer is fully connected so it has no spatial structure.
 The convolutional and pooling layers in ConvNets are directly inspired
 by the classic notions of simple cells and complex cells in visual
 neuroscience~\citep{Hubel62}, and the overall architecture is
-reminiscent of the LGN-V1-V2-V4-IT visual cortex ventral pathway
-hierarchy ~\citep{Felleman+VanEssen-1991}. When ConvNet models and
+reminiscent of the LGN-V1-V2-V4-IT hierarchy in the visual cortex 
+ventral pathway~\citep{Felleman+VanEssen-1991}. When ConvNet models and
 monkeys are shown the same picture, the activations of high-level
 units in the ConvNet explains half the variance of random sets of 160
-neurans in the monkey's
-inferro-temporal~\citep{cadieu-plos-2014}. ConvNets have their roots
+neurons in the monkey's
+inferro-temporal cortex~\citep{cadieu-plos-2014}. ConvNets have their roots
 in Fukushima's Neocognitron~\citep{fukushima-82} whose architecture
 was somewhat similar but did not have an end-to-end supervised
-learning algorithm such as backpropagation plus stochastic gradient
-descent. A primitive one-dimensional convnet called a time-delay
-neural net was used for phoneme recognition~cite{WaibelIEEE}.
+learning algorithm such as backpropagation. 
+A primitive one-dimensional convnet called a time-delay
+neural net was used for the recognition of phonemes and simple 
+words~\cite{WaibelIEEE,bottou-89}
 
 There have been numerous applications of convolutional networks going
 back to the early 1990s. A major early success was a bank check
@@ -480,34 +482,38 @@ a probabilistic model that implemented language constraints. By the
 late 1990s this system was reading over 10\% of all the checks in the
 US. A number of ConvNet-based OCR and handwriting recognition systems
 were later deployed by
-Microsoft~\citep{simard-03,chellapilla-ist-06,chellapilla-iwfhr-06b}
+Microsoft~\citep{simard-03}
 including for Arabic and
 Chinese~\citep{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. ConvNets
-have also been used since the early 1990s for object detection in
-natural images, including faces and
+were also experimented with in the early 1990s for object detection 
+in natural images, including faces and
 hands~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95} and for face
 recognition~\cite{lawrence-tnn-1997}.
 
 
 \section{Image understanding with deep convolutional networks}
 
-Since the early 2000s, there have been many tasks in which ConvNets
-have been applied with success to the detection, segmentation, and
-recognition of objects and regions in images. These were invariably
+Since the early 2000s, ConvNets have been applied with great 
+success to the detection, segmentation, and
+recognition of objects and regions in images. These were all
 tasks in which labeled data was relatively abundant, such as traffic
 sign recognition~\cite{sermanet-ijcnn-11,Ciresan-et-al-2012}, the
 segmentation of biological images~\cite{ning-05} particularly for
 connectomics~\cite{Turaga2010}, and the detection of faces, text,
 pedestrians, and human bodies in natural
 images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,
-  nasse-09,fan-pami-2010,Jain-et-al-arxiv2013,sermanet-cvpr-13,Tompson-et-al-arxiv2014}.
+  nasse-09,fan-pami-2010,sermanet-cvpr-13,Tompson-et-al-arxiv2014}.
 A major practical success of ConvNets in recent times is face
-detection~\citep{taigman-cvpr-2014}.
+recognition~\citep{taigman-cvpr-2014}. A recent stunning demonstration
+of ConvNets is the generation of image captions, as shown in
+Figure~\ref{fig:caption-generation}. 
 
 An important application is the labeling of images at the pixel level,
-whose applications include driving mobile robots and self-driving
-cars~\cite{hadsell-jfr-09,farabet-icml-12}. Other applications of
-ConvNets that are gaining importance concern natural language
+the applications of which include autonomous mobile robots and
+self-driving cars~\cite{hadsell-jfr-09,farabet-icml-12}. Companies
+such as Mobileye and NVIDIA are using ConvNets in their upcoming
+vision systems for cars.  Other applications of ConvNets that are
+gaining importance concern natural language
 understanding~\citep{collobert:2011b}, and speech
 recognition~\cite{Sainath-et-al-ICASSP2013}.
 
@@ -517,23 +523,25 @@ ImageNet competition in 2012.  When deep convolutional networks were
 applied to a dataset of about a million images from the web that
 contained a thousand different classes they achieved spectacular
 results, almost halving the error rates of the best competing
-approaches~\citep{Krizhevsky-2012-small}.  This success came from efficient use of GPUs,
-ReLUs, and a new regularization technique called ``dropout''
-~\citep{Srivastava14} which prevented overfitting in the fully
-connected layers. 
-Recent ConvNet
-architectures have 10 to 20 layers of ReLUs, hundreds of millions of
-weights, and billions of connections between units. The same kind of
-network is used to generate the captions shown in
-Figure~\ref{fig:caption-generation}. This success has brought about a
+approaches~\citep{Krizhevsky-2012-small}.  This success came from
+efficient use of GPUs, ReLUs, and a new regularization technique
+called ``dropout'' ~\citep{Srivastava14} which prevented overfitting
+in the fully connected layers.  This success has brought about a
 revolution in computer vision, and ConvNets are now the dominant
 approach for almost all recognition and detection
 tasks~\citep{sermanet-iclr-14,girshick-cvpr-2014,taigman-cvpr-2014,simonyan-arxiv-2014,szegedy-2014,Tompson-et-al-arxiv2014}.
+
+Recent ConvNet architectures have 10 to 20 layers of ReLUs, hundreds
+of millions of weights, and billions of connections between
+units. While training such large networks could take weeks only two
+years ago, progress in hardware, software, and algorithm
+parallelization have reduced training times to a few hours.
+
 The performance of ConvNet-based vision systems has caused most major
-technology companies to start research and development projects and to
-deploy ConvNet-based image understanding products and services
-including Google, Facebook, Microsoft, Yahoo!, Twitter, Adobe, and a
-quickly-growing number of startups.
+technology companies to initiate research and development projects and
+to deploy ConvNet-based image understanding products and services
+including Google, Facebook, Microsoft, IBM, Yahoo!, Twitter, Adobe,
+and a quickly-growing number of startups.
 
 
 %% If ConvNets and other neural nets existed in the 1990s, why did they become so popular and
@@ -566,11 +574,12 @@ quickly-growing number of startups.
 %% recognition, facial expression recognition and scene parsing.
 %% 
 
-ConvNets have been implemented in efficient hardware, using
-Field-Programmable Gate Arrays~\citep{farabet-suml-11} and are
-currently the subject of chip development that
-could enable real-time vision applications in embedded devices,
-robots, cars, and mobile devices.
+ConvNets are easily ammenable to efficient hardware implementations in
+chips or Field-Programmable Gate
+Arrays~\cite{boser-92,farabet-suml-11}.  A number of companies such as
+NVIDIA, Mobileye, Intel, Qualcomm and Samsung are developing ConvNet
+chips to enable real-time vision applications in smart phones,
+cameras, robots, and self-driving cars.
 
 
 %% YLC: I find that this section would be cleared if it followed
@@ -935,15 +944,15 @@ that learns to decide when to clear the content of the memory.
 %problems, they were largely ignored until they were shown to yield
 %excellent results in a cursive handwriting recognition
 %competition~\citep{Graves-et-al-2009}. 
-LSTM have subsequently proved
-to be very effective for tasks that have sequential input.  When they
-use several hidden layers, they are better than deep feedforward
-networks for speech recognition~\citep{Graves-et-al-ICASSP2013} and
-unlike feedforward nets they can implement an entire speech
-recognition system that goes all the way from coefficents derived from
-the soundwave to the sequence of characters in the transcription.
-LSTMs or related forms of gated units are also what is currently used
-for the encoder and decoder networks that perform so well at machine
+LSTM have subsequently proved to be very effective for tasks that have
+sequential input.  When they use several hidden layers, they are
+better than deep feedforward networks for speech
+recognition~\citep{Graves-et-al-ICASSP2013} and unlike feedforward
+nets they can implement an entire speech recognition system that goes
+all the way from coefficents derived from the soundwave to the
+sequence of characters in the transcription.  LSTMs or related forms
+of gated units are also what is currently used for the encoder and
+decoder networks that perform so well at machine
 translation~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
 
 Over the last year, several authors have made different proposals to
@@ -960,7 +969,7 @@ can chose to read from or write to~\citep{Graves-et-al-arxiv2014}, and
 kind of associative memory~\citep{weston-memorynet-2014}. Memory
 networks have yielded excellent performance on standard
 question-answering benchmarks. The memory is used to remember the
-story about which the network is asked to answer questions.
+story about which the network is later asked to answer questions.
 
 
 %It is not yet clear which aspects of the complicated architecture of LSTMs
@@ -987,8 +996,9 @@ accompanied by a real value that indicates its priority in the list
 % To achieve this it must learn a sorting program purely from examples
 % of the input and output sequences
 Memory Networks can be trained to keep track of the state of the world
-when they are told a story, so that they can answer questions about
-the state of the world at the end of the story. 
+in a setting similar to a text adventure game. After reading a story,
+they can answer questions that require complex 
+inference~\cite{weston-babi-arxiv-2015}.
 % Following a sequence
 %of actions in a virtual world described in words, in a scenario
 %similar to a text adventure game, the network is shown an
@@ -997,7 +1007,7 @@ the state of the world at the end of the story.
 In one test
 example, the network is shown a 15-sentence version of the Lord of The
 Rings and correctly answers questions like ``where is Frodo now?''.
-~\citep{weston-memorynet-2014}
+~\citep{weston-memorynet-2014}.
 
 %% Another RNN can learn to map the sequence
 %% of characters in a simple program written in Python to the sequence of
@@ -1008,6 +1018,7 @@ Rings and correctly answers questions like ``where is Frodo now?''.
 %% in the 1990's.
 
 % Bernhard was not impressed, so maybe just cut this off
+% YLC: it's true that the basic concept is more impressive than the end result.
 %In a somewhat related work, a network is trained to evaluate whether a
 %particular mathematical transformation of a formula is lilely to lead
 %to a correct mathematical identity~\citep{zaremba-nips-2014}. The
@@ -1021,12 +1032,13 @@ Rings and correctly answers questions like ``where is Frodo now?''.
 \section{Historical perspective on backpropagation}
 
 In the late 1990s, neural nets and backpropagation were largely
-forsaken by the machine learning community. At the time, people
-believed that learning many layers of non-linear feature detectors
-with no prior knowledge was much too difficult for a simple gradient
-descent procedure and that the networks were getting trapped in poor
-local minima, weight configurations for which no small change would
-reduce the average error, despite considerable empirical evidence to
+forsaken by the machine learning community and ignored by the computer
+vision and speech recognition communities.  It was widely believed
+that learning multi-stage feature extractors with little prior knowledge 
+was neither useful nor effective. In particular, it was commonly
+believed that simple gradient descent procedure get trapped in poor
+local minima -- weight configurations for which no small change would
+reduce the average error-- despite considerable empirical evidence to
 the contrary in the case of ConvNets~\citep{lecun-98}. We now know
 that the main reasons for the limited success of backpropagation in
 deep networks were that the labeled datasets were typically much too
@@ -1042,11 +1054,11 @@ landscape is packed with a combinatorially large number of {\em saddle
   points} where the gradient is zero, and the surface curves up in
 some dimensions and curves down in
 others~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
-The analysis seems to show that saddle points with predominantly
-upward curving directions are present in very
-large numbers, but almost all of them have very similar error levels.
-Hence it doesn't seem to matter which one the algorithm
-finds. 
+The analysis seems to show that local minima (and saddle points with
+only a few downward curving directions) are present in very large
+numbers, but almost all of them have very similar values of the
+objective function.  Hence it doesn't seem to matter which local
+minimum the algorithm finds.
 %% Avoiding being trapped near saddle points seems more important.
 
 %% It also took an inordinate amount of time for the community to adopt
@@ -1100,69 +1112,73 @@ task~\citep{Dahl2012}.  By 2012, versions of the deep net from 2009
 were being developed by many of the major speech
 groups~\citep{Hinton-et-al-2012} and were already being deployed in
 Android phones.  For smaller datasets, unsupervised pre-training helps
-to prevent overfitting~\citep{Bengio-Courville-Vincent-TPAMI2013}, leading to
-significantly better generalization when the number of labeled
-examples is small, or in a transfer setting where we have lots of
-examples for some ``source'' tasks but very few for some ``target''
+to prevent overfitting~\citep{Bengio-Courville-Vincent-TPAMI2013},
+leading to significantly better generalization when the number of
+labeled examples is small, or in a transfer setting where we have lots
+of examples for some ``source'' tasks but very few for some ``target''
 task. In this context, unsupervised representation learning helped to
 win several transfer learning
-competitions~\citep{Bengio-Courville-Vincent-TPAMI2013}.  Once
-deep learning had been rehabilitated, it turned out that large labeled
+competitions~\citep{Bengio-Courville-Vincent-TPAMI2013}.  Once deep
+learning had been rehabilitated, it turned out that large labeled
 datasets did not need the pre-training stage. Even better results,
 especially for very deep networks, could be obtained by using
 rectifying non-linearities rather than sigmoid or tanh non-linearities
-~\citep{Nair-2010-small,Glorot+al-AI-2011-small,Krizhevsky-2012-small,Dahl-et-al-ICASSP2013}.
+~\citep{jarrett-iccv-09,Nair-2010-small,Glorot+al-AI-2011-small,Krizhevsky-2012-small,Dahl-et-al-ICASSP2013}. Deep
+neural nets are now the dominant method for acoustic modeling in
+speech, and ConvNet are dominant for image and video recognition.
 
 
 \section{The future of deep learning}
 
-Human vision is an active process in which intelligent fixations are
-used to ensure that only a tiny fraction of the optic array is ever
-processed at high resolution. We expect much of the future progress in
-vision, especially for video understanding or robotics, to come from
-systems that are trained end-to-end and combine deep ConvNets with
-RNNs that use reinforcement learning to decide where to look.
-Combining reinforcement learning with deep learning has already
-produced an impressive system that can learn to play many different
-video games~\citep{Mnih-et-al-2015}.  Such systems already outperform passive vision
-systems~\citep{ba+mnih} at classification tasks, but much more remains to be
-explored.   Similarly, when understanding sentences or
-whole documents we expect future systems to learn strategies for
-selectively attending to one part at a
-time~\citep{Bahdanau-et-al-ICLR2015}. We also expect that in the next
-few years deep RNNs will become far better at understanding the
-meaning of documents, including the way in which the thoughts
-expressed by nearby sentences are related to one another.
+Human vision is an active process in which the few degrees around the
+center of the visual field that is processed at high resolution is
+intelligently moved around through saccades.
+
+We expect much of the future progress in vision to come from systems
+that are trained end-to-end and combine ConvNets with RNNs that decide
+where to look through reinfoercement learning. Such systems already
+outperform passive vision systems~\citep{ba+mnih} at classification
+tasks, but much more remains to be explored.  Combining reinforcement
+learning with ConvNets has already produced impressive results in
+learning to play many different video games~\citep{Mnih-et-al-2015}.
+Similarly, when understanding sentences or whole documents we expect
+future systems to learn strategies for selectively attending to one
+part at a time~\citep{Bahdanau-et-al-ICLR2015}. 
+
+Certainly, natural language understanding is an area in which deep
+learning is poised to make a large impact over the next few years,
+using combinations of RNN, ConvNets, reasoning, and unsupervised
+learning.
 
 This review has focused on supervised learning because of its recent
 achievements and we have ignored much interesting work on unsupervised
 learning procedures for deep neural
-networks~\citep{Salakhutdinov2009-small,Hinton95,QuocLe-ICML2012,VincentPLarochelleH2008-small,koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014}.
-These papers often introduce a probabilistic view or the injection of randomness in the
-neural network computation, to allow neural networks to {\em generate} examples that are
-similar to training examples but generalize them.
-Unsupervised learning is important because most data have not been hand-labeled by humans, and just like
-children are not told what they should have done at each instant, we
-need learning machines that can learn from mostly unlabeled examples.
-In the long run, we believe unsupervised learning will be essential
-for allowing deep networks to generalize well by creating internal
-representations that untangle the many different factors that interact
-to produce images, speech and
-documents~\citep{Bengio-Courville-Vincent-TPAMI2013}.
+networks~\citep{Salakhutdinov2009-small,Hinton95,VincentPLarochelleH2008-small,koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014}.
+Human and animal learning is largely unsupervised: we discover the
+structure of the world by observing it, not by being told the name of
+every object. Most current methods are built around the idea of {\em
+  reconstruction} of the input, and can sometimes be used to {\em
+  generate} inputs that are similar to training examples. The
+principle is to disentangle the independent factors that interact to
+produce images, speech and
+documents~\citep{Bengio-Courville-Vincent-TPAMI2013}.  But some
+researchers view the essence of intelligence as the ability to predict
+the future, leading them to propose new paradigms based on
+{\em prediction}.
 
-%% We expect to see more innovative ideas that marry deep learning with
-%% reasoning. Reasoning can be formulated in a number of different ways:
-%% energy minimization, contraint satisfaction, chains of operations
-%% applied to vectors representing objects or symbols. One is hoping for
-%% an architecture that unifies representation learning with
-%% reasoning~\citep{bottou-mlj-2014}.
+%% YLC: I uncommented this. I really think this is were things are going.
+Ultimately, progress in AI will come about through systems that
+combine representation learning with complex {\em reasoning}. While
+deep learning and simple resoning has been used for speech and
+handwriting recognition for a long time, new paradigms are needed to
+replace symbolic logic manipulation by operations on
+vectors~\citep{bottou-mlj-2014}.
 
-Finally, we believe that the recent successes of deep learning using
-stochastic gradient descent are only the beginning.  As pointed out
-in~\citet{Bengio+Lecun-chapter2007-small}, end-to-end learning
-systems that have many parameters and few built-in assumptions can make use
-of more data and more compute power far more easily than systems that
-require hand-engineering of domain-specific knowledge.
+With new paradigms for unsupervised learning and reasoning on the
+horizon, and with new learning algorithms that transcend simple
+gradient descent, deep learning is poised to progress quickly over the
+next few years, as the research community grows, the machines become
+more powerful, and the datasets become larger.
 
  
 %\section{Key references}
