@@ -28,15 +28,16 @@
 
 \section{Preface}
 
-Deep Learning techniques allow a machine composed of multiple processing layers
-which define representations of the data that are more abstract for deeper layers.
+Deep Learning techniques allow machines that are composed of multiple processing layers
+to learn representations of data that become progressively more abstract in deeper layers.
 These methods have dramatically improved the state-of-the-art
 for speech recognition, object recognition, object detection,
 predicting the activity of drug molecules, and many other tasks. Deep
 learning discovers intricate structure in large datasets by using the
 {\em backpropagation algorithm} to indicate how the machine should
-change.  Deep {\em convolutional nets}
-have brought about dramatic improvements to process
+change the weights that are used to compute the representation in each layer from
+the representation in the previous layer.  Deep {\em convolutional nets}
+have brought about dramatic improvements in processing
 images, video, speech and audio, while {\em recurrent
   nets} have shone on sequential data such as text and
 speech.
@@ -51,43 +52,45 @@ speech.
 
 % what is machine learning
 Machine learning technology (ML) powers many aspects of modern
-society: from web search to content filtering on social networks, and
-to recommendations on e-commerce websites. It is also increasingly
+society: from web search to content filtering on social networks 
+to recommendations on e-commerce websites, and it is increasingly
 present in consumer products such as cameras and smartphones. ML
 systems are used to identify objects in images, transcribe speech into
 text, match news items, posts, or products with users' interests, and
 select relevant results of search. Increasingly, these applications
-make use a new class of techniques: {\em deep learning}.
+make use a new class of techniques called {\em deep learning}.
 
 % handcrafted features
-Traditional ML techniques are limited in their ability to process
+Traditional ML techniques were limited in their ability to process
 natural data in raw form. For decades, constructing a pattern
-recognition or ML system has required engineering efforts and domain
-expertise to design a {\em feature extractor} that transforms the raw
+recognition or ML system required careful engineering and considerable
+domain
+expertise to design a {\em feature extractor} that transformed the raw
 data, such as the pixel values of an image, into a suitable {\em
   internal representation}, or feature vector, from which the learning
-subsystem, often a classifier, can detect, recognize, or classify
+subsystem, often a classifier, could detect or classify
 patterns in the input.
 
 % deep learning: learning representations
 Deep learning is a set of methods that allows a machine to be fed with
-raw data and to automatically discover suitable representations of the
-data. The name comes from the fact that deep learning machines are
-multilayer stacks of trainable modules, each of which (e.g. a neural
-network layer) turns the
-representation of the data in its input into a more abstract and
-higher-level representation on its output in which relevant
-characteristics and amplified and irrelevant variabilities are
-attenuated. For example, an image comes in the form of an array of
-pixel values, features in the first layer would represent the presence
-or absence of edges of a particular orientation at all locations in
-the image, the second layer would  detect motifs by spotting particular
-arrangements of edges, regardless of small variations in the positions
-of the edges.  The third layer would assemble motifs into parts of
-object, and subsequent layers would to detect objects as combinations of
-parts. The key aspect of deep learning is that {\em these features and
-  representations are not designed by human engineers, but are
-  automatically learned from data.}
+raw data and to automatically discover the representations needed for
+detection or classification. The name comes from the fact that deep learning machines are
+multilayer stacks of trainable modules, each of which turns the
+representation of the data on its input into a more abstract and
+higher-level representation on its output. The output representation
+amplifies aspects of the input that are important for discrimination
+and suppresses irrelevant variations. An image, for example, comes in the form of an array of
+pixel values and the learned features in the first layer of representation
+typically represent the presence
+or absence of edges at  particular orientations and locations in
+the image. The second layer typically detects motifs by spotting particular
+arrangements of edges, regardless of small variations in the edge positions
+The third layer  may assemble motifs into larger
+combinations that correspond to parts of familiar
+objects, and subsequent layers would to detect objects as combinations of
+these parts. The key aspect of deep learning is that these layers of
+features are not designed by human engineers: They are learned from
+data using a general purpose learning procedure.}
 
 % preview of deep learning results
 Deep learning is making major advances in solving problems that have
@@ -100,7 +103,7 @@ recognition~\citep{Krizhevsky-2012-small,farabet-pami-13,tompson-nips-14,szegedy
 and speech
 recognition~\citep{Hinton-et-al-2012,Sainath-et-al-ICASSP2013}, it has
 beaten other ML techniques at predicting the activity of potential
-drug molecules~\citep{Dahl-et-al-arxiv2014,Ma-et-al-2015}, detecting new fundamental
+drug molecules~\citep{Ma-et-al-2015}, detecting new fundamental
 particles~\citep{Ciodaro-et-al-2012,Melis-Higgs-boson-competition-2014},
 % YB thinks that Ciodaro-et-al might be {YANNparticles} 
 % classifying galaxies, ~\citep{YANNgalaxies}, % YB while waiting for bib entry, 
@@ -108,7 +111,7 @@ reconstructing brain circuits~\citep{helmstaedter-nature-2013}, and
 predicting the effects of mutations in non-coding DNA on gene
 expression and disease~\citep{Keung-et-al-2014,Xiong-et-al-Frey-science2015}.
 
-Perhaps more interestingly, deep learning has produced extremely
+Perhaps more surprisingly, deep learning has produced extremely
 promising results for a variety of tasks in natural language
 understanding~\citep{collobert:2011b}, particularly topic
 classification, %~\citep{topic-classification},  % YB while waiting for bib entry
@@ -134,14 +137,14 @@ its internal adjustable parameters so as to reduce this error. These
 adjustable parameters, often called weights, are real numbers which
 can be seen as ``knobs'' that define the input-output function of the
 machine. In a typical deep learning system, there may be hundreds of
-millions of these adjustable weights, and tens or hundreds of millions
-of examples with which to train the machine.
+millions of these adjustable weights, and hundreds of millions
+of labeled examples with which to train the machine.
 
 To properly adjust the weight vector, the learning algorithm computes
 a {\em gradient vector} which, for each weight, indicates by what
 amount the error would increase or decrease if the weight were
 increased by a tiny amount. The weight vector is then adjusted in the
-opposite direction of the gradient vector. 
+opposite direction to the gradient vector. 
 
 % GD
 The objective function, averaged over all the training examples, can
@@ -152,17 +155,19 @@ where the output error is low on average.
 
 % SGD
 In practice, most practitioners use a procedure called {\em Stochastic
-  Gradient Descent} or SGD. It consists in showing an input, computing
-the output and the error, computing the gradient, and adjusting the
-weight vector right away. The process is repeated with each example in
-the training set, again and again, until the average of the objective
-function stops decreasing. It is called stochastic because each sample
-gives a noisy estimate of the average gradient. The procedure gets
-close to a good minimum very quickly in
-practice~\cite{bottou-bousquet-2008-small}. Following this, the
-performance of the system is measured on a different set of examples,
-not seen during training, called a {\em test set}. This serves to test
-the {\em generalization ability} of the machine, i.e. its ability to
+  Gradient Descent} or SGD. It consists in showing the input vector
+for a few examples, computing the outputs and the errors, computing
+the average gradient for those examples, and adjusting the
+weights. The process is repeated for many small sets of examples
+from the training set until the average of the objective function stops
+decreasing. It is called stochastic because each small set of examples
+gives a noisy estimate of the average gradient over all examples. In
+practice, this simple procedure usually finds a good set of weights
+surprisingly quickly when compared with far more elaborate
+optimization techniques~\cite{bottou-bousquet-2008-small}. After
+training, the performance of the system is measured on a different set
+of examples called a {\em test set}. This serves to test the {\em
+  generalization ability} of the machine, {\it i.e.} its ability to
 produce sensible answers on new inputs that it has never seen during
 training.
 
@@ -182,25 +187,25 @@ machine~\cite{Vapnik+Chervonenkis-1964,Boser92}.
 
 % features: solving the selectivity-invariance dilemma
 It has been known since the 1960s that linear classifiers can only
-carve out their input space into very simple regions, namely
+carve their input space into very simple regions, namely
 half-spaces separated by a hyperplane~\citep{Duda-Hart}.  But problems
 such as image and speech recognition require the input-output function
 to be insensitive to irrelevant variations of the input, such as
 variations in position, orientation or illumination of an object, or
-variation in pitch or accent of speech, while being very sensitive to
+variation in the pitch or accent of speech, while being very sensitive to
 particular minute variations, such as the difference between a white
 wolf and a samoyed (a breed of wolf-like white dog).  At the pixel
 level, images of two samoyeds in different poses and in different
 environments may be very different from each other, while two images
 of a samoyed and a wolf in the same position and on similar
-backgrounds may be quite similar to each other. A linear classifier,
-or any other ``shallow'' classifiers operating on raw pixels could not
+backgrounds may be very similar to each other. A linear classifier,
+or any other ``shallow'' classifier operating on raw pixels could not
 possibly distinguish the latter two, while putting the former two in
 the same category. This is why shallow classifiers require a good
-feature extractor that solve the {\em selectivity-invariance dilemma},
-i.e. that produces representations that are {\em selective} to the
-important aspects of the image, while being {\em invariant} to its
-irrelevant aspects, like the pose of the animal.
+feature extractor that solves the {\em selectivity-invariance dilemma},
+{\it i.e.} that produces representations that are {\em selective} to the
+aspects of the image that are important for discrimination while being {\em invariant} to 
+irrelevant aspects like the pose of the animal.
 %
 % classical extensions of simple classifiers
 % YB: I propose to mostly remove the paragraph below (but keep the Scholkopf book ref)
@@ -216,47 +221,44 @@ irrelevant aspects, like the pose of the animal.
 % in which the input space is very high-dimensional and the input-output
 % mapping is so complex that computing similarities using a simple
 % kernel function is ineffective. 
-Designing feature extractors that are
-sensitive to the relevant information and invariant to the irrelevant
-one is what generations of computer vision and pattern recognition
-researchers have spent their careers on.
+Designing good feature extractors traditionally required a lot of
+engineering skill and domain expertise, but this can all be avoided if
+good features can be learned automatically using a general purpose
+learning procedure.  That is the key idea of deep
+learning.
 
 % deep architectures
-But what if features could be learned? That is the key idea of deep
-learning.
 
 A deep learning architecture is a multilayer stack of modules, all (or
 most) of which are subject to learning, and many of which compute
 non-linear input-output mappings.  Each module in the stack transforms
-its input so as to increase both the selectivity and the invariance a
-little bit.  With multiple non-linear layers, say 5 to 20, a system
+its input so as to increase both the selectivity and the invariance of
+the representation. With multiple non-linear layers, say 5 to 20, a system
 can implement extremely intricate functions of its inputs that are
 simultaneously sensitive to minute details-- distinguishing samoyeds
-from wolves-- and insensitive to irrelevant variations such as the
-background, the pose, the lighting, or the surrounding objects.
+from wolves-- and insensitive to large irrelevant variations such as the
+background, pose, lighting, and surrounding objects.
 
 % backprop
 How do we train multilayer architectures? 
 
 From the earliest days of pattern
 recognition~\citep{selfridge,Rosenblatt57} researchers have aimed to
-replace hand-engineered features by trainable multilayer networks.
-But despite its extreme simplicity, the solution did not appear until
+replace hand-engineered features by trainable multilayer networks,
+but despite its extreme simplicity, the solution was not widely
+understood until
 the mid 1980s and was largely forsaken by the ML community until
 recently. As it turns out, training multilayer architectures can be
 done by simple stochastic gradient descent. As long as the modules are
 relatively smooth functions of their inputs and of their internal
-weights, one can compute gradients through the {\em backpropagation
+weights, one can compute gradients using the {\em backpropagation
   procedure}.
 
-The idea that this could be done, and that it could work at all, took
-a surprisingly long time to emerge. It was discovered independently by
+The idea that this could be done, and that it worked, was discovered independently by
 several different groups in the 1970s and
 1980s~\citep{Werbos74,Parker85,LeCun85,RHW}, and became quite popular
-in the late 1980s, spurring the second wave of interest for neural
-networks. But for reasons that historians of science will have to
-explain, the method was the subject of scorn by the ML community
-between the late 1990s and the late 2000s.
+in the late 1980s, spurring a wave of interest for neural
+networks. 
 
 The backpropagtion procedure to compute gradient of an objective
 function with respect to the weights of a multilayer stack of modules
@@ -280,11 +282,10 @@ module), as illustrated in Figure~\ref{fig:backprop-box}.
 %indicates by how much output $j$ would increase proportionally if
 %input $i$ were increased by a tiny amount $\Delta y_j =
 %\left(\deri{y}{x}\right)_{ij} \Delta x_i$. 
-The backpropagation equation
-constitutes a recurrence formula that can be used to propagate
-gradients from the top layer all the way to the bottom. Once all these
-gradients are computed, one can similarly compute the gradients with
-respect to the weights of the module. 
+The backpropagation equation can be used repeatedly to propagate
+gradients with respect to the outputs of a module from the top layer all the way to the bottom. Once these
+gradients have  computed, it is straightforward to compute the gradients with
+respect to the weights of each module. 
 %Figure~\ref{fig:backprop-box})
 %shows how this works out when the network is composed of layers of
 %weight matrices interspersed with scalar non-linearities.
@@ -294,16 +295,16 @@ respect to the weights of the module.
 % deep neural nets
 Many applications of deep learning use feedforward neural network
 architectures, illustrated in Figure~\ref{fig:backprop-box}, which
-learn to map a fixed-size input (e.g., an image) to a fixed-size
-output (e.g. a probability for each one of several categories). To go
+learn to map a fixed-size input ({\it e.g.} an image) to a fixed-size
+output ({\it e.g.} a probability for each one of several categories). To go
 from one layer to the next, a set of units compute a weighted
 sum of their inputs from the previous layer and pass the result
 through a non-linear function. The most common non-linear function is
 the so-called {\em ReLU} (Rectified Linear Unit) which is simply the
 half-wave rectifier $f(z) = \max(z,0)$. In past decades, neural nets
-used smoother non-linearities, such as $\tanh(z)$, but the ReLU seems
-to work better in networks with many layers. Units that are not in the
-output layer are traditionally called {\em hidden units}. The first
+used smoother non-linearities, such as $\tanh(z)$ or $1/(1+\exp(-z))$ but the ReLU 
+typically learns much faster in networks with many layers. Units that are not in the
+output layer are traditionally called {\em hidden units}. The early
 layers can be seen as distorting the input in a non-linear way so that
 categories become linearly separable by the last layer, as indicated
 in figure~\ref{fig:backprop-box}.
@@ -633,20 +634,25 @@ real text and the individual micro-rules are
 unreliable~\citep{BenDucVin01-short}. When trained to predict the next
 word in a news story, for example, the learned word vectors for
 Tuesday and Wednesday are very similar, as are the word vectors for
-Vietnam and Iraq. This is not to say that Tuesday and Wednesday are
-put in the same category, but rather that they share many semantic and
-grammatical attributes, so that what the neural network learns from
-one day of the week can often be generalized to the other, while
-individual days remain different (for example one imagines that the
-neural network also learns some features that distinguishes week-end
-days and weekdays, while Saturday and Sunday might have special roles
-in some religions, etc.).  Such representations are called {\em
-  distributed representations} because its elements (the features) are
-not mutually exclusive and there exists a rich and vast set of
-possible configurations of values of these features, corresponding to
-the variations seen in the observed data.  These word-vectors are thus
+Vietnam and Iraq. 
+%% This is not to say that Tuesday and Wednesday are
+%% put in the same category, but rather that they share many semantic and
+%% grammatical attributes, so that what the neural network learns from
+%% one day of the week can often be generalized to the other, while
+%% individual days remain different (for example one imagines that the
+%% neural network also learns some features that distinguishes week-end
+%% days and weekdays, while Saturday and Sunday might have special roles
+%% in some religions, etc.).  
+Such representations are called {\em
+  distributed representations} because their elements (the features) are
+not mutually exclusive and their exponentially many configurations
+%% exists a rich and vast set of
+%% possible configurations of values of these features, 
+correspond to
+the variations seen in the observed data.  These word-vectors are
+composed of
 {\em learned features} that were not determined ahead of time by
-humans, but automatically discovered by the neural network.  Vector
+experts, but automatically discovered by the neural network.  Vector
 representations of words learned from text are now very widely used in
 natural language
 applications~\citep{Schwenk-2007,collobert:2011b,Socher-2011,
@@ -657,22 +663,19 @@ the logic-inspired and the neurally-inspired paradigms for
 cognition. In the logic-inspired paradigm, an instance of a symbol is
 something whose only property is that it is either identical or
 non-identical to other symbol instances. It has no internal structure
-that is relevant to its use. By contrast, neural networks use large
-activity vectors instead of symbols and parallel matrix operations
-followed by non-linearities instead of formal rules of inference. The
-elements of such vectors can be understood as the values of learned
-attributes (or features) associated with some object.  With sufficient
-data, computational power and depth, the combination of
-backpropagation for computing gradients and stochastic gradient
-descent for updating the weights on connections has proved to be very
-good at learning appropriate distributed representations. 
-%These
+that is relevant to its use and  to reason with symbols, they must be
+bound to the variables in judiciously chosen rules of inference.  By
+contrast, neural networks just use big activity vectors, big weight
+matrices and scalar non-linearities to perform the type of fast
+``intuitive'' inference that underpins effortless commonsense
+reasoning.
+
 %representations allow a lot of parallel computation at the feature
 %level so that complex tasks can be solved in a very small number of
 %sequential steps.
 Deep learning theory shows that deep nets can benefit from
 an exponential advantage over classical learning algorithm not based on distributed 
-representations~\citep{Bengio-localfailure-NIPS-2006-small,Bengio-decision-trees10},
+representations~\citep{Bengio-localfailure-NIPS-2006-small},
  in two ways, both arising from the power of {\em composition}, so long as the
 underlying data generating distribution has such a componential structure, i.e.,
 is generated by a hierarchy of composition of factors~\citep{Bengio-Courville-Vincent-TPAMI2013}.
@@ -716,15 +719,14 @@ Figure~\ref{fig:word-embeddings}.
 language, non-linearly projected to 2-D for visualization using the
 t-SNE algorithm~\citep{VanDerMaaten08}. Right: 2-D representation
 of phrases learned by an English-to-French encoder-decoder recurrent
-neural network or RNN~\citep{Cho-et-al-EMNLP2014}. One can observe that
+neural network or RNN~\citep{Bahdanau-et-al-ICLR2015}. One can observe that
 semantically similar words or sequences of words are  mapped to
 nearby representations. The distributed representations of
 words are obtained by using backpropagation to jointly learn 
 a representation for each word and
 a function that predicts a target quantity such as the next word
 in a sequence (for language modeling) or a whole sequence
-of translated words (for machine translation)~\citep{Devlin-et-al-ACL2014,Bahdanau-et-al-arxiv2014,
-Sutskever-et-al-NIPS2014}.
+of translated words (for machine translation)~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
 }
 \label{fig:word-embeddings}
 \end{minipage}
@@ -784,25 +786,28 @@ translation. If a particular first word is chosen from this
 distribution and provided as input to the decoder network it will then
 output a probability distribution for the second word of the
 translation and so on until a full stop is
-chosen~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+chosen~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
 
 This rather naive way of performing machine translation has quickly become
 competitive with the state-of-the-art and this raises serious doubts about
 whether understanding a sentence requires anything like internal symbolic
-expressions that are manipulated by binding their symbols to variables
-in judiciously chosen rules of inference, as was previously thought by
-many early AI researchers.  The encoder-decoder translation
-networks do not work by using internal rules of inference in which
-variables get bound to symbols. They just use big state vectors, big weight
-matrices and scalar non-linearities to get the job done.  
-Deriving conclusions using only the form of the premises (which is
-what formal logic does) is a powerful
-technique that people can eventually master, but the translation
-results with RNNs suggest that it may not be a good model of
-the way we normally reason or understand language. RNNs
-that represent thoughts as big vectors are more compatible with
+expressions that are manipulated by using inference rules.
+%%binding their symbols to variables
+%%in judiciously chosen rules of inference, as was previously thought by
+%%many early AI researchers. It is 
+%%The encoder-decoder translation
+%%networks do not work by using internal rules of inference in which
+%%variables get bound to symbols. They just use big state vectors, big weight
+%%matrices and scalar non-linearities to get the job done. 
+%%Deriving conclusions using only the form of the premises (which is
+%%what formal logic does) is a powerful
+%%technique that people can eventually master, but the translation
+%%results with RNNs suggest that it may not be a good model of
+%%the way we normally reason or understand language.
+%%RNNs that represent thoughts as big vectors are 
+It is more compatible with
 the view that everyday reasoning involves many simultaneous analogies that
 each contribute plausibility to a 
 conclusion~\citep{Lakoff+Johnson-2008,Rogers+McClelland-book2004}.
@@ -931,18 +936,19 @@ recognition system that goes all the way from coefficents derived from
 the soundwave to the sequence of characters in the transcription.
 LSTMs or related forms of gated units are also what is currently used
 for the encoder and decoder networks that perform so well at machine
-translation~\citep{Bahdanau-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+translation~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
 
 Over the last year, several authors have made different proposals to
-augment RNNs with a memory module. This includes simplified
-version of the LSTM
-circuit~\citep{Chung-et-al-NIPSDL2014-small,Yao-et-al-SLU-workshop2014}.
-The results suggest that not all the elements of the LSTM architecture
-are required.
-Other proposals include the ``Neural Turing Machine'' in which the
+augment RNNs with a memory module. 
+%% This includes simplified
+%% version of the LSTM
+%% circuit~\citep{Chung-et-al-NIPSDL2014-small,Yao-et-al-SLU-workshop2014}.
+%% The results suggest that not all the elements of the LSTM architecture
+%% are required.
+Proposals include the ``Neural Turing Machine'' in which the
 network is augmented by a ``tape-like'' memory that the RNN
 can chose to read from or write to~\citep{Graves-et-al-arxiv2014}, and
-the ``Memory Network'' in which a regular network is augmented by a
+``Memory Networks'' in which a regular network is augmented by a
 kind of associative memory~\citep{weston-memorynet-2014}. Memory
 networks have yielded excellent performance on standard
 question-answering benchmarks. The memory is used to remember the
@@ -985,13 +991,13 @@ example, the network is shown a 15-sentence version of the Lord of The
 Rings and correctly answers questions like ``where is Frodo now?''.
 ~\citep{weston-memorynet-2014}
 
-Another RNN can learn to map the sequence
-of characters in a simple program written in Python to the sequence of
-characters that the program would
-print~\citep{Zaremba+Sutskever-arxiv2014}, 
-learning about {\it for loops} and small integer arithmetic.
-Achieving this kind of behaviour seemed ludicrously optimistic
-in the 1990's.
+%% Another RNN can learn to map the sequence
+%% of characters in a simple program written in Python to the sequence of
+%% characters that the program would
+%% print~\citep{Zaremba+Sutskever-arxiv2014}, 
+%% learning about {\it for loops} and small integer arithmetic.
+%% Achieving this kind of behaviour seemed ludicrously optimistic
+%% in the 1990's.
 
 % Bernhard was not impressed, so maybe just cut this off
 %In a somewhat related work, a network is trained to evaluate whether a
@@ -1003,25 +1009,6 @@ in the 1990's.
 % The renewal of interest in deep learning and recurrent neural nets is
 %spurring a whole new generation of creative ideas.
 
-%\iffalse  
-%\section{Deep reinforcement learning}
-%
-%Learning which action will maximize the total future reward given a state
-%of the world is difficult when the rewards are delayed and the world has a
-%% very large number of possible states. After neural networks won backgammon
-%% olympiads in the 90's~\citep{Tesauro90}, an impressive recent development is
-%% combines deep convolutional networks with reinforcement learning in a single system that can learn to play many different video
-%% games~\citep{Mnih-et-al-2015}. 
-%% Pixels on the screen at several time steps are mapped to the
-%% expected future reward of each possible action (assuming some policy is followed
-%% in the future) and its only inputs are the
-%% pixels and the current score in the game. The learning works by minimizing
-%% the difference between the system's current estimate of future reward and a
-%% noisy but less biased estimate that is obtained by using the same deep
-%% network to estimate the future reward of the next state, where the next
-%% state is chosen stochastically based on the predicted future rewards of all
-%% the currently legal actions.
-%% \fi
 
 \section{Historical perspective on backpropagation}
 
@@ -1029,53 +1016,53 @@ In the late 1990s, neural nets and backpropagation were largely
 forsaken by the machine learning community. At the time, people
 believed that learning many layers of non-linear feature detectors
 with no prior knowledge was much too difficult for a simple gradient
-descent procedures and that the networks were getting trapped in poor
+descent procedure and that the networks were getting trapped in poor
 local minima, weight configurations for which no small change would
 reduce the average error, despite considerable empirical evidence to
 the contrary in the case of ConvNets~\citep{lecun-98}. We now know
 that the main reasons for the limited success of backpropagation in
-deep networks were quite different: labeled datasets that were often
-too small, computers that were too slow, non-linearities that were
-inappropriate, weights that were not properly
-initialised~\citep{lecun-98b,GlorotAISTATS2010-small}, and a lack of
-faith in the potential success.
+deep networks were that the labeled datasets were typically much too
+small and the computers were much too slow. Additional reasons were
+that researchers were not initializing the weights properly and were
+not using the type of non-linearlity that learns most
+rapidly~\citep{lecun-98b,GlorotAISTATS2010-small}.
 
-The obvious perceived weakness of stochastic gradient descent is that
-it can get trapped in poor local minima, but it turns out that local
-minima are rarely a problem with large networks. Regardless of the
-initial conditions, the system always reaches solutions of similar
-quality.  Recent results strongly suggest the landscape is packed with
-a combinatorially large number of {\em saddle points} where the
-gradient is zero, and the surface curves up in some dimensions and
-curves down in
+Poor local minima are rarely a problem with large networks. Regardless
+of the initial conditions, the system nearly always reaches solutions
+of very similar quality.  Recent results strongly suggest the
+landscape is packed with a combinatorially large number of {\em saddle
+  points} where the gradient is zero, and the surface curves up in
+some dimensions and curves down in
 others~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
-The analysis seems to show that the local minima are present in very
+The analysis seems to show that saddle points with predominantly
+upward curving directions are present in very
 large numbers, but almost all of them have very similar error levels.
 Hence it doesn't seem to matter which one the algorithm
-finds. Avoiding being trapped near saddle points seems more important.
+finds. 
+%% Avoiding being trapped near saddle points seems more important.
 
-It also took an inordinate amount of time for the community to adopt
-stochastic gradient methods for large-scale machine learning. Key
-theoretical and practical work showed that, while SGD has terrible
-asymptotic convergence properties, it is extremely efficient for the
-kind of approximate optimization required in ML
-applications~\citep{bottou-bousquet-2008-small}. But when training a
-large ConvNet can take days or weeks on the fastest GPUs, one is eager
-to discover more efficient optimization methods that use the curvature
-information the past update directions~\citep{lecun-98b,Montavon2012}.
+%% It also took an inordinate amount of time for the community to adopt
+%% stochastic gradient methods for large-scale machine learning. Key
+%% theoretical and practical work showed that, while SGD has terrible
+%% asymptotic convergence properties, it is extremely efficient for the
+%% kind of approximate optimization required in ML
+%% applications~\citep{bottou-bousquet-2008-small}. But when training a
+%% large ConvNet can take days or weeks on the fastest GPUs, one is eager
+%% to discover more efficient optimization methods that use the curvature
+%% information the past update directions~\citep{lecun-98b,Montavon2012}.
 
 The parallelization of large neural nets over a single GPU has
 required to use ``mini-batches'' of samples over which the gradients
 are averaged. The purpose of this is to saturate the GPU. But one big
-unsolved question is how to scale up the training of very large neural
+unsolved question is the best way to scale up the training of very large neural
 nets over multiple GPU cards across multiple machines. As of today, this
-question is unresolved.
+question is still unresolved.
 
 Interest in deep feedforward networks was revived around
 2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small}
-thanks to the effort of a forward-looking Canadian funding agency 
-(the Canadian Institute for Advanced Research, or CIFAR), with
-the introduction of unsupervised learning procedures that could
+by a group of researchers brought together by the Canadian Institute
+for Advanced Research who introduced
+unsupervised learning procedures that could
 create layers of feature detectors without requiring labeled data. The
 objective in learning each layer of feature detectors was to be able
 to reconstruct or model the activities of feature detectors (or raw
@@ -1088,7 +1075,7 @@ using standard backpropagation
 \citep{Hinton-Science2006,Bengio-nips-2006-small,ranzato-07-small}.
 This worked remarkably well for recognizing handwritten digits or for
 detecting pedestrians, especially when the amount of labeled data was
-very limited~\citep{Erhan+al-2010-small,sermanet-cvpr-13}.
+very limited~\citep{sermanet-cvpr-13}.
 
 The first major application of this pre-training approach was in
 speech recognition and it was made possible by the advent of fast
@@ -1105,7 +1092,7 @@ task~\citep{Dahl2012}.  By 2012, versions of the deep net from 2009
 were being developed by many of the major speech
 groups~\citep{Hinton-et-al-2012} and were already being deployed in
 Android phones.  For smaller datasets, unsupervised pre-training helps
-to prevent overfitting~\citep{Erhan+al-2010-small}, leading to
+to prevent overfitting~\citep{Bengio-Courville-Vincent-TPAMI2013}, leading to
 significantly better generalization when the number of labeled
 examples is small, or in a transfer setting where we have lots of
 examples for some ``source'' tasks but very few for some ``target''
@@ -1125,19 +1112,19 @@ Human vision is an active process in which intelligent fixations are
 used to ensure that only a tiny fraction of the optic array is ever
 processed at high resolution. We expect much of the future progress in
 vision, especially for video understanding or robotics, to come from
-systems that are trained end-to-end and combine deep convolutional
-networks with RNNs that use reinforcement learning to decide
-where to look.  Combining reinforcement learning with deep learning
-has already given impressive results~\citep{Tesauro90,Mnih-et-al-2015}
-but much more remains to be explored.
-Such systems already outperform passive vision
-systems~\citep{ba+mnih}.  Similarly, when understanding sentences or
+systems that are trained end-to-end and combine deep ConvNets with
+RNNs that use reinforcement learning to decide where to look.
+Combining reinforcement learning with deep learning has already
+produced an impressive system that can learn to play many different
+video games~\citep{Mnih-et-al-2015}.  Such systems already outperform passive vision
+systems~\citep{ba+mnih} at classification tasks, but much more remains to be
+explored.   Similarly, when understanding sentences or
 whole documents we expect future systems to learn strategies for
 selectively attending to one part at a
 time~\citep{Bahdanau-et-al-arxiv2014}. We also expect that in the next
-few years deep RNNs will become far better at
-understanding the meaning of documents, including the way in which the
-thoughts expressed by the sentences are related to one another.
+few years deep RNNs will become far better at understanding the
+meaning of documents, including the way in which the thoughts
+expressed by nearby sentences are related to one another.
 
 This review has focused on supervised learning because of its recent
 achievements and we have ignored much interesting work on unsupervised
@@ -1155,12 +1142,12 @@ representations that untangle the many different factors that interact
 to produce images, speech and
 documents~\citep{Bengio-Courville-Vincent-TPAMI2013}.
 
-We expect to see more innovative ideas that marry deep learning with
-reasoning. Reasoning can be formulated in a number of different ways:
-energy minimization, contraint satisfaction, chains of operations
-applied to vectors representing objects or symbols. One is hoping for
-an architecture that unifies representation learning with
-reasoning~\citep{bottou-mlj-2014}.
+%% We expect to see more innovative ideas that marry deep learning with
+%% reasoning. Reasoning can be formulated in a number of different ways:
+%% energy minimization, contraint satisfaction, chains of operations
+%% applied to vectors representing objects or symbols. One is hoping for
+%% an architecture that unifies representation learning with
+%% reasoning~\citep{bottou-mlj-2014}.
 
 Finally, we believe that the recent successes of deep learning using
 stochastic gradient descent are only the beginning.  As pointed out
