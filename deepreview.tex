@@ -5,26 +5,27 @@
 \usepackage[numbers]{natbib}
 \usepackage{hyperref}
 
-\addtolength{\textwidth}{2cm}
+\addtolength{\textwidth}{2.5cm}
 %\addtolength{\textwidth}{1cm}
-\addtolength{\textheight}{2cm}
+\addtolength{\textheight}{2.5cm}
 %\addtolength{\textheight}{1cm}
-\addtolength{\topmargin}{-1cm}
-\addtolength{\oddsidemargin}{-1cm}
-\addtolength{\evensidemargin}{-1cm}
+\addtolength{\topmargin}{-1.25cm}
+\addtolength{\oddsidemargin}{-1.25cm}
+\addtolength{\evensidemargin}{-1.25cm}
 
 \newcommand{\deri}[2]{\frac{\partial  #1}{\partial #2}}
 
-\parskip 0.1in
+\parskip 0.085in
 \parindent 0.0in
 \setcounter{secnumdepth}{1}
 \title{Deep Learning}
 
-\author{Yann LeCun, Yoshua Bengio, Geoffrey Hinton}
-
+\author{Yann LeCun, Yoshua Bengio and Geoffrey Hinton}
+\date{}
 \begin{document}
 
 \maketitle
+\vspace*{-6mm}
 
 \section{Preface}
 
@@ -32,7 +33,7 @@ Deep Learning allows machines that are composed of multiple processing
 layers to learn representions of data with multiple levels of abstraction.
 These methods have dramatically improved the state-of-the-art
 in speech recognition, object recognition, object detection,
-and many other domains such as drug discovery and genommics. Deep
+and many other domains such as drug discovery and genomics. Deep
 learning discovers intricate structure in large datasets by using the
 {\em backpropagation algorithm} to indicate how the machine should
 change the weights that are used to compute the representation in each layer from
@@ -176,14 +177,16 @@ Many practical applications of ML use linear classifiers on top of
 hand-engineered features. A two-class linear classifier computes a
 weighted sum of the feature vector components. If the weighted sum is
 above a threshold, the input is classified as belonging to a
-particular category. Multiple classes can be handled by using multiple
-two-class classifiers, each classifying one class against all
-others. The learning procedure adjusts the weights of the linear
-combination, for which the gradient is very easy to compute. Linear
-classifiers have been widely used for many decades, starting with the
-Perceptron model~\citep{Rosenblatt57}, the still-popular logistic
-regression~\cite{Hastie2001}, and the linear support vector
-machine~\cite{Vapnik+Chervonenkis-1964}. %{Boser92}. 
+particular category. % Multiple classes can be handled by using multiple
+% two-class classifiers, each classifying one class against all
+% others. 
+% The learning procedure adjusts the weights of the linear
+% combination, for which the gradient is very easy to compute. Linear
+% classifiers have been widely used for many decades, starting with the
+% Perceptron model~\citep{Rosenblatt57} and the still-popular logistic
+% regression~\cite{Hastie2001}.
+% , and the linear support vector
+% machine~\cite{Vapnik+Chervonenkis-1964}. %{Boser92}. 
 
 % features: solving the selectivity-invariance dilemma
 It has been known since the 1960s that linear classifiers can only
@@ -258,7 +261,7 @@ The idea that this could be done, and that it worked, was discovered independent
 several different groups in the 1970s and
 1980s~\citep{Werbos74,Parker85,LeCun85,RHW}. It spurred a wave of interest for
 neural networks, becoming quite popular in the late 1980s, but falling out of favor
-between the mid 1990s until their rennaissance in the late 2000s.
+between the mid 1990s until their renaissance in the late 2000s.
 
 The backpropagtion procedure to compute gradient of an objective
 function with respect to the weights of a multilayer stack of modules
@@ -426,9 +429,10 @@ small shifts and distortions.  Two or three stages of convolution,
 non-linearity, and pooling are stacked, followed by more convolutional
 and fully-connected layers.  Back-propagating gradients through a
 ConvNet is as simple as through a regular deep network, allowing all
-the weights in all the filter banks to be trained. The error
-derivative for a shared weight is just the sum the derivatives for all
-the instances of that weight.
+the weights in all the filter banks to be trained. 
+% The error
+% derivative for a shared weight is just the sum the derivatives for all
+% the instances of that weight.
 
 ConvNets exploit the property that many natural
 signals are {\em compositional hierarchies}. In images, local
@@ -470,26 +474,26 @@ inferro-temporal cortex~\citep{cadieu-plos-2014}. ConvNets have their roots
 in Fukushima's Neocognitron~\citep{fukushima-82} whose architecture
 was somewhat similar but did not have an end-to-end supervised
 learning algorithm such as backpropagation. 
-A primitive one-dimensional convnet called a time-delay
-neural net was used for the recognition of phonemes and simple 
-words~\cite{WaibelIEEE,bottou-89}
+% A primitive one-dimensional convnet called a time-delay
+% neural net was used for the recognition of phonemes and simple 
+% words~\cite{WaibelIEEE,bottou-89}
 
 There have been numerous applications of convolutional networks going
-back to the early 1990s. A major early success was a bank check
-reading system which was commercially deployed by AT\&T and NCR in
-1994~\citep{lecun-98}. The system used a ConvNet trained jointly with
+back to the early 1990s, starting with time-delay neural networks for
+speech recognition and document reading~\citep{lecun-98}. 
+The document reading system used a ConvNet trained jointly with
 a probabilistic model that implemented language constraints. By the
 late 1990s this system was reading over 10\% of all the checks in the
 US. A number of ConvNet-based OCR and handwriting recognition systems
 were later deployed by
-Microsoft~\citep{simard-03}
-including for Arabic and
-Chinese~\citep{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. ConvNets
-were also experimented with in the early 1990s for object detection 
-in natural images, including faces and
-hands~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95} and for face
-recognition~\cite{lawrence-tnn-1997}.
-
+Microsoft~\citep{simard-03}.
+% including for Arabic and
+% Chinese~\citep{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. 
+% ConvNets
+% were also experimented with in the early 1990s for object detection 
+% in natural images, including faces and
+% hands~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95} and for face
+% recognition~\cite{lawrence-tnn-1997}.
 
 \section{Image understanding with deep convolutional networks}
 
@@ -576,7 +580,7 @@ and a quickly-growing number of startups.
 %% recognition, facial expression recognition and scene parsing.
 %% 
 
-ConvNets are easily ammenable to efficient hardware implementations in
+ConvNets are easily amenable to efficient hardware implementations in
 chips or Field-Programmable Gate
 Arrays~\cite{boser-92,farabet-suml-11}.  A number of companies such as
 NVIDIA, Mobileye, Intel, Qualcomm and Samsung are developing ConvNet
@@ -674,7 +678,7 @@ experts, but automatically discovered by the neural network.  Vector
 representations of words learned from text are now very widely used in
 natural language
 applications~\citep{Schwenk-2007,collobert:2011b,Socher-2011,
-  Mikolov-et-al-NIPS2013,Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
+  Mikolov-et-al-NIPS2013,Bahdanau-et-al-ICLR2015-small,Sutskever-et-al-NIPS2014}.
 
 The issue of representation lies at the heart of the debate between
 the logic-inspired and the neurally-inspired paradigms for
@@ -737,14 +741,14 @@ Figure~\ref{fig:word-embeddings}.
 language, non-linearly projected to 2-D for visualization using the
 t-SNE algorithm~\citep{VanDerMaaten08}. Right: 2-D representation
 of phrases learned by an English-to-French encoder-decoder recurrent
-neural network or RNN~\citep{Bahdanau-et-al-ICLR2015}. One can observe that
+neural network or RNN~\citep{Bahdanau-et-al-ICLR2015-small}. One can observe that
 semantically similar words or sequences of words are  mapped to
 nearby representations. The distributed representations of
 words are obtained by using backpropagation to jointly learn 
 a representation for each word and
 a function that predicts a target quantity such as the next word
 in a sequence (for language modeling) or a whole sequence
-of translated words (for machine translation)~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
+of translated words (for machine translation)~\citep{Bahdanau-et-al-ICLR2015-small,Sutskever-et-al-NIPS2014}.
 }
 \label{fig:word-embeddings}
 \end{minipage}
@@ -804,7 +808,7 @@ translation. If a particular first word is chosen from this
 distribution and provided as input to the decoder network it will then
 output a probability distribution for the second word of the
 translation and so on until a full stop is
-chosen~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
+chosen~\citep{Bahdanau-et-al-ICLR2015-small,Sutskever-et-al-NIPS2014}.
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
 
@@ -946,16 +950,14 @@ that learns to decide when to clear the content of the memory.
 %problems, they were largely ignored until they were shown to yield
 %excellent results in a cursive handwriting recognition
 %competition~\citep{Graves-et-al-2009}. 
-LSTM have subsequently proved to be very effective for tasks that have
-sequential input.  When they use several hidden layers, they are
-better than deep feedforward networks for speech
-recognition~\citep{Graves-et-al-ICASSP2013} and unlike feedforward
-nets they can implement an entire speech recognition system that goes
-all the way from coefficents derived from the soundwave to the
+LSTM have subsequently proved to be more effective than vanilla RNNs
+especially when they have several layers for each time step~\citep{Graves-et-al-ICASSP2013},
+enabling an entire speech recognition system that goes
+all the way from acoustics to the
 sequence of characters in the transcription.  LSTMs or related forms
 of gated units are also what is currently used for the encoder and
 decoder networks that perform so well at machine
-translation~\citep{Bahdanau-et-al-ICLR2015,Sutskever-et-al-NIPS2014}.
+translation~\citep{Bahdanau-et-al-ICLR2015-small,Sutskever-et-al-NIPS2014}.
 
 Over the last year, several authors have made different proposals to
 augment RNNs with a memory module. 
@@ -1073,13 +1075,6 @@ minimum the algorithm finds.
 %% to discover more efficient optimization methods that use the curvature
 %% information the past update directions~\citep{lecun-98b,Montavon2012}.
 
-The parallelization of large neural nets over a single GPU has
-required to use ``mini-batches'' of samples over which the gradients
-are averaged. The purpose of this is to saturate the GPU. But one big
-unsolved question is the best way to scale up the training of very large neural
-nets over multiple GPU cards across multiple machines. As of today, this
-question is still unresolved.
-
 Interest in deep feedforward networks was revived around
 2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small}
 by a group of researchers brought together by the Canadian Institute
@@ -1098,6 +1093,14 @@ using standard backpropagation
 This worked remarkably well for recognizing handwritten digits or for
 detecting pedestrians, especially when the amount of labeled data was
 very limited~\citep{sermanet-cvpr-13}.
+
+% The parallelization of large neural nets over a single GPU has
+% required to use ``mini-batches'' of samples over which the gradients
+% are averaged. The purpose of this is to saturate the GPU. 
+% But one big
+% unsolved question is the best way to scale up the training of very large neural
+% nets over multiple GPU cards across multiple machines. As of today, this
+% question is still unresolved.
 
 The first major application of this pre-training approach was in
 speech recognition and it was made possible by the advent of fast
@@ -1138,14 +1141,14 @@ intelligently moved around through saccades.
 
 We expect much of the future progress in vision to come from systems
 that are trained end-to-end and combine ConvNets with RNNs that decide
-where to look through reinfoercement learning. Such systems already
+where to look through reinforcement learning. Such systems already
 outperform passive vision systems~\citep{ba+mnih} at classification
 tasks, but much more remains to be explored.  Combining reinforcement
 learning with ConvNets has already produced impressive results in
 learning to play many different video games~\citep{Mnih-et-al-2015}.
 Similarly, when understanding sentences or whole documents we expect
 future systems to learn strategies for selectively attending to one
-part at a time~\citep{Bahdanau-et-al-ICLR2015}. 
+part at a time~\citep{Bahdanau-et-al-ICLR2015-small}. 
 
 Certainly, natural language understanding is an area in which deep
 learning is poised to make a large impact over the next few years,
