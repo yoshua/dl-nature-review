@@ -90,14 +90,14 @@ The third layer  may assemble motifs into larger
 combinations that correspond to parts of familiar
 objects, and subsequent layers would detect objects as combinations of
 these parts. The key aspect of deep learning is that these layers of
-features are not designed by human engineers: {\em They are learned from
-data using a general purpose learning procedure.}
+features are not designed by human engineers: They are learned from
+data using a general purpose learning procedure.
 
 % preview of deep learning results
 Deep learning is making major advances in solving problems that have
 resisted the best attempts of the Artificial Intelligence community
 for many years. It has turned out to be very good at discovering
-intricate structures in large, high-dimensional data and is therefore
+intricate structures in high-dimensional data and is therefore
 applicable to many domains of science, business, and government. In
 addition to beating records in image
 recognition~\citep{Krizhevsky-2012-small,farabet-pami-13,tompson-nips-14,szegedy-2014}
@@ -111,7 +111,6 @@ particles~\citep{Ciodaro-et-al-2012,Melis-Higgs-boson-competition-2014},
 reconstructing brain circuits~\citep{helmstaedter-nature-2013}, and
 predicting the effects of mutations in non-coding DNA on gene
 expression and disease~\citep{Keung-et-al-2014,Xiong-et-al-Frey-science2015}.
-
 Perhaps more surprisingly, deep learning has produced extremely
 promising results for a variety of tasks in natural language
 understanding~\citep{collobert:2011b}, particularly topic
@@ -121,6 +120,15 @@ analysis~\citep{Glorot+al-ICML-2011-small},
 question-answering~\cite{Bordes-et-al-EMNLP2014}, and language
 translation~\cite{Jean-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
 
+% our conclusions (which Nature insists on having at the end of the intro).
+We believe that deep learning will have many more successes in the
+near future because it requires very little hand-engineering so it can
+easily take advantage of increases in the amount of available
+computation and data. New learning algorithms and new architectures
+that are currently being developed for deep neural networks will only
+accelerate this progress.
+
+\section{Supervised Learning}
 
 % supervised learning, objective function, gradient.
 The most common form of machine learning, deep or not, is {\em
@@ -173,7 +181,7 @@ produce sensible answers on new inputs that it has never seen during
 training.
 
 % shallow linear classifiers
-Many practical applications of ML use linear classifiers on top of
+Many of the current practical applications of ML use linear classifiers on top of
 hand-engineered features. A two-class linear classifier computes a
 weighted sum of the feature vector components. If the weighted sum is
 above a threshold, the input is classified as belonging to a
@@ -224,8 +232,8 @@ irrelevant aspects like the pose of the animal.
 % in which the input space is very high-dimensional and the input-output
 % mapping is so complex that computing similarities using a simple
 % kernel function is ineffective. 
-Designing good feature extractors traditionally required considerable amounts
-of engineering skills and domain expertise. But this can all be avoided if
+Designing good feature extractors traditionally required a considerable amount
+of engineering skill and domain expertise. But this can all be avoided if
 good features can be learned automatically using a general purpose
 learning procedure.  That is the key advantage of deep
 learning.
@@ -243,27 +251,28 @@ from wolves-- and insensitive to large irrelevant variations such as the
 background, pose, lighting, and surrounding objects.
 
 % backprop
-How do we train multilayer architectures? 
+\section{Backpropagation: a simple way to train multilayer architectures} 
 
 From the earliest days of pattern
 recognition~\citep{selfridge,Rosenblatt57} researchers have aimed to
 replace hand-engineered features by trainable multilayer networks,
-but despite its extreme simplicity, the solution was not widely
+but despite its simplicity, the solution was not widely
 understood until
-the mid 1980s and was largely forsaken by the ML community until
-recently. As it turns out, training multilayer architectures can be
-done by simple stochastic gradient descent. As long as the modules are
+the mid 1980s.  
+% and was largely forsaken by the ML community until recently.
+As it turns out, multilayer architectures can be
+trained by simple stochastic gradient descent. As long as the modules are
 relatively smooth functions of their inputs and of their internal
 weights, one can compute gradients using the {\em backpropagation
   procedure}.
-
 The idea that this could be done, and that it worked, was discovered independently by
 several different groups in the 1970s and
-1980s~\citep{Werbos74,Parker85,LeCun85,RHW}. It spurred a wave of interest for
-neural networks, becoming quite popular in the late 1980s, but falling out of favor
-between the mid 1990s until their renaissance in the late 2000s.
+1980s~\citep{Werbos74,Parker85,LeCun85,RHW}. 
+% It spurred a wave of interest for
+% neural networks, becoming quite popular in the late 1980s, but falling out of favor
+% between the mid 1990s until their renaissance in the late 2000s.
 
-The backpropagtion procedure to compute gradient of an objective
+The backpropagation procedure to compute the gradient of an objective
 function with respect to the weights of a multilayer stack of modules
 is nothing more than a practical application of the chain rule for
 derivatives. The key insight is that the derivative (or gradient) of
@@ -295,23 +304,23 @@ with respect to the weights of each module.
 %weight matrices interspersed with scalar non-linearities.
 %% the notation in the figure should be updated.
 
-
 % deep neural nets
 Many applications of deep learning use feedforward neural network
 architectures, illustrated in Figure~\ref{fig:backprop-box}, which
 learn to map a fixed-size input ({\it e.g.} an image) to a fixed-size
-output ({\it e.g.} a probability for each one of several categories). To go
-from one layer to the next, a set of units compute a weighted
-sum of their inputs from the previous layer and pass the result
-through a non-linear function. The most common non-linear function is
-the so-called {\em ReLU} (Rectified Linear Unit) which is simply the
-half-wave rectifier $f(z) = \max(z,0)$. In past decades, neural nets
-used smoother non-linearities, such as $\tanh(z)$ or $1/(1+\exp(-z))$ but the ReLU 
-typically learns much faster in networks with many layers. Units that are not in the
-output layer are traditionally called {\em hidden units}. The early
-layers can be seen as distorting the input in a non-linear way so that
-categories become linearly separable by the last layer, as indicated
-in figure~\ref{fig:backprop-box}.
+output ({\it e.g.} a probability for each of several categories). To
+go from one layer to the next, a set of units compute a weighted sum
+of their inputs from the previous layer and pass the result through a
+non-linear function. Currently, the most popular non-linear function
+is the rectified linear unit ({\em ReLU}) which is simply
+the half-wave rectifier $f(z) = \max(z,0)$. In past decades, neural
+nets used smoother non-linearities, such as $\tanh(z)$ or
+$1/(1+\exp(-z))$ but the ReLU typically learns much faster in networks
+with many layers. Units that are not in the input or output layer are
+traditionally called {\em hidden units}. The hidden layers can be seen
+as distorting the input in a non-linear way so that categories become
+linearly separable by the last layer, as indicated in
+figure~\ref{fig:backprop-box}.
 
 
 
@@ -380,12 +389,108 @@ $j$ in the layer below is just $y_j \partial E/\partial z_k$.
 }
 \end{figure}
 
+% the reduced history section
 
-\section{Convolutional networks}
+In the late 1990s, neural nets and backpropagation were largely
+forsaken by the machine learning community and ignored by the computer
+vision and speech recognition communities.  It was widely believed
+that learning useful, multi-stage, feature extractors with little prior knowledge 
+was infeasible. In particular, it was commonly
+believed that simple gradient descent would get trapped in poor
+local minima -- weight configurations for which no small change would
+reduce the average error.
+%We now know
+%that the main reasons for the limited success of backpropagation in
+%deep networks with dense connectivity were that the labeled datasets were typically much too
+%small and the computers were much too slow. Additional reasons were
+%that researchers were not initializing the weights properly and were
+%not using the type of non-linearlity that learns most
+%rapidly~\citep{lecun-98b,GlorotAISTATS2010-small}.
 
-One of the most widely used deep learning architectures is the
-convolutional neural network, or
-ConvNet~\cite{lecun-90c,lecun-98}. ConvNets are designed to process
+In practice, poor local minima are rarely a problem with large networks. Regardless
+of the initial conditions, the system nearly always reaches solutions
+of very similar quality.  Recent results strongly suggest the
+landscape is packed with a combinatorially large number of {\em saddle
+  points} where the gradient is zero, and the surface curves up in
+most dimensions and curves down in the 
+remainder~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
+The analysis seems to show that saddle points with
+only a few downward curving directions are present in very large
+numbers, but almost all of them have very similar values of the
+objective function.  Hence it doesn't much matter which of these
+saddle points the algorithm gets stuck at.
+%% Avoiding being trapped near saddle points seems more important.
+
+%% It also took an inordinate amount of time for the community to adopt
+%% stochastic gradient methods for large-scale machine learning. Key
+%% theoretical and practical work showed that, while SGD has terrible
+%% asymptotic convergence properties, it is extremely efficient for the
+%% kind of approximate optimization required in ML
+%% applications~\citep{bottou-bousquet-2008-small}. But when training a
+%% large ConvNet can take days or weeks on the fastest GPUs, one is eager
+%% to discover more efficient optimization methods that use the curvature
+%% information the past update directions~\citep{lecun-98b,Montavon2012}.
+
+Interest in deep feedforward networks was revived around
+2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small}
+by a group of researchers brought together by the Canadian Institute
+for Advanced Research who introduced
+unsupervised learning procedures that could
+create layers of feature detectors without requiring labeled data. The
+objective in learning each layer of feature detectors was to be able
+to reconstruct or model the activities of feature detectors (or raw
+inputs) in the layer below.  By ``pre-training'' several layers of
+progressively more complex feature detectors using this reconstruction
+objective, the weights of a deep network could be initialized to
+sensible values.  A final layer of output units could then be added to
+the top of the network and the whole deep system could be fine-tuned
+using standard backpropagation
+\citep{Hinton-Science2006,Bengio-nips-2006-small,ranzato-07-small}.
+This worked remarkably well for recognizing handwritten digits or for
+detecting pedestrians, especially when the amount of labeled data was
+very limited~\citep{sermanet-cvpr-13}.
+
+% The parallelization of large neural nets over a single GPU has
+% required to use ``mini-batches'' of samples over which the gradients
+% are averaged. The purpose of this is to saturate the GPU. 
+% But one big
+% unsolved question is the best way to scale up the training of very large neural
+% nets over multiple GPU cards across multiple machines. As of today, this
+% question is still unresolved.
+
+The first major application of this pre-training approach was in
+speech recognition and it was made possible by the advent of fast
+Graphics Processing Units (GPUs) that were convenient to
+program~\citep{RainaICML09-small} and allowed researchers to train
+networks 10 or 20 times faster.  In 2009, the approach was used to map
+short temporal windows of coefficients extracted from a soundwave to a
+set of probabilities for the various fragments of speech that might be
+represented by the frame in the center of the window.  It achieved
+record-breaking results on a standard speech recognition benchmark
+that used a small vocabulary~\citep{TIMITpaper} and was quickly
+developed to give record-breaking results on a large vocabulary
+task~\citep{Dahl2012}.  By 2012, versions of the deep net from 2009
+were being developed by many of the major speech
+groups~\citep{Hinton-et-al-2012} and were already being deployed in
+Android phones.  For smaller datasets, unsupervised pre-training helps
+to prevent overfitting~\citep{Bengio-Courville-Vincent-TPAMI2013},
+leading to significantly better generalization when the number of
+labeled examples is small, or in a transfer setting where we have lots
+of examples for some ``source'' tasks but very few for some ``target''
+task.  Once deep learning had been rehabilitated, it turned out the
+pre-training stage was only needed for small datasets.
+
+There was, however, one particular type of deep, feed-forward network
+that was much easier to train and generalized much better than
+networks with full connectivity between adjacent layers. This was the
+convolutional neural network~\cite{lecun-90c,lecun-98}. It achieved
+many practical successes during the period when neural networks were
+out of favor and it has recently been widely adopted by the computer
+vision community. 
+
+\section{Convolutional neural networks}
+
+Convolutional neural networks (ConvNets) are designed to process
 data that come in the form of multiple arrays, for example a color
 image composed of three 2D arrays containing pixel intensities in the
 three color channels. Many data modalities are in the form of multiple
@@ -480,7 +585,7 @@ words~\cite{WaibelIEEE,bottou-89}
 
 There have been numerous applications of convolutional networks going
 back to the early 1990s, starting with time-delay neural networks for
-speech recognition and document reading~\citep{lecun-98}. 
+speech recognition~\citep{TDNN} and document reading~\citep{lecun-98}. 
 The document reading system used a ConvNet trained jointly with
 a probabilistic model that implemented language constraints. By the
 late 1990s this system was reading over 10\% of all the checks in the
@@ -694,17 +799,20 @@ reasoning.
 %representations allow a lot of parallel computation at the feature
 %level so that complex tasks can be solved in a very small number of
 %sequential steps.
-Deep learning theory shows that deep nets can benefit from
-an exponential advantage over classical learning algorithm not based on distributed 
-representations~\citep{Bengio-localfailure-NIPS-2006-small},
- in two ways, both arising from the power of {\em composition}, so long as the
-underlying data generating distribution has such a componential structure, i.e.,
-is generated by a hierarchy of composition of factors~\citep{Bengio-Courville-Vincent-TPAMI2013}.
-First, learning distributed representations enables generalization to new
-combinations of the learned features (e.g. $2^n$ combinations, with $n$ features)
-~\citep{Bengio-2009-book,Montufar+Morton-2014}. 
-Second composing layers in a deep net brings the potential for another exponential
-advantage~\citep{Montufar-et-al-NIPS2014} (exponential in the depth).
+Deep learning theory shows that deep nets have two different
+exponential advantages over classical learning algorithms that do not
+use distributed
+representations~\citep{Bengio-localfailure-NIPS-2006-small}. Both of
+these advantages arise from the power of {\em composition} and depend
+on the underlying data generating distribution having an appropriate
+componential structure~\citep{Bengio-Courville-Vincent-TPAMI2013}.
+First, learning distributed representations enables generalization to
+new combinations of the learned features (e.g. $2^n$ combinations,
+with $n$ features) ~\citep{Bengio-2009-book,Montufar+Morton-2014}.
+Second composing layers in a deep net brings the potential for another
+exponential advantage~\citep{Montufar-et-al-NIPS2014} (exponential in
+the depth).
+
 
 %% YLC: we need to talk about word2vec somewhere around here.
 %% it's so popular that we can't just not mention it.
@@ -810,11 +918,11 @@ translation and so on until a full stop is
 chosen~\citep{Bahdanau-et-al-ICLR2015-small,Sutskever-et-al-NIPS2014}.
 Overall, this process generates sequences of French words according to
 a probability distribution that depends on the English sentence.
-
 This rather naive way of performing machine translation has quickly become
 competitive with the state-of-the-art and this raises serious doubts about
 whether understanding a sentence requires anything like internal symbolic
 expressions that are manipulated by using inference rules.
+
 %%binding their symbols to variables
 %%in judiciously chosen rules of inference, as was previously thought by
 %%many early AI researchers. It is 
@@ -989,17 +1097,16 @@ story about which the network is later asked to answer questions.
 % \section{Learning to reason and to manipulate symbols}
 
 Beyond simple memorization, Neural Turing Machines and Memory Networks
-are being used for task that would normally require to manipulate
-symbols and to reason.
+are being used for tasks that would normally require reasoning and symbol manipulation.
 Neural Turing Machines can be taught ``algorithms''. Among other
-things, they can learn to ouput a sorted list of symbols when its
+things, they can learn to output a sorted list of symbols when their
 input consists of an unsorted sequence in which each symbol is
 accompanied by a real value that indicates its priority in the list
 ~\citep{Graves-et-al-arxiv2014}.
 % To achieve this it must learn a sorting program purely from examples
 % of the input and output sequences
 Memory Networks can be trained to keep track of the state of the world
-in a setting similar to a text adventure game. After reading a story,
+in a setting similar to a text adventure game and after reading a story,
 they can answer questions that require complex 
 inference~\cite{weston-babi-arxiv-2015}.
 % Following a sequence
@@ -1032,157 +1139,43 @@ Rings and correctly answers questions like ``where is Frodo now?''.
 %spurring a whole new generation of creative ideas.
 
 
-\section{Historical perspective on backpropagation}
-
-In the late 1990s, neural nets and backpropagation were largely
-forsaken by the machine learning community and ignored by the computer
-vision and speech recognition communities.  It was widely believed
-that learning multi-stage feature extractors with little prior knowledge 
-was neither useful nor effective. In particular, it was commonly
-believed that simple gradient descent procedure get trapped in poor
-local minima -- weight configurations for which no small change would
-reduce the average error-- despite considerable empirical evidence to
-the contrary in the case of ConvNets~\citep{lecun-98}. We now know
-that the main reasons for the limited success of backpropagation in
-deep networks were that the labeled datasets were typically much too
-small and the computers were much too slow. Additional reasons were
-that researchers were not initializing the weights properly and were
-not using the type of non-linearlity that learns most
-rapidly~\citep{lecun-98b,GlorotAISTATS2010-small}.
-
-Poor local minima are rarely a problem with large networks. Regardless
-of the initial conditions, the system nearly always reaches solutions
-of very similar quality.  Recent results strongly suggest the
-landscape is packed with a combinatorially large number of {\em saddle
-  points} where the gradient is zero, and the surface curves up in
-some dimensions and curves down in
-others~\citep{Dauphin-et-al-NIPS2014-small,Choromanska-et-al-AISTATS2015}.
-The analysis seems to show that local minima (and saddle points with
-only a few downward curving directions) are present in very large
-numbers, but almost all of them have very similar values of the
-objective function.  Hence it doesn't seem to matter which local
-minimum the algorithm finds.
-%% Avoiding being trapped near saddle points seems more important.
-
-%% It also took an inordinate amount of time for the community to adopt
-%% stochastic gradient methods for large-scale machine learning. Key
-%% theoretical and practical work showed that, while SGD has terrible
-%% asymptotic convergence properties, it is extremely efficient for the
-%% kind of approximate optimization required in ML
-%% applications~\citep{bottou-bousquet-2008-small}. But when training a
-%% large ConvNet can take days or weeks on the fastest GPUs, one is eager
-%% to discover more efficient optimization methods that use the curvature
-%% information the past update directions~\citep{lecun-98b,Montavon2012}.
-
-Interest in deep feedforward networks was revived around
-2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small}
-by a group of researchers brought together by the Canadian Institute
-for Advanced Research who introduced
-unsupervised learning procedures that could
-create layers of feature detectors without requiring labeled data. The
-objective in learning each layer of feature detectors was to be able
-to reconstruct or model the activities of feature detectors (or raw
-inputs) in the layer below.  By ``pre-training'' several layers of
-progressively more complex feature detectors using this reconstruction
-objective, the weights of a deep network could be initialized to
-sensible values.  A final layer of output units could then be added to
-the top of the network and the whole deep system could be fine-tuned
-using standard backpropagation
-\citep{Hinton-Science2006,Bengio-nips-2006-small,ranzato-07-small}.
-This worked remarkably well for recognizing handwritten digits or for
-detecting pedestrians, especially when the amount of labeled data was
-very limited~\citep{sermanet-cvpr-13}.
-
-% The parallelization of large neural nets over a single GPU has
-% required to use ``mini-batches'' of samples over which the gradients
-% are averaged. The purpose of this is to saturate the GPU. 
-% But one big
-% unsolved question is the best way to scale up the training of very large neural
-% nets over multiple GPU cards across multiple machines. As of today, this
-% question is still unresolved.
-
-The first major application of this pre-training approach was in
-speech recognition and it was made possible by the advent of fast
-Graphics Processing Units (GPUs) that were convenient to
-program~\citep{RainaICML09-small} and allowed researchers to train
-networks 10 or 20 times faster.  In 2009, the approach was used to map
-short temporal windows of coefficients extracted from a soundwave to a
-set of probabilities for the various fragments of speech that might be
-represented by the frame in the center of the window.  It achieved
-record-breaking results on a standard speech recognition benchmark
-that used a small vocabulary~\citep{TIMITpaper} and was quickly
-developed to give record-breaking results on a large vocabulary
-task~\citep{Dahl2012}.  By 2012, versions of the deep net from 2009
-were being developed by many of the major speech
-groups~\citep{Hinton-et-al-2012} and were already being deployed in
-Android phones.  For smaller datasets, unsupervised pre-training helps
-to prevent overfitting~\citep{Bengio-Courville-Vincent-TPAMI2013},
-leading to significantly better generalization when the number of
-labeled examples is small, or in a transfer setting where we have lots
-of examples for some ``source'' tasks but very few for some ``target''
-task. In this context, unsupervised representation learning helped to
-win several transfer learning
-competitions~\citep{Bengio-Courville-Vincent-TPAMI2013}.  Once deep
-learning had been rehabilitated, it turned out that large labeled
-datasets did not need the pre-training stage. Even better results,
-especially for very deep networks, could be obtained by using
-rectifying non-linearities rather than sigmoid or tanh non-linearities
-~\citep{jarrett-iccv-09,Nair-2010-small,Glorot+al-AI-2011-small,Krizhevsky-2012-small,Dahl-et-al-ICASSP2013}. Deep
-neural nets are now the dominant method for acoustic modeling in
-speech, and ConvNet are dominant for image and video recognition.
 
 
 \section{The future of deep learning}
 
-Human vision is an active process in which the few degrees around the
-center of the visual field that is processed at high resolution is
-intelligently moved around through saccades.
-
-We expect much of the future progress in vision to come from systems
-that are trained end-to-end and combine ConvNets with RNNs that decide
-where to look through reinforcement learning. Such systems already
-outperform passive vision systems~\citep{ba+mnih} at classification
-tasks, but much more remains to be explored.  Combining reinforcement
-learning with ConvNets has already produced impressive results in
-learning to play many different video games~\citep{Mnih-et-al-2015}.
-Similarly, when understanding sentences or whole documents we expect
-future systems to learn strategies for selectively attending to one
-part at a time~\citep{Bahdanau-et-al-ICLR2015-small}. 
-
-Certainly, natural language understanding is an area in which deep
-learning is poised to make a large impact over the next few years,
-using combinations of RNN, ConvNets, reasoning, and unsupervised
-learning.
-
-This review has focused on supervised learning because of its recent
-achievements and we have ignored much interesting work on unsupervised
-learning procedures for deep neural
-networks~\citep{Salakhutdinov2009-small,Hinton95,VincentPLarochelleH2008-small,koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014}.
-Human and animal learning is largely unsupervised: we discover the
+Unsupervised learning~\citep{Salakhutdinov2009-small,Hinton95,VincentPLarochelleH2008-small,
+koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014} 
+had a catalytic effect in reviving interest in
+deep learning but has since been overshadowed by the successes of
+purely supervised learning. Even though we have not focused on it
+here, we expect unsupervised learning to become far more important in
+the longer term.  Human and animal learning is largely unsupervised: we discover the
 structure of the world by observing it, not by being told the name of
-every object. Most current methods are built around the idea of {\em
-  reconstruction} of the input, and can sometimes be used to {\em
-  generate} inputs that are similar to training examples. The
-principle is to disentangle the independent factors that interact to
-produce images, speech and
-documents~\citep{Bengio-Courville-Vincent-TPAMI2013}.  But some
-researchers view the essence of intelligence as the ability to predict
-the future, leading them to propose new paradigms based on
-{\em prediction}.
+every object. 
 
-%% YLC: I uncommented this. I really think this is were things are going.
-Ultimately, progress in AI will come about through systems that
+Human vision is an active process which sequentially samples the optic
+array in an intelligent, task-specific way using a small,
+high-resolution fovea with a large, low-resolution surround. We expect
+much of the future progress in vision to come from systems that are
+trained end-to-end and combine ConvNets with RNNs that use
+reinforcement learning to decide where to look. Such systems are in
+their infancy but they already outperform passive vision
+systems~\citep{ba+mnih} at classification tasks and produce impressive
+results in learning to play many different video
+games~\citep{Mnih-et-al-2015}.
+
+Natural language understanding is another area in which deep learning
+is poised to make a large impact over the next few years and we expect
+systems that use RNNs to understand sentences or whole documents to learn
+strategies for selectively attending to one part at a
+time~\citep{Bahdanau-et-al-ICLR2015-small,Xu-et-al-arxiv2015}.
+
+Ultimately, major progress in AI will come about through systems that
 combine representation learning with complex {\em reasoning}. While
-deep learning and simple resoning has been used for speech and
+deep learning and simple reasoning have been used for speech and
 handwriting recognition for a long time, new paradigms are needed to
-replace symbolic logic manipulation by operations on
-vectors~\citep{bottou-mlj-2014}.
-
-With new paradigms for unsupervised learning and reasoning on the
-horizon, and with new learning algorithms that transcend simple
-gradient descent, deep learning is poised to progress quickly over the
-next few years, as the research community grows, the machines become
-more powerful, and the datasets become larger.
+replace rule-based manipulation of symbolic expressions by operations on
+large vectors~\citep{bottou-mlj-2014}.
 
  
 %\section{Key references}
