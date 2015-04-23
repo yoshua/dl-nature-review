@@ -1,5 +1,31 @@
 %%WARNING: READ THE README FILE BEFORE ANY MODIFICATION!!!
 
+@article{Gupta-et-al-2015,
+  author    = {Suyog Gupta and
+               Ankur Agrawal and
+               Kailash Gopalakrishnan and
+               Pritish Narayanan},
+  title     = {Deep Learning with Limited Numerical Precision},
+  journal   = {CoRR},
+  volume    = {abs/1502.02551},
+  year      = {2015},
+  url       = {http://arxiv.org/abs/1502.02551},
+  timestamp = {Mon, 02 Mar 2015 14:17:34 +0100},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/journals/corr/GuptaAGN15},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+
+@article{Wawrzynek-et-al-IEEE1996,
+  title={Spert-II: A vector microprocessor system},
+  author={Wawrzynek, John and Asanovic, Krste and Kingsbury, Brian and Johnson, David and Beck, James and Morgan, Nelson},
+  journal={Computer},
+  volume={29},
+  number={3},
+  pages={79--86},
+  year={1996},
+  publisher={IEEE}
+}
+
 @inproceedings{Chen-et-al-IEEE2014,
   title={DaDianNao: A Machine-Learning Supercomputer},
   author={Chen, Yunji and Luo, Tao and Liu, Shaoli and Zhang, Shijin and He, Liqiang and Wang, Jia and Li, Ling and Chen, Tianshi and Xu, Zhiwei and Sun, Ninghui and others},
@@ -3532,15 +3558,6 @@ year = 2007,
   year =         "2005",
 }
 
-%have been rejected and later accepted to NIPS in Bengio-localfailure-NIPS-2006
-@InProceedings{Bengio-localfailure-icml-2005,
-  author =       "Yoshua Bengio and Olivier Delalleau and Nicolas {Le Roux}",
-  booktitle =    "submitted to ICML 2005",
-  title =        "The Curse of Dimensionality for Local Kernel
-                 Machines",
-  year =         "2005",
-}
-
 @InCollection{Bengio-localfailure-NIPS-2006,
   author =       "Yoshua Bengio and Olivier Delalleau and Nicolas {Le Roux}",
   editor =       NIPS18ed,
@@ -6549,6 +6566,15 @@ of John M. Hammersley},
   %url =          "http://www.kyb.tuebingen.mpg.de/bs/people/weston/papers/unified\-nlp.pdf",
 
 @InProceedings{CollobertR2008-small,
+  author =       "R. Collobert and J. Weston",
+  booktitle =    "ICML'2008",
+  title =        "A Unified Architecture for Natural Language
+                 Processing: Deep Neural Networks with Multitask
+                 Learning",
+  year =         "2008",
+}
+
+@InProceedings{Collobert+Weston-ICML2008,
   author =       "R. Collobert and J. Weston",
   booktitle =    "ICML'2008",
   title =        "A Unified Architecture for Natural Language
@@ -17602,7 +17628,7 @@ note = "All authors from my research group; unrefereed publication"
 }
 
 @Book{McClelland86a,
-  author =       "James L. McClelland and David E. Rumelhart and the PDP
+  author =       "James L. McClelland and David E. Rumelhart and the {PDP}
                  Research Group",
   title =        "Parallel Distributed Processing: Explorations in the
                  Microstructure of Cognition",
@@ -22237,7 +22263,7 @@ URL={http://hal.inria.fr/inria-00326732/en/},
 }
 
 @Book{Rumelhart86,
-  author =       "D. E. Rumelhart and J. L. McClelland and the PDP
+  author =       "D. E. Rumelhart and J. L. McClelland and the {PDP}
                  Research Group",
   title =        "Parallel Distributed Processing: Explorations in the
                  Microstructure of Cognition",
@@ -22247,7 +22273,7 @@ URL={http://hal.inria.fr/inria-00326732/en/},
 }
 
 @Book{Rumelhart86a,
-  author =       "D. E. Rumelhart and J. L. McClelland and the PDP
+  author =       "D. E. Rumelhart and J. L. McClelland and the {PDP}
                  Research Group",
   title =        "Parallel Distributed Processing: Explorations in the
                  Microstructure of Cognition",
@@ -23933,7 +23959,7 @@ URL={http://hal.inria.fr/inria-00326732/en/},
 
 @InProceedings{simard-03,
   author =       "D. Simard and P. Y. Steinkraus and J. C. Platt",
-  booktitle =    ICDAR03,
+  booktitle =    "ICDAR'2003",
   title =        "Best Practices for Convolutional Neural Networks",
   year =         "2003",
   isbn =         {0-7695-1960-1},
@@ -30089,7 +30115,7 @@ Reliable Heartbeat Recognition},
 }
 
 @article{Mnih-et-al-2015,
- title={Playing Atari with deep reinforcement learning},
+ title={Human-level control through deep reinforcement learning},
  author={Volodymyr Mnih and Koray Kavukcuoglo and David Silver
   and Andrei A. Rusu and Joel Veness and Marc G. Bellemare
   and Alex Graves and Martin Riedmiller and 
@@ -30098,6 +30124,8 @@ Reliable Heartbeat Recognition},
   Antonoglou and Helen King and Dharsan Kumaran
   and Daan Wierstra and Shane Legg and Demis Hassabis},
  journal = {Nature},
+ pages = {529--533},
+ volume = 518,
  year={2015}
 }
 
@@ -32413,12 +32441,30 @@ year={2004},
  year = 2011,
 }
 
-@Misc{Mikolov+Zweig-2012,
+@inproceedings{Schwenk-et-al-IWSLT2006,
+ author = {Holger Schwenk and Marta R. Costa-jussà and José A. R. Fonollosa},
+ title = {Continuous space language models for the IWSLT 2006 task},
+ booktitle = {International Workshop on Spoken Language Translation}, 
+ pages = {166--173}, 
+ month = {November}, 
+ year = 2006,
+}
+
+@misc{Mikolov+Zweig-2012,
     author={Tomas Mikolov and Geoffrey Zweig},
     title={Context Dependent Reucrrent Neural Network language model},
     howpublished={Workshop on Spoken Language Technology},
-    year=2012}
+    year=2012,
+}
 
+@article{Schwenk-2010,
+ author = {Holger Schwenk},
+ title = {Continuous space language models for statistical machine translation},
+ journal = {The Prague Bulletin of Mathematical Linguistics}, 
+ volume = 93,
+ pages = {137--146}, 
+ year = 2010,
+}
 
 @inproceedings{Schwenk-2012,
  author = {Holger Schwenk and Anthony Rousseau and Mohammed Attik},
@@ -32696,7 +32742,10 @@ year = 2012,
 @article{Montufar+Morton-2014,
  title = {When does a Mixture of Products Contain a Product of Mixtures?},
  author = {Guido Montufar and Jason Morton},
- journal = {SIAM Journal on Discrete Mathematics (SIDMA)},
+ journal = {SIAM Journal on Discrete Mathematics},
+ volume = 29,
+ number = 1,
+ pages = {321--347},
  year = {2014},
 }
 
@@ -33367,6 +33416,13 @@ publisher={MIT Press}
          year = {2014},
 }
 
+@inproceedings{Graves+Jaitly-ICML2014,
+       author = {Alex Graves and Navdeep Jaitly},
+        title = {Towards end-to-end speech recognition with recurrent neural networks},
+    booktitle = {ICML'2014},
+         year = {2014},
+}
+
 @inproceedings{Pascanu+al-ICML2013-small,
        author = {Razvan Pascanu and Tomas Mikolov and Yoshua Bengio},
         title = {On the difficulty of training Recurrent Neural Networks},
@@ -33775,8 +33831,7 @@ publisher={MIT Press}
 @INPROCEEDINGS{Bengio-et-al-ICML-2014,
        author = {Yoshua Bengio and Eric Thibodeau-Laufer and Guillaume Alain and Jason Yosinski},
         title = {Deep Generative Stochastic Networks Trainable by Backprop},
-        booktitle={Proceedings of the 30th International Conference on 
-                   Machine Learning (ICML'14)},
+        booktitle={ICML'2014},
          year = {2014},
 }
 
@@ -34701,6 +34756,14 @@ year = {2008},
   publisher={Oxford Univ Press}
 }
 
+@inproceedings{Mnih+Teh-ICML2012,
+  title={A fast and simple algorithm for training neural probabilistic language models},
+  author={Mnih, Andriy and Teh, Yee Whye},
+  booktitle={ICML'2012},
+  pages={1751--1758},
+  year={2012},
+}
+
 @incollection{Mnih2013,
     title = {Learning word embeddings efficiently with noise-contrastive estimation},
     author = {Mnih, Andriy and Kavukcuoglu, Koray},
@@ -34967,6 +35030,14 @@ year = {2008},
  year = 2014,
  institution = {arXiv:1409.3215},
 }
+
+@techreport{Vinyals-et-al-Grammar-2014,
+ author = {O. Vinyals and L. Kaiser and T. Koo and S. Petrov and I. Sutskever and G. Hinton},
+ title = {Grammar as a foreign language},
+ institution = {arXiv:1412.7449}, 
+ year = 2014,
+}
+
 
 @inproceedings{Sutskever-et-al-NIPS2014,
  author = {Ilya Sutskever and Oriol Vinyals and Quoc V. Le},
@@ -35509,8 +35580,8 @@ issn = "0899-7667",
 
 @misc{Graves-et-al-arxiv2014,
  author = {Alex Graves and Greg Wayne and Ivo Danihelka},
- title = {Neural Turing Machines},
- howpublished = {arXiv 1410.5401},
+ title = {Neural {T}uring Machines},
+ howpublished = {arXiv:1410.5401},
  year = 2014,
 }
 
@@ -35640,10 +35711,11 @@ issn = "0899-7667",
   publisher={University of Chicago press}
 }
 
-@article{selfridge,
+@inproceedings{selfridge,
   title={Pandemonium: a paradigm for learning in mechanisation of thought processes},
   author={Selfridge, Oliver G},
   year={1958},
+  booktitle = {Proc. Symposium on Mechanisation of Thought Processes},
   publisher={HMSO}
 }
 
@@ -35684,12 +35756,10 @@ issn = "0899-7667",
 }
 
 @article{ranzato-pami,
-  title={Modeling natural images using gated mrfs},
+  title={Modeling natural images using gated {MRF}s},
   author={Marc'Aurelio Ranzato, Volodymyr Mnih and Susskind, Joshua M and Hinton, Geoffrey E},
   journal={IEEE transactions on pattern analysis and machine intelligence},
-  pages={1},
   year={2013},
-  publisher={IEEE}
 }
 
 @misc{Dahl-et-al-arxiv2014,
@@ -35991,6 +36061,13 @@ based on topological calorimetry information},
      year = 2015,
 }
 
+@misc{Chorowski-et-al-arxiv2014,
+   author = {Jan Chorowski and Dzmitry Bahdanau and Kyunghyun Cho and Yoshua Bengio},
+    title = {End-to-end continuous speech recognition using attention-based recurrent NN: First Results},
+   howpublished = {arXiv:1412.1602},
+     year = 2014,
+}
+
 @misc{number_of_neurons,
      author = "Wikipedia",
         title = "List of animals by number of neurons --- Wikipedia{,} The Free Encyclopedia",
@@ -36155,4 +36232,19 @@ publisher={Macmillan}
  author = {Sebastian Thrun},
  booktitle = {NIPS'1994},
  year = 1995,
+}
+
+@article{Deng+Yu-2014,
+ title = {Deep learning -- methods and applications},
+ author = {Li Deng and Dong Yu},
+ journal = {Foundations and Trends in Signal Processing},
+ year = 2014,
+}
+
+@unpublished{Bengio-et-al-2015-Book,
+    title={Deep Learning},
+    author={Yoshua Bengio and Ian J. Goodfellow and Aaron Courville},
+    note={Book in preparation for MIT Press},
+    url={http://www.iro.umontreal.ca/~bengioy/dlbook},
+    year={2015}
 }

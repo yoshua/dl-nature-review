@@ -232,7 +232,11 @@ irrelevant aspects like the pose of the animal.
 % in which the input space is very high-dimensional and the input-output
 % mapping is so complex that computing similarities using a simple
 % kernel function is ineffective. 
-Designing good feature extractors traditionally required a considerable amount
+To make classifiers more powerful, one can use generic non-linear features,
+as with kernel methods~\citep{Scholkopf+Smola-2002book}, but generic
+features such as those arising with the Gaussian kernel do not allow the learner to
+generalize well far from the training examples~\citep{Bengio-localfailure-NIPS-2006-small}.
+The traditional option is to design good feature extractors, which requires a considerable amount
 of engineering skill and domain expertise. But this can all be avoided if
 good features can be learned automatically using a general purpose
 learning procedure.  That is the key advantage of deep
@@ -434,7 +438,7 @@ saddle points the algorithm gets stuck at.
 Interest in deep feedforward networks was revived around
 2006~\citep{IJCAI,Hinton06-small,Bengio-nips-2006-small,ranzato-07-small}
 by a group of researchers brought together by the Canadian Institute
-for Advanced Research who introduced
+for Advanced Research (CIFAR) who introduced
 unsupervised learning procedures that could
 create layers of feature detectors without requiring labeled data. The
 objective in learning each layer of feature detectors was to be able
@@ -581,7 +585,7 @@ was somewhat similar but did not have an end-to-end supervised
 learning algorithm such as backpropagation. 
 A primitive one-dimensional convnet called a time-delay
 neural net was used for the recognition of phonemes and simple 
-words~\cite{WaibelIEEE,bottou-89}
+words~\cite{Waibel89b,bottou-89}
 
 There have been numerous applications of convolutional networks going
 back to the early 1990s, starting with time-delay neural networks for
@@ -591,7 +595,7 @@ a probabilistic model that implemented language constraints. By the
 late 1990s this system was reading over 10\% of all the checks in the
 US. A number of ConvNet-based OCR and handwriting recognition systems
 were later deployed by
-Microsoft~\citep{simard-03}.
+Microsoft~\citep{simard-03-small}.
 % including for Arabic and
 % Chinese~\citep{abdulkader-iwfhr-06,chellapilla-iwfhr-06a}. 
 ConvNets
@@ -612,7 +616,7 @@ connectomics~\cite{Turaga2010}, and the detection of faces, text,
 pedestrians, and human bodies in natural
 images~\cite{vaillant-monrocq-lecun-94,nowlan-platt-95,garcia-delakis-04,osadchy-07,sermanet-cvpr-13,tompson-cvpr-15}.
 A major practical success of ConvNets in recent times is face
-recognition~\citep{taigman-cvpr-2014}. 
+recognition~\citep{Taigman-et-al-CVPR2014}. 
 
 An important application is the labeling of images at the pixel level,
 the applications of which include autonomous mobile robots and
@@ -635,7 +639,7 @@ called ``dropout'' ~\citep{Srivastava14} which prevented overfitting
 in the fully connected layers.  This success has brought about a
 revolution in computer vision, and ConvNets are now the dominant
 approach for almost all recognition and detection
-tasks~\citep{sermanet-iclr-14,girshick-cvpr-2014,taigman-cvpr-2014,simonyan-arxiv-2014,szegedy-2014,tompson-cvpr-15}
+tasks~\citep{sermanet-iclr-14,girshick-cvpr-2014,Taigman-et-al-CVPR2014,simonyan-arxiv-2014,szegedy-2014,tompson-cvpr-15}
 and approach human performance on some tasks. A recent stunning
 demonstration combines ConvNets and neural net modules for the
 generation of image captions, as shown in
@@ -956,7 +960,7 @@ systems recently (see citations in~\citet{Xu-et-al-arxiv2015}).
 %\begin{figure}[htp*]
 \begin{figure}[b]
 \fbox{
-\begin{minipage}{\textwidth}
+\begin{minipage}{0.9\textwidth}
 \centerline{\includegraphics[width=\linewidth]{caption-generation-Vinyals-et-al.png}}
 %\centerline{\includegraphics[width=0.49\linewidth]{Examples_im2txt_001.png}}
 %\includegraphics[width=0.49\linewidth]{Examples_im2txt_002.png}}
@@ -981,13 +985,13 @@ that it exploits this to achieve better ``translation'' of images into captions.
 %\begin{figure}[htp*]
 \begin{figure}[b]
 \fbox{
-\begin{minipage}{\textwidth}
+\begin{minipage}{0.5\textwidth}
 %\centerline{
 %\includegraphics[width=0.49\linewidth]{bp-mlp1.pdf}
 %\includegraphics[width=0.49\linewidth]{bp-mlp5.pdf}
 %}
 \centerline{
-\includegraphics[width=0.89\linewidth]{fig-hidden-recurrence-rnn.pdf}
+\includegraphics[width=0.9\linewidth]{fig-hidden-recurrence-rnn.pdf}
 }
 \caption{
 %Top left: graph of feedforward computations in a multi-layer
@@ -1143,7 +1147,7 @@ Rings and correctly answers questions like ``where is Frodo now?''.
 
 \section{The future of deep learning}
 
-Unsupervised learning~\citep{Salakhutdinov2009-small,Hinton95,VincentPLarochelleH2008-small,
+Unsupervised learning~\citep{Hinton95,Salakhutdinov2009-small,VincentPLarochelleH2008-small,
 koray-nips-10,gregor-icml-10,ranzato-pami,Bengio-et-al-ICML-2014,Kingma-et-al-NIPS2014} 
 had a catalytic effect in reviving interest in
 deep learning but has since been overshadowed by the successes of
