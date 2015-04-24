@@ -2,7 +2,7 @@
 \usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
-\usepackage[numbers]{natbib}
+%\usepackage[numbers]{natbib}
 \usepackage{hyperref}
 
 \addtolength{\textwidth}{2.5cm}
@@ -14,7 +14,8 @@
 \addtolength{\evensidemargin}{-1.25cm}
 
 \newcommand{\deri}[2]{\frac{\partial  #1}{\partial #2}}
-
+\newcommand{\citep}[1]{\cite{#1}}
+\newcommand{\citet}[1]{\cite{#1}}
 \parskip 0.085in
 \parindent 0.0in
 \setcounter{secnumdepth}{1}
@@ -29,14 +30,14 @@
 
 \section{Preface}
 
-Deep Learning allows machines that are composed of multiple processing 
+Deep Learning allows computational models that are composed of multiple processing 
 layers to learn representions of data with multiple levels of abstraction.
 These methods have dramatically improved the state-of-the-art
-in speech recognition, object recognition, object detection,
+in speech recognition, visual object recognition, object detection,
 and many other domains such as drug discovery and genomics. Deep
 learning discovers intricate structure in large datasets by using the
-{\em backpropagation algorithm} to indicate how the machine should
-change the weights that are used to compute the representation in each layer from
+{\em backpropagation algorithm} to indicate how a machine should
+change its internal parameters that are used to compute the representation in each layer from
 the representation in the previous layer.  Deep {\em convolutional nets}
 have brought about dramatic improvements in processing
 images, video, speech and audio, while {\em recurrent
@@ -59,7 +60,7 @@ present in consumer products such as cameras and smartphones. ML
 systems are used to identify objects in images, transcribe speech into
 text, match news items, posts, or products with users' interests, and
 select relevant results of search. Increasingly, these applications
-make use of a new class of techniques called {\em deep learning}.
+make use of a class of techniques called {\em deep learning}.
 
 % handcrafted features
 Traditional ML techniques were limited in their ability to process
@@ -73,12 +74,14 @@ subsystem, often a classifier, could detect or classify
 patterns in the input.
 
 % deep learning: learning representations
-Deep learning is a set of methods that allows a machine to be fed with
+Representation learning is a set of methods that allows a machine to be fed with
 raw data and to automatically discover the representations needed for
-detection or classification. The name comes from the fact that deep learning machines are
-multilayer stacks of trainable modules, each of which turns the
-representation of the data on its input into a more abstract and
-higher-level representation on its output. The output representation
+detection or classification. Deep learning methods are representation
+learning methods with multiple levels of representation, obtained
+by composing simple but non-linear modules that each transform the representation at one level
+(starting with the raw input) into a representation at a higher, slightly more 
+abstract level. With the composition of enough such transformations, very complex functions
+can be learned. For classification tasks, the output representation
 amplifies aspects of the input that are important for discrimination
 and suppresses irrelevant variations. An image, for example, comes in the form of an array of
 pixel values and the learned features in the first layer of representation
@@ -102,7 +105,7 @@ applicable to many domains of science, business, and government. In
 addition to beating records in image
 recognition~\citep{Krizhevsky-2012-small,farabet-pami-13,tompson-nips-14,szegedy-2014}
 and speech
-recognition~\citep{Hinton-et-al-2012,Sainath-et-al-ICASSP2013}, it has
+recognition~\citep{Mikolov-ASRU-2011,Hinton-et-al-2012,Sainath-et-al-ICASSP2013}, it has
 beaten other ML techniques at predicting the activity of potential
 drug molecules~\citep{Ma-et-al-2015}, detecting new fundamental
 particles~\citep{Ciodaro-et-al-2012,Melis-Higgs-boson-competition-2014},
@@ -300,7 +303,8 @@ module), as illustrated in Figure~\ref{fig:backprop-box}.
 %\left(\deri{y}{x}\right)_{ij} \Delta x_i$. 
 The backpropagation equation can be applied repeatedly to propagate
 gradients through all modules, starting from the output at the top 
-all the way to the bottom. Once these
+(where the network produces its prediction) all the way to the bottom
+(where the external input is fed). Once these
 gradients have been computed, it is straightforward to compute the gradients 
 with respect to the weights of each module. 
 %Figure~\ref{fig:backprop-box})
@@ -543,8 +547,9 @@ the weights in all the filter banks to be trained.
 % derivative for a shared weight is just the sum the derivatives for all
 % the instances of that weight.
 
-ConvNets exploit the property that many natural
-signals are {\em compositional hierarchies}. In images, local
+Deep neural networks exploit the property that many natural
+signals are {\em compositional hierarchies}, where higher-level
+features are obtained by composing lower-level ones. In images, local
 combinations of edges form motifs, motifs assemble into parts, and
 parts form objects.  Similar hierarchies
 exists in speech and text from sounds to phones, phonemes, syllables,
@@ -634,9 +639,10 @@ applied to a dataset of about a million images from the web that
 contained a thousand different classes they achieved spectacular
 results, almost halving the error rates of the best competing
 approaches~\citep{Krizhevsky-2012-small}.  This success came from
-efficient use of GPUs, ReLUs, and a new regularization technique
-called ``dropout'' ~\citep{Srivastava14} which prevented overfitting
-in the fully connected layers.  This success has brought about a
+efficient use of GPUs, ReLUs, a new regularization technique
+called ``dropout'' ~\citep{Srivastava14}, and techniques to
+generate more training examples by deforming the existing ones.
+This success has brought about a
 revolution in computer vision, and ConvNets are now the dominant
 approach for almost all recognition and detection
 tasks~\citep{sermanet-iclr-14,girshick-cvpr-2014,Taigman-et-al-CVPR2014,simonyan-arxiv-2014,szegedy-2014,tompson-cvpr-15}
@@ -701,6 +707,24 @@ cameras, robots, and self-driving cars.
 
 \section{Distributed representations and language processing}
 
+%representations allow a lot of parallel computation at the feature
+%level so that complex tasks can be solved in a very small number of
+%sequential steps.
+Deep learning theory shows that deep nets have two different
+exponential advantages over classical learning algorithms that do not
+use distributed
+representations~\citep{Bengio-localfailure-NIPS-2006-small}. Both of
+these advantages arise from the power of {\em composition} and depend
+on the underlying data generating distribution having an appropriate
+componential structure~\citep{Bengio-Courville-Vincent-TPAMI2013}.
+First, learning distributed representations enables generalization to
+new combinations of the values learned features beyond those seen
+during training (e.g. $2^n$ combinations
+are possible with $n$ binary features) ~\citep{Bengio-2009-book,Montufar+Morton-2014}.
+Second composing layers of representation in a deep net brings the potential for another
+exponential advantage~\citep{Montufar-et-al-NIPS2014} (exponential in
+the depth).
+
 The hidden layers of a multi-layer neural network learn to represent
 the network's inputs in a way that makes it easy to predict the target
 outputs. This is nicely demonstrated by training a multi-layer neural
@@ -728,7 +752,8 @@ component has a value of $1$ and the rest are $0$.
 %of the network sets the value of specialized hidden units to values
 %that correspond to the representation of that word. 
 In the first layer, each word
-creates a different pattern of activations, or word-vector, illustrated
+creates a different pattern of activations, or word-vector, a distributed
+representation illustrated
 in Figure~\ref{fig:word-embeddings}.  In a language model, the other
 layers of the network learn to convert the input word-vectors into an
 output word-vector for the predicted next-word, which can be used to
@@ -764,7 +789,7 @@ real text and the individual micro-rules are
 unreliable~\citep{BenDucVin01-short}. When trained to predict the next
 word in a news story, for example, the learned word vectors for
 Tuesday and Wednesday are very similar, as are the word vectors for
-Vietnam and Iraq. 
+Sweden and Norway.
 %% This is not to say that Tuesday and Wednesday are
 %% put in the same category, but rather that they share many semantic and
 %% grammatical attributes, so that what the neural network learns from
@@ -799,23 +824,6 @@ contrast, neural networks just use big activity vectors, big weight
 matrices and scalar non-linearities to perform the type of fast
 ``intuitive'' inference that underpins effortless commonsense
 reasoning.
-
-%representations allow a lot of parallel computation at the feature
-%level so that complex tasks can be solved in a very small number of
-%sequential steps.
-Deep learning theory shows that deep nets have two different
-exponential advantages over classical learning algorithms that do not
-use distributed
-representations~\citep{Bengio-localfailure-NIPS-2006-small}. Both of
-these advantages arise from the power of {\em composition} and depend
-on the underlying data generating distribution having an appropriate
-componential structure~\citep{Bengio-Courville-Vincent-TPAMI2013}.
-First, learning distributed representations enables generalization to
-new combinations of the learned features (e.g. $2^n$ combinations,
-with $n$ features) ~\citep{Bengio-2009-book,Montufar+Morton-2014}.
-Second composing layers in a deep net brings the potential for another
-exponential advantage~\citep{Montufar-et-al-NIPS2014} (exponential in
-the depth).
 
 
 %% YLC: we need to talk about word2vec somewhere around here.
@@ -1079,7 +1087,7 @@ augment RNNs with a memory module.
 %% are required.
 Proposals include the ``Neural Turing Machine'' in which the
 network is augmented by a ``tape-like'' memory that the RNN
-can chose to read from or write to~\citep{Graves-et-al-arxiv2014}, and
+can choose to read from or write to~\citep{Graves-et-al-arxiv2014}, and
 ``Memory Networks'' in which a regular network is augmented by a
 kind of associative memory~\citep{weston-memorynet-2014}. Memory
 networks have yielded excellent performance on standard
@@ -1368,7 +1376,8 @@ large vectors~\citep{bottou-mlj-2014}.
 %% \fi
 
 \bibliography{strings,ml,aigaion,convnetyann,lecun}
-\bibliographystyle{natbib}
+%\bibliographystyle{natbib}
+\bibliographystyle{ieeetr}
 
 \end{document}
 
