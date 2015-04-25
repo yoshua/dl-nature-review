@@ -373,7 +373,7 @@ a module through which one can backpropagate gradients. At each layer, we first 
 input $z$ to each unit, which is a weighted sum of the outputs of the
 units in the layer below. Then a non-linear function $f(.)$ is applied
 to $z$ to get the output of the unit.  For simplicity, we have omitted
-bias terms. The non-linear function used in neural networks include 
+bias terms. The non-linear functions used in neural networks include 
 the rectified linear unit (ReLU) $f(z) = max(0, z)$, commonly-used in 
 recent years, as well as the more traditional sigmoids, such as the 
 hyberbolic tangent, $f(z) = (\exp(z)-\exp(-z))/(\exp(z)+\exp(-z))$ 
@@ -565,7 +565,7 @@ when elements in the previous layer vary in position and appearance.
 \vspace{-3mm}
 \caption{The {\em outputs} (not the filters) of each layer (each column of the figure) 
 of a typical convolutional network architecture
-applied on the image of a handwritten digit (left). Each rectangular
+applied to the image of a handwritten digit (left). Each rectangular
 image is a feature map, corresponding to the output for one of the learned features 
 detected at each of the image positions.
 Each column corresponds to a layer, with information flowing from the left to
@@ -854,7 +854,7 @@ Figure~\ref{fig:word-embeddings}.
 \begin{minipage}{\textwidth}
 \centerline{
 \includegraphics[width=0.49\linewidth]{word-embeddings.png}
-\includegraphics[width=0.49\linewidth]{phrase_zoom2.png}
+\includegraphics[width=0.49\linewidth]{phrase-embeddings.pdf}
 }
 \caption{Left: Illustration of word representations learned for modeling
 language, non-linearly projected to 2-D for visualization using the
@@ -934,7 +934,7 @@ This rather naive way of performing machine translation has quickly become
 competitive with the state-of-the-art and this raises serious doubts about
 whether understanding a sentence requires anything like internal symbolic
 expressions that are manipulated by using inference rules.
-
+%
 %%binding their symbols to variables
 %%in judiciously chosen rules of inference, as was previously thought by
 %%many early AI researchers. It is 
@@ -1026,7 +1026,7 @@ The back-propagation algorithm (Figure~\ref{fig:backprop-box})
 can be directly applied to the computational graph of the unfolded network
 on the right hand side, to compute the derivative of a total error
 (e.g., the log-probability of generating the right sequence of
-words) with respect to all the states $s_t$ and all the parameters.
+outputs) with respect to all the states $s_t$ and all the parameters.
 }
 \label{fig:rnn}
 \end{minipage}
