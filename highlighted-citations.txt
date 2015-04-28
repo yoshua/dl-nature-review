@@ -1,0 +1,72 @@
+
+[1] Krizhevsky et al 2012
+
+How a breakthrough achieved with convolutional nets on the task of object
+recognition, almost halving the error rate and precipitating the
+rapid adoption of deep learning in the computer vision community.
+
+[6] Hinton et al 2012
+
+Joint paper from the major speech recognition labs
+summarizing the breakthrough achieved with deep learning on the task 
+of phonetic classification for automatic speech recognition. This
+was the first major industrial application of deep learning.
+
+[17] Sutskever et al 2014
+
+One of the 2014 papers showing how recurrent networks could
+be trained to read a sentence in one language, produce
+a semantic representation of its meaning, and write a translation
+in another language. 
+
+[28] Glorot et al 2011
+
+Before this paper, the only way to train very deep supervised
+neural networks was with unsupervised pre-training, but this paper
+showed the ReLU non-linearity could enable the training of deep
+supervised nets.
+
+
+[32] Hinton et al 2006
+
+The breakthrough in our ability to train deep networks for the 
+first time, using the unsupervised pre-training idea of learning
+one level of representation at a time, with Restricted Boltzmann
+Machines.
+
+[33] Bengio et al 2007
+
+Closely following on [32] to validate the advantage of unsupervised
+pre-training and extend its principle to other representation learning
+methods, such as auto-encoders.
+
+
+[41] LeCun et al 90
+
+The first paper on convolutional networks trained by backpropagation,
+on the task of classifying low-resolution images of handwritten digits.
+
+[42] LeCun et al 98
+
+Overview paper on the principles of end-to-end training of modular
+systems such as deep neural networks using gradient-based optimization.
+It also showed how neural networks (and in particular convolutional
+nets) can be combined with search or
+inference mechanisms to model complex outputs that are interdependent,
+such as sequences of characters associated with the content of a document.
+
+[71] Bengio et al 2001
+
+This paper introduced the first neural language models: neural networks
+that model sequences of words and can be used to predict the next word,
+generate a sequence of words, all based on the ability of the learning
+system to discover distributed semantic representations (word vectors or word
+embeddings) for the words in the vocabulary.
+
+[79] Hochreiter & Schmidhuber 97
+
+The Long Short Term Memory recurrent network introduced an architecture
+that allowed to considerably reduce the training difficulties of
+recurrent networks when it comes to capturing long-term dependencies,
+analyzed earlier in [78]. It has become a crucial ingredient
+in recent advances with RNNs.
