@@ -191,7 +191,7 @@ of learning a distributed representation for symbols and \citet{BenDucVin01-shor
 showed how to combine the idea of learning a distributed
 representation for each word with the task of modeling the probability
 distribution of sequences of words (sentences from a corpus of text). We
-have basically the composition two components: (1) mapping each of the
+have basically the composition of two components: (1) mapping each of the
 previous words in the sentence to their representation, and (2) mapping the
 concatenation of these representations to a prediction for the
 representation of the next word, from which one can compute its
@@ -210,7 +210,7 @@ most sentences, so they end up very close to each other, while ``dog'' and
 from each in that space. Furthermore, the way in which the representations
 for related words differ ends up being also meaningful: the difference
 between the representation for ``king'' and the representation for ``queen'' is
-very close the difference between the representation for ``man'' and the
+very close to the difference between the representation for ``man'' and the
 representation for ``woman'' \citep{Mikolov-et-al-ICLR2013}. The system has discovered
 features, such as gender in the above example, and learned to map each word
 to its proper features.
@@ -235,7 +235,7 @@ recurrent neural network: the activity of all the neurons at a given time
 constitutes the state of the brain recurrent network. Your next visual
 saccade may provide the next input to the brain’s recurrent network. A
 recurrent network can also have outputs, corresponding to actions or
-predictions, and the training objective for a recurrent networks is
+predictions, and the training objective for a recurrent network is
 obtained from these values. For example, a recurrent network for language
 modeling has output units that predict the next word in the sequence. At
 each time step it gets a new word as input and updates its state. Such a
@@ -282,7 +282,7 @@ the correct output much later in the sequence.
 {\em
 We will explain the breakthrough that occurred in 2006 when an effective
  new way of learning multiple layers of features was discovered. The idea
- is to learn the layers one a time with the objective being to build a good
+ is to learn the layers one at a time with the objective being to build a good
  model of the correlations between feature activities in the previous layer
  (or the input).  After this layer-by-layer unsupervised "pre-training" to
  discover features, backpropagation works very well for fine-tuning the
@@ -313,7 +313,7 @@ of the neural network, not the targets that we want to associate with these
 inputs, so it can take advantage of large quantities of unlabeled data (for
 which no target is given, which have not been examined and tagged by
 humans) and even data associated with other tasks (see ‘transfer learning’,
-below).  These unsupervised learning algorithm produce a new representation
+below).  These unsupervised learning algorithms produce a new representation
 of the data by learning the synaptic weights of a new layer of neurons that
 map the raw input (or the output of the previous layer) to a new set of
 learned features. Whereas traditional machine learning is based on
