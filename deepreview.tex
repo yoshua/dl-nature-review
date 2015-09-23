@@ -119,9 +119,9 @@ promising results for a variety of tasks in natural language
 understanding~\citep{collobert:2011b}, particularly topic
 classification, %~\citep{topic-classification},  % YB while waiting for bib entry
 sentiment
-analysis~\citep{Glorot+al-ICML-2011-small}, 
+analysis,% cutting citations ~\citep{Glorot+al-ICML-2011-small}, 
 question-answering~\cite{Bordes-et-al-EMNLP2014}, and language
-translation~\cite{Jean-et-al-arxiv2014,Sutskever-et-al-NIPS2014}.
+translation~\cite{Jean-et-al-ACL2015,Sutskever-et-al-NIPS2014}.
 
 % our conclusions (which Nature insists on having at the end of the intro).
 We believe that deep learning will have many more successes in the
@@ -324,7 +324,9 @@ is the rectified linear unit ({\em ReLU}) which is simply
 the half-wave rectifier $f(z) = \max(z,0)$. In past decades, neural
 nets used smoother non-linearities, such as $\tanh(z)$ or
 $1/(1+\exp(-z))$ but the ReLU typically learns much faster in networks
-with many layers. Units that are not in the input or output layer are
+with many layers, allowing to train a deep supervised network
+without unsupervised pre-training~\citep{Glorot+al-AI-2011-small}. 
+Units that are not in the input or output layer are
 traditionally called {\em hidden units}. The hidden layers can be seen
 as distorting the input in a non-linear way so that categories become
 linearly separable by the last layer, as indicated in
